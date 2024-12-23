@@ -47,7 +47,7 @@ coverage.xml
 *.pytest_cache
 
 # Static and media files
-/static/
+static/
 media/
 
 # Packages
