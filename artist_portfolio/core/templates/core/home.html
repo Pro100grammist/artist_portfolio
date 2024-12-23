@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home | Artist Portfolio{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" data-aos="fade-in">
+    <div class="video-bg">
+        <video autoplay muted loop>
+            <source src="{% static 'videos/painting.mp4' %}" type="video/mp4">
+        </video>
+    </div>
+
+    {% comment %} <div class="canvas-container">
+        <canvas id="artCanvas"></canvas>
+    </div> {% endcomment %}
+
+    <div class="video-overlay">
+        <h1 class="welcome-text">Every line, every stroke is a part of my soul. I create to inspire.</h1>
+        <p class="description">Feel the beauty in every stroke. Scroll down to see more.</p>
+        <button class="cta-button" onclick="location.href='#gallery'">Explore the gallery</button>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="about" data-aos="fade-up">
+    <div class="container">
+        <h2>About Me</h2>
+        <p>
+            Hello, I’m Helena, a passionate artist who loves to explore the beauty of the world through colors and imagination. My art reflects emotions, stories, and dreams. Join me in this creative journey!
+        </p>
+        <a href="/about/" class="btn">Learn More</a>
+    </div>
+</section>
+
+<!-- Featured Gallery Section -->
+<section id="gallery" class="featured-gallery" data-aos="fade-up">
+    <div class="container">
+        <h2>Featured Works</h2>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="{% static 'images/gallery1.jpg' %}" alt="Artwork 1">
+                </div>
+                <div class="swiper-slide">
+                    <img src="{% static 'images/gallery2.jpg' %}" alt="Artwork 2">
+                </div>
+                <div class="swiper-slide">
+                    <img src="{% static 'images/gallery3.jpg' %}" alt="Artwork 3">
+                </div>
+                <div class="swiper-slide">
+                    <img src="{% static 'images/gallery4.jpg' %}" alt="Artwork 4">
+                </div>
+                <div class="swiper-slide">
+                    <img src="{% static 'images/gallery5.jpg' %}" alt="Artwork 5">
+                </div>
+                <div class="swiper-slide">
+                    <img src="{% static 'images/gallery6.jpg' %}" alt="Artwork 6">
+                </div>
+            </div>
+            <!-- Navigation buttons -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <!-- Pagination (dots) -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact" data-aos="fade-up">
+    <div class="container">
+        <h2>Contact Me</h2>
+        <p>Have questions or interested in my art? Get in touch!</p>
+        <a href="/contact/" class="btn">Contact Me</a>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block assistant %}
+<div id="assistant-popup" class="assistant-popup hidden">
+    <div class="assistant-header">
+        <h3>Can I help you find something?</h3>
+        <button class="close-btn" onclick="closeAssistantPopup()">×</button>
+    </div>
+    <div class="assistant-body">
+        <p>Do you have any questions about my paintings? Ask them here!</p>
+        <form id="assistant-form" action="{% url 'contact' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="Your email" required>
+            <textarea name="message" placeholder="Your question" required></textarea>
+            <button type="submit" class="btn">Send</button>
+        </form>
+    </div>
+</div>
+
+</div>
+{% endblock assistant %}
+
