@@ -25,30 +25,61 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env()
 SECRET_KEY = env("SECRET_KEY")
+CLIENT_ID = env("CLIENT_ID")
+CLIENT_SECRET = env("CLIENT_SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "corsheaders",
+    'admin_interface',
+    'colorfield',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django.contrib.sites",
+
+    'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.facebook",
+    "widget_tweaks",
+
+    "qrcode",
+    "django_otp",
+    "django_otp.plugins.otp_totp",
+    "django_otp.plugins.otp_static",
+
+    'django_filters',
+    'drf_spectacular',
+
+    'phonenumber_field',
+    'django_countries',
+
     'core',
     'gallery',
     'orders',
     'store',
     'users',
+    'cart',
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -56,6 +87,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+]
+
+MIDDLEWARE.insert(1, "django_otp.middleware.OTPMiddleware")
+
+CORS_ALLOWED_ORIGINS = [
+    "http://192.168.0.157:8080",
 ]
 
 ROOT_URLCONF = 'artist_portfolio.urls'
@@ -75,6 +113,20 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Store API',
+    'DESCRIPTION': 'API for a store with filters, search and sorting',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 
 WSGI_APPLICATION = 'artist_portfolio.wsgi.application'
 
@@ -120,6 +172,27 @@ USE_I18N = True
 
 USE_TZ = True
 
+SITE_ID = 1
+
+# Automatic redirect after login
+LOGIN_REDIRECT_URL = "/profile/"
+LOGOUT_REDIRECT_URL = "/"
+
+# Using email as the main login method
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': CLIENT_ID,
+            'secret': CLIENT_SECRET,
+            'key': ''
+        }
+    }
+}
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -128,7 +201,11 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = [BASE_DIR / 'media']
+MEDIA_ROOT = BASE_DIR / 'media'
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+LOGIN_URL = "/login/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -136,11 +213,53 @@ MEDIA_ROOT = [BASE_DIR / 'media']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Configuring SMTP for Gmail
-
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = "senpyinteractive@gmail.com"  # Gmail
+EMAIL_HOST_USER = "senpyinteractive@gmail.com"  # Gmail senpyinteractive@gmail.com
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")  # gmail app password
+
+# Configuring for WhatsApp
+API_KEY = env("API_KEY")
+PHONE_NUMBER = env("PHONE_NUMBER")
+
+
+CSRF_FAILURE_VIEW = 'django.views.csrf.csrf_failure'
+
+
+# Setting up storage integration Backblaze B2 with Django
+# pip install django-storages[boto3]
+#
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')  # ID ключа
+# AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')  # Секретний ключ
+# AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')  # назва Bucket
+# AWS_S3_REGION_NAME = 'us-west-000'  # це стандартний регіон Backblaze
+# AWS_S3_ENDPOINT_URL = 'https://s3.us-west-000.backblazeb2.com'  # Домен для публічних файлів
+# AWS_QUERYSTRING_AUTH = False  # False для публічних файлів, True для приватних
+# AWS_DEFAULT_ACL = None  # Встановлено "None", щоб не було обмежень за ACL
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
+
+# rerdis
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django_redis.cache.RedisCache',
+#         'LOCATION': 'redis://127.0.0.1:6379/1',
+#         'OPTIONS': {
+#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+#         },
+#         'KEY_PREFIX': 'store'
+#     }
+# }
+
+# Cache storage time (10 minutes)
+CACHE_TTL = 60 * 10

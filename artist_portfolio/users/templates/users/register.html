@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="animated-background" 
+     style="background: url('{% static 'images/register_page_bgr.jpg' %}') no-repeat center center;">
+</div>
+
+<div class="form-container">
+    <div class="title-container">
+        <h2>Register</h2>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-field">
+            <div class="icon">
+                <img src="{% static 'icons/user.svg' %}" alt="User icon">
+            </div>
+            {{ form.username }}
+        </div>
+        <div class="form-field">
+            <div class="icon">
+                <img src="{% static 'icons/name.svg' %}" alt="User icon">
+            </div>
+            {{ form.first_name}}
+        </div>
+        <div class="form-field">
+            <div class="icon">
+                <img src="{% static 'icons/name.svg' %}" alt="User icon">
+            </div>
+            {{ form.last_name}}
+        </div>
+        <div class="form-field">
+            <div class="icon">
+                <img src="{% static 'icons/email.svg' %}" alt="Email icon">
+            </div>
+            {{ form.email }}
+        </div>
+        <div class="form-field">
+            <div class="icon">
+                <img src="{% static 'icons/lock.svg' %}" alt="Password icon">
+            </div>
+            {{ form.password }}
+        </div>
+        <div class="form-field">
+            <div class="icon">
+                <img src="{% static 'icons/lock.svg' %}" alt="Password confirm icon">
+            </div>
+            {{ form.password2 }}
+        </div>
+        <button type="submit">Register</button>
+        <p>Already have an account? <a href="{% url 'users:login' %}">Sign in</a></p>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/auth_forms.js' %}"></script>
+{% endblock %}

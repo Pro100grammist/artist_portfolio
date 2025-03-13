@@ -1,22 +1,108 @@
+:root {
+
+    --text-primary: #333;
+    --text-light: #fff;
+    --background-dark: #222;
+    --background-light: #09041e;
+    --text-shadow: rgba(255, 255, 255, 0.5);
+    --header-padding: 20px;
+
+    --button-background: #09041e;
+    --button-color: #fff;
+    --button-shadow: rgba(33, 4, 104, 0.2);
+    --button-shine-left: rgba(120, 0, 245, 0.5);
+    --button-shine-right: rgba(200, 148, 255, 0.65);
+    --button-glow-start: #B000E8;
+    --button-glow-end: #009FFD;
+}
+
+html,
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    color: #333;
+    color: var(--text-primary);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
-    background: #222;
-    color: #fff;
-    padding: 20px 0;
+    background: var(--background-dark);
+    color: var(--text-light);
+    padding: var(--header-padding) 0;
+}
+
+header .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Basic logo styles */
+header .logo {
+    flex: 1;
 }
 
 header .logo a {
-    color: #fff;
-    font-size: 1.8em;
     text-decoration: none;
     font-family: 'Playfair Display', serif;
+    display: inline-block;
+    position: relative;
+    padding: 1.0em 0;
+    margin: 0 auto;
+}
+
+/* Animated logo text */
+header .logo a span {
+    color: var(--text-light);
+    font-size: 1.8em;
+    font: 700 1.8em/1 "Playfair Display", sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+
+    text-shadow: 0 0 80px var(--text-shadow);
+    background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png) repeat-y;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    -webkit-animation: aitf 80s linear infinite;
+    animation: aitf 80s linear infinite;
+
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+}
+
+/* Анімація */
+@-webkit-keyframes aitf {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes aitf {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+
+header nav {
+    flex: 2;
+    display: flex;
+    justify-content: center;
 }
 
 header nav ul {
@@ -24,7 +110,6 @@ header nav ul {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
     gap: 20px;
 }
 
@@ -38,6 +123,42 @@ header nav ul li a:hover {
     color: #ff9800;
 }
 
+header .auth-links {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+header .auth-links button {
+    background-color: #ff9800;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header .auth-links button:hover {
+    background-color: #e68900;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+header .auth-links button:active {
+    background-color: #c76c00;
+    transform: translateY(2px);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+main {
+    flex: 1;
+}
+
 footer {
     background: #222;
     color: #fff;
@@ -47,23 +168,45 @@ footer {
 
 footer .social-links {
     list-style: none;
-    padding: 0;
-    margin: 10px 0;
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 15px;
+    padding: 0;
+    margin: 10px 0;
 }
 
-footer .social-links li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.2em;
-    transition: color 0.3s;
+footer .social-links li {
+    display: flex;
 }
 
-footer .social-links li a:hover {
-    color: #ff9800;
+footer .social-icon {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
 }
+
+#facebook-icon,
+#instagram-icon,
+#linkedin-icon {
+    width: 50px;
+    height: 50px;
+    display: block;
+}
+
+.footer-logo {
+    height: 20px;
+    margin-left: 5px;
+    vertical-align: middle;
+    /* Indentation between text and logo */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+a:hover .footer-logo {
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+/* General Styling */
 
 .container {
     width: 90%;
@@ -71,22 +214,7 @@ footer .social-links li a:hover {
     margin: 0 auto;
 }
 
-/* Hero Section */
-.canvas-container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-}
-
-#artCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
+/* Main Section */
 
 .overlay-content {
     position: absolute;
@@ -113,7 +241,6 @@ footer .social-links li a:hover {
 }
 
 .hero {
-    background: url('{% static "images/hero-background.jpg" %}') no-repeat center center/cover;
     height: 100vh;
     color: #fff;
     text-align: center;
@@ -282,57 +409,81 @@ video {
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
 }
 
-.cta-button {
-    margin-top: 2rem;
-    background-color: #000;
-    color: #fff;
-    padding: 10px 20px;
-    font-size: 1.2rem;
+.glow-button {
+    position: relative;
+    display: inline-block;
+    padding: 10px 28px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--button-color);
+    background-color: var(--button-background);
     border: none;
+    border-radius: 11px;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    overflow: hidden;
+    z-index: 1;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 8px 20px var(--button-shadow);
 }
 
-.cta-button:hover {
-    background-color: #333;
+.glow-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--button-shine-left), var(--button-shine-right));
+    transform: scale(1.5) translateY(-50%);
+    filter: blur(10px);
+    transition: opacity 0.3s ease, transform 0.5s ease;
+    opacity: 0;
+    z-index: -1;
+}
+
+.glow-button:hover::before {
+    opacity: 1;
+    transform: scale(1.2) translateY(0%);
+}
+
+.glow-button span {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.glow-button:hover span {
+    transform: scale(1.05);
 }
 
 
-/* Карусель з ефектом Coverflow */
+/* Carousel with Coverflow effect*/
 .swiper-container {
     width: 100%;
     max-width: 1200px;
     height: 600px;
-    /* Висота каруселі */
     margin: auto;
     perspective: 1000px;
-    /* Додаємо перспективу */
     overflow: hidden;
-    /* Ховаємо вихід за межі */
 }
 
-/* Стилі для окремих слайдів */
+/* Styles for individual slides */
 .swiper-slide {
     width: 300px;
-    /* Ширина слайду */
     height: 400px;
-    /* Висота слайду */
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     transition: transform 0.3s ease;
-    /* Гладкий перехід */
 }
 
 .swiper-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Масштабувати зображення пропорційно, щоб заповнити слайд */
+    /* Scale images proportionally to fill the slide */
     border-radius: 10px;
-    /* Додатковий стиль для округлення */
 }
 
 @media (max-width: 768px) {
@@ -357,25 +508,11 @@ video {
     }
 }
 
-/* Тіні для додання об’єму */
+/* Shadows to add volume */
 .swiper-slide-shadow-left,
 .swiper-slide-shadow-right {
     opacity: 0.5;
 }
-
-/* 
-.swiper-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.swiper-slide img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-} */
 
 /* Assistant Popup */
 .assistant-popup {
@@ -447,6 +584,7 @@ video {
 .assistant-body form button {
     width: 100%;
     padding: 10px;
+    margin-bottom: 10px;
     background-color: #333;
     color: #fff;
     border: none;
@@ -458,3 +596,737 @@ video {
 .assistant-body form button:hover {
     background-color: #444;
 }
+
+.whatsapp-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 18px;
+    background-color: #25D366;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+    width: auto;
+}
+
+.whatsapp-btn i {
+    font-size: 20px;
+    margin-left: 8px;
+}
+
+.whatsapp-btn:hover {
+    background-color: #1ebe5d;
+}
+
+#response-message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* About Section */
+.about-section {
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.about-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.about-header p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.bio {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.bio img.artist-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.bio-text h2 {
+    font-size: 2rem;
+    color: #222;
+}
+
+.bio-text p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.mission {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.mission h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+.mission p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.timeline {
+    margin-bottom: 40px;
+}
+
+.timeline h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+.timeline ul {
+    list-style: none;
+    padding: 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+.timeline li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.timeline li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.cta {
+    text-align: center;
+}
+
+.cta .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #222;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.cta .btn:hover {
+    background-color: #555;
+}
+
+/* Modal styles */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease;
+}
+
+.modal.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    height: 90vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+.modal-image {
+    flex: 1;
+    max-width: 50%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-image img {
+    max-width: 100%;
+    max-height: 80vh;
+    height: auto;
+    width: auto;
+    border-radius: 5px;
+    object-fit: contain;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.modal-description {
+    flex: 1;
+    margin-left: 20px;
+    max-width: 45%;
+    text-align: left;
+}
+
+.modal-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.modal-price {
+    font-size: 1.2em;
+    color: #888;
+}
+
+.modal-buttons {
+    margin-top: 20px;
+}
+
+.modal-buttons .btn {
+    margin: 10px 5px;
+    padding: 10px 20px;
+    background: #222;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.modal-buttons .btn:hover {
+    background: #ff9800;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #333;
+    z-index: 1001;
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        flex-direction: column;
+        text-align: left;
+        height: auto;
+        padding-bottom: 20px;
+    }
+
+    .modal-image {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .modal-description {
+        max-width: 100%;
+        margin-left: 0;
+    }
+}
+
+/* Contact page styles */
+
+/* Background YouTube Video */
+.background-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    pointer-events: none; /* Вимкнути взаємодію */
+}
+
+/* General Contact Page Styling */
+.contact-page {
+    position: relative;
+    padding: 40px 20px;
+    z-index: 1;
+    color: #fff;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 15px;
+    font-family: 'Playfair Display', serif;
+}
+
+/* Contact Information Styling */
+.contact-info,
+.contact-form,
+.map {
+    margin-bottom: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.contact-info h2,
+.contact-form h2,
+.map h2 {
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+    font-family: 'Playfair Display', serif;
+}
+
+/* Social Icons Styling */
+.social-links {
+    display: flex;
+    gap: 10px;
+}
+
+/* Centered Social Icons */
+.social-links[style*="text-align: center;"] {
+    margin: 20px auto;
+}
+
+.social-icon img {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s;
+}
+
+.social-icon img:hover {
+    transform: scale(1.2);
+}
+
+/* Display contact info in a row */
+.contact-info p {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+/* Remove margin from the last contact info item */
+.contact-info p:last-child {
+    margin-right: 0;
+}
+
+/* Form Styling */
+.contact-form .form-group {
+    margin-bottom: 20px;
+}
+
+.contact-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.contact-form button {
+    background-color: #ff9800;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+    background-color: #222;
+}
+
+/* Map Styling */
+.map iframe {
+    width: 100%;
+    height: 350px;
+    border: none;
+    border-radius: 10px;
+}
+
+
+/* Store Page Styling */
+.store-layout {
+    display: flex;
+    gap: 20px;
+}
+
+.subheader {
+    background-color: #000;
+    padding: 0;
+    text-align: center;
+
+}
+
+.subheader ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+    gap: 35px;
+}
+
+.subheader li {
+    display: inline;
+}
+
+.subheader a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease
+}
+
+.subheader a:hover {
+    color: #007BFF;
+}
+
+.filters {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    width: 20%;
+}
+
+.filters h3 {
+    margin-top: 15px;
+    font-size: 1.2em;
+}
+
+.filters label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.filters input[type="text"],
+.filters input[type="number"] {
+    width: 90%;
+    padding: 8px;
+    margin-bottom: 15px;
+}
+
+.filters button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.filters button:hover {
+    background-color: #0056b3;
+}
+
+.active-filters {
+    margin-top: 20px;
+}
+
+.active-filters ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.active-filters li {
+    margin-bottom: 5px;
+}
+
+.active-filters a {
+    color: red;
+    text-decoration: none;
+}
+
+.active-filters button {
+    background-color: #f44336;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Serch field */
+.search-container {
+    position: relative;
+    width: 50px;
+    transition: width 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.search-container button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: #007BFF;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+    color: white;
+    font-size: 16px;
+}
+
+.search-container:hover {
+    width: 250px;
+}
+
+.search-container:hover input {
+    opacity: 1;
+}
+
+.search-container:hover button {
+    transform: translateY(-50%) rotate(360deg);
+}
+
+/* Sorting panel */
+.sorting-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.sorting-buttons button {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sorting-buttons button.active {
+    background-color: #007BFF;
+    color: #fff;
+    border: 1px solid #007BFF;
+}
+
+.sorting-buttons button:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+.products {
+    width: 80%;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+    height: 100%;
+    margin: 0;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+    max-width: 100%;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.product-info h2 {
+    font-size: 1.1rem;
+    margin: 5px 0;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.new-price {
+    color: #d00;
+    font-weight: bold;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    margin: 20px;
+    list-style: none;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination a {
+    padding: 10px 15px;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.pagination .active a {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.pagination a:focus {
+    outline: none;
+    border-color: #0056b3;
+}
+
+.pagination li:first-child a,
+.pagination li:last-child a {
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+.pagination .disabled a {
+    color: #ccc;
+    pointer-events: none;
+}
+
+
+/* Messages */
+.alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+.alert.success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+
+/* Message container*/
+#messages-container {
+    max-width: 400px;
+    margin: 0 auto 20px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+#messages-container .alert {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#messages-container .alert.success {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+#messages-container .alert.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+

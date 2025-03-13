@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cart-container">
+    <h1 class="cart-title">Your Shopping Cart</h1>
+    
+    <table class="cart-table">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart.items.all %}
+            <tr id="cart-item-{{ item.product.id }}">
+                <td>
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="product-image">
+                </td>
+                <td>{{ item.quantity }}</td>
+                <td class="cart-item-price">${{ item.product.price }}</td>
+                <td>
+                    <button class="delete-item" data-product-id="{{ item.product.id }}">Delete</button>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="empty-cart">Your cart is empty.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div class="cart-summary">
+        <p>Total price: <span id="total-price">${{ cart.total_price }}</span></p>
+        <form action="{% url 'cart:clear-cart' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="clear-cart-btn">Clear out cart</button>
+        </form>
+    </div>
+
+    {% if cart.items.count > 0 %}
+    <div class="make-order-container">
+        <form method="post" action="{% url 'cart:make-order' %}">
+            {% csrf_token %}
+            <button type="submit" class="make-order-btn">Make an order</button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/cart.js' %}"></script>
+{% endblock %}

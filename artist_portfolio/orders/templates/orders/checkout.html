@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'css/orders.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="text-center fw-bold">Checkout - Order no.{{ order.id }}</h2>
+
+    <form method="post" class="mt-4 shadow p-4 rounded bg-light">
+        {% csrf_token %}
+
+        <!-- Contact Details -->
+        <fieldset class="mb-4">
+            <legend class="h4 text-primary">📞 Contact details</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label">{{ receiver_form.receiver_name.label }}</label>
+                    {{ receiver_form.receiver_name|add_class:"form-control" }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">{{ receiver_form.receiver_phone.label }}</label>
+                    {{ receiver_form.receiver_phone|add_class:"form-control" }}
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Order Summary -->
+        <fieldset class="mb-4">
+            <legend class="h4 text-primary">🛒 Your order</legend>
+            <ul class="list-group">
+                {% for item in order.items.all %}
+                    <li class="list-group-item d-flex align-items-center">
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="product-image me-3">
+                        <span class="fw-bold">{{ item.product.name }}</span> 
+                        <span class="ms-auto">(x{{ item.quantity }}) - <strong>${{ item.price }}</strong></span>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p class="mt-3 text-end fw-bold h5">Total: ${{ order.total_price }}</p>
+        </fieldset>
+
+        <!-- Delivery Method -->
+        <fieldset class="mb-4">
+            <legend class="h4 text-primary">🚚 Delivery method</legend>
+            <div class="delivery-options">
+                {% for choice in shipping_form.carrier.field.choices %}
+                <label class="delivery-option">
+                    <input type="radio" name="{{ shipping_form.carrier.name }}" value="{{ choice.0 }}" class="d-none">
+                    <img src="{% static 'images/delivery/' %}{{ choice.1|lower }}.png" alt="{{ choice.1 }}" class="delivery-logo">
+                    <span class="delivery-text">{{ choice.1 }}</span>
+                </label>
+                {% endfor %}
+            </div>
+        </fieldset>
+
+        <!-- Payment -->
+        <fieldset class="mb-4">
+            <legend class="h4 text-primary">💳 Payment</legend>
+            <div class="payment-options">
+                {% for choice in payment_form.payment_method.field.choices %}
+                <label class="payment-option">
+                    <input type="radio" name="{{ payment_form.payment_method.name }}" value="{{ choice.0 }}" class="d-none">
+                    <img src="{% static 'images/payments/' %}{{ choice.1|lower }}.png" alt="{{ choice.1 }}" class="payment-logo">
+                    <span class="payment-text">{{ choice.1 }}</span>
+                </label>
+                {% endfor %}
+            </div>
+        </fieldset>
+
+        <!-- Delivery Address -->
+        <fieldset class="mb-4">
+            <legend class="h4 text-primary">📍 Delivery Address</legend>
+            <div class="row">
+                <div class="form-group">
+                    <label for="{{ order_form.country.id_for_label }}">🌍 Country</label>
+                    {{ order_form.country }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">{{ order_form.address.label }}</label>
+                    {{ order_form.address|add_class:"form-control" }}
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Comment -->
+        <fieldset class="mb-4">
+            <legend class="h4 text-primary">📝 Comment to the order</legend>
+            <label class="form-label">{{ comment_form.comment.label }}</label>
+            {{ comment_form.comment|add_class:"form-control" }}
+        </fieldset>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-success w-100 fw-bold py-2">
+            <i class="fas fa-check"></i> Confirm Order
+        </button>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/orders.js' %}"></script>
+{% endblock %}

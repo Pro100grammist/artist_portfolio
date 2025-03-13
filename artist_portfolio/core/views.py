@@ -1,50 +1,75 @@
-from django.core.mail import send_mail
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-
+from random import sample
 
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 
-
-def contact_view(request):
-    if request.method == 'POST':
-        subject = request.POST.get('subject', 'Новий запит з контактної форми')
-        message = request.POST.get('message', '')
-        client_email = request.POST.get('email', '')  # Пошта клієнта, що заповнив форму
-
-        try:
-            send_mail(
-                subject,  # Тема листа
-                f"Повідомлення від {client_email}:\n{message}",  # Текст листа з поштою клієнта
-                'senpyinteractive@gmail.com',  # sender_email = EMAIL_HOST_USER (ваша пошта)
-                ['senpyinteractive@gmail.com'],  # recipient_email (ваша пошта для отримання повідомлень)
-                fail_silently=False,
-            )
-            return redirect('contact_success')  # Переадресація на сторінку успіху
-        except Exception as e:
-            return render(request, 'contact_success.html', {'error_message': f"Error: {e}"})
-    return render(request, 'contact.html')
-
-
-def contact_success(request):
-    # Відображення сторінки успіху
-    return render(request, 'contact_success.html')
+from .models import Artwork, ContactMessage
+from .utils import send_whatsapp_message
 
 
 def home(request):
-    return render(request, "core/home.html")
+    """
+    Renders the homepage with up to 10 random artworks in gallery block.
+    """
+    all_ids = Artwork.objects.values_list('id', flat=True)
+    random_ids = sample(list(all_ids), min(len(all_ids), 10)) # Select up to 10 random artworks for swiper
+    artworks = Artwork.objects.filter(id__in=random_ids)
+    return render(request, "core/home.html", {"artworks": artworks})
 
-# def contact_view(request):
-#     if request.method == "POST":
-#         name = request.POST.get("name")
-#         email = request.POST.get("email")
-#         message = request.POST.get("message")
-#         send_mail(
-#             f"Message from {name}",
-#             message,
-#             email,
-#             ["senpy.interactive@ukr.net"],  # mailbox
-#         )
-#         messages.success(request, "Your message has been successfully sent!")
-#         return redirect("home")
+
+def about(request):
+    """
+    View for the 'About' page.
+    """
+    return render(request, "core/about.html")
+
+
+def contact(request):
+    """
+    View for the 'Contact' page.
+    """
+    return render(request, 'core/contact.html')
+
+
+def submit_contact_form(request):
+    """
+    Handles the contact form submission.
+    Saves the message in the database and sends email + WhatsApp notification.
+    """
+    if request.method == "POST":
+        name = request.POST.get("name", "Anonymous")
+        subject = request.POST.get("subject", "New request from the contact form")
+        message = request.POST.get("message", "")
+        client_email = request.POST.get("email", "")
+
+        # Debugging log
+        # print(f"Email: {client_email}, Message: {message}")
+
+        try:
+            # Saving a message in the database
+            ContactMessage.objects.create(
+                name=name, email=client_email, message=message
+            )
+            # Send an email notification
+            send_mail(
+                subject,
+                message=f"Message from {client_email}:\n{message}",
+                from_email="senpyinteractive@gmail.com",
+                recipient_list=["senpyinteractive@gmail.com"],
+                fail_silently=False,
+            )
+
+            # Send a WhatsApp notification (if implemented)
+            send_whatsapp_message(client_email, message)
+
+            return redirect("contact_success")
+        except Exception as e:
+            return render(
+                request, "contact_success.html", {"error_message": f"Error: {e}"}
+            )
+
+    return render(request, "core/contact.html")
+
+
+def contact_success(request):
+    return render(request, 'contact_success.html')

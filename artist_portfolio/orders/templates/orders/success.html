@@ -1,0 +1,18 @@
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="csrf-token" content="{{ csrf_token }}" />
+        <title>{% block title %}Artist Portfolio{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'css/success.css' %}" />
+    </head>
+    <body>
+        <div class="success-container">
+            <h2>Thank you for your order!</h2>
+            <p>Your order no.{{ order.id }} has been successfully issued.</p>
+            <p>You will receive a notification when it is sent.</p>
+            <a href="{% url 'home' %}" class="btn btn-success">Return to the store</a>
+        </div>
+    </body>
+</html>

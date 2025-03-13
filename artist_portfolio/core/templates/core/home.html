@@ -12,14 +12,10 @@
         </video>
     </div>
 
-    {% comment %} <div class="canvas-container">
-        <canvas id="artCanvas"></canvas>
-    </div> {% endcomment %}
-
     <div class="video-overlay">
         <h1 class="welcome-text">Every line, every stroke is a part of my soul. I create to inspire.</h1>
         <p class="description">Feel the beauty in every stroke. Scroll down to see more.</p>
-        <button class="cta-button" onclick="location.href='#gallery'">Explore the gallery</button>
+        <button class="glow-button" onclick="location.href='#gallery'">Explore the gallery</button>
     </div>
 </section>
 
@@ -40,24 +36,15 @@
         <h2>Featured Works</h2>
         <div class="swiper-container">
             <div class="swiper-wrapper">
+                {% for artwork in artworks %}
                 <div class="swiper-slide">
-                    <img src="{% static 'images/gallery1.jpg' %}" alt="Artwork 1">
+                    <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}" class="featured-work"
+                        data-image="{{ artwork.image.url }}" 
+                        data-title="{{ artwork.title }}" 
+                        data-description="{{ artwork.description }}" 
+                        data-price="${{ artwork.price }}">
                 </div>
-                <div class="swiper-slide">
-                    <img src="{% static 'images/gallery2.jpg' %}" alt="Artwork 2">
-                </div>
-                <div class="swiper-slide">
-                    <img src="{% static 'images/gallery3.jpg' %}" alt="Artwork 3">
-                </div>
-                <div class="swiper-slide">
-                    <img src="{% static 'images/gallery4.jpg' %}" alt="Artwork 4">
-                </div>
-                <div class="swiper-slide">
-                    <img src="{% static 'images/gallery5.jpg' %}" alt="Artwork 5">
-                </div>
-                <div class="swiper-slide">
-                    <img src="{% static 'images/gallery6.jpg' %}" alt="Artwork 6">
-                </div>
+                {% endfor %}
             </div>
             <!-- Navigation buttons -->
             <div class="swiper-button-next"></div>
@@ -68,6 +55,10 @@
     </div>
 </section>
 
+<script>
+    const slidesCount = {{ artworks|length }};
+</script>
+
 <!-- Contact Section -->
 <section id="contact" class="contact" data-aos="fade-up">
     <div class="container">
@@ -77,7 +68,33 @@
     </div>
 </section>
 
+<!-- Modal -->
+<div id="painting-modal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="modal-image">
+            <img id="modal-painting-img" src="" alt="Painting">
+        </div>
+        <div class="modal-description">
+            <h3 id="modal-title">Title</h3>
+            <p id="modal-description">Description</p>
+            <p id="modal-price">Price</p>
+            <div class="modal-buttons">
+                <a id="view-in-gallery" href="#" target="_blank" class="btn">View in Gallery</a>
+                <a href="/store/" class="btn purchase-btn">Purchase</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
+
+
+{% block extra_scripts %}
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="{% static 'js/modal.js' %}"></script>
+{% endblock %}
+
 
 {% block assistant %}
 <div id="assistant-popup" class="assistant-popup hidden">
@@ -87,16 +104,19 @@
     </div>
     <div class="assistant-body">
         <p>Do you have any questions about my paintings? Ask them here!</p>
-        <form id="assistant-form" action="{% url 'contact' %}" method="POST">
+        <form id="assistant-form" action="{% url 'submit_contact' %}" method="POST">
             {% csrf_token %}
             <input type="text" name="name" placeholder="Your name" required>
             <input type="email" name="email" placeholder="Your email" required>
             <textarea name="message" placeholder="Your question" required></textarea>
             <button type="submit" class="btn">Send</button>
         </form>
+        <div class="whatsapp-container">
+            <a href="https://wa.me/{PHONE_NUMBER}" class="whatsapp-btn" target="_blank">
+                Write on <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+
     </div>
 </div>
-
-</div>
 {% endblock assistant %}
-

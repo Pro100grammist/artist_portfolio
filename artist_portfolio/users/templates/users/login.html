@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% load socialaccount %}
+
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="animated-background" 
+     style="background: url('{% static 'images/login_page_bgr.jpg' %}') no-repeat center center;">
+</div>
+
+<div class="form-container">
+    <div class="title-container">
+        <h2>Sign In</h2>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-field">
+            <div class="icon">
+                <img src="{% static 'icons/user.svg' %}" alt="User icon">
+            </div>
+            {{ form.username }}
+        </div>
+        <div class="form-field">
+            <div class="icon">
+                <img src="{% static 'icons/lock.svg' %}" alt="Lock icon">
+            </div>
+            {{ form.password }}
+        </div>
+        <button type="submit">Sign in</button>
+        <div class="auth-container">
+            <a href="{% provider_login_url 'google' %}" class="google-btn">
+                <img src="{% static 'icons/logo-google.svg' %}" 
+                    alt="Google logo" class="google-logo"> 
+                Sign in with Google
+            </a>
+            {% comment %} <a href="{% provider_login_url 'facebook' %}" class="btn btn-primary w-100 mt-2">Увійти через Facebook</a> {% endcomment %}
+            <p class="register-text">
+                Don't have an account yet? 
+                <a href="{% url 'users:register' %}" class="register-link">Register</a>
+            </p>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About - Artist Portfolio{% endblock %}
+
+{% block content %}
+<section id="about" class="about-section">
+    <div class="container">
+        <!-- Page title -->
+        <div class="about-header" data-aos="fade-up">
+            <h1>About Me</h1>
+            <p>Discover the passion and stories behind my art journey.</p>
+        </div>
+        
+        <!-- Biography -->
+        <div class="bio" data-aos="fade-up" data-aos-delay="200">
+            <img src="{% static 'images/artist-photo.jpg' %}" alt="Artist Photo" class="artist-photo">
+            <div class="bio-text">
+                <h2>Hello!</h2>
+                <p>I am <strong>Helena</strong>, a passionate artist living in Alanya. My journey in the visual arts began in the 2000s. Over the past 20 years, I have been constantly improving my skills, learning various techniques and trying myself in many areas of my craft.</p>
+                <p>Through my work, I strive to inspire emotions, tell stories and connect with those who are interested in my work around the world.</p>
+            </div>
+        </div>
+        
+        <!-- Mission -->
+        <div class="mission" data-aos="fade-up" data-aos-delay="400">
+            <h2>My Mission</h2>
+            <p>To create art that resonates with people, evokes emotions, and brings beauty to everyday life. I strive to make a meaningful impact through my creativity.</p>
+        </div>
+        
+        <!-- Timeline -->
+        <div class="timeline" data-aos="fade-up" data-aos-delay="600">
+            <h2>Milestones</h2>
+            <ul>
+                <li><strong>2016:</strong> First solo exhibition</li>
+                <li><strong>2022:</strong> Collaborated with international galleries</li>
+                <li><strong>2025:</strong> Launched the "Inspire" collection</li>
+            </ul>
+        </div>
+        
+        <!-- CTA button -->
+        <div class="cta" data-aos="fade-up" data-aos-delay="800">
+            <a href="/contact/" class="btn">Contact Me</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

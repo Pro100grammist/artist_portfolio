@@ -1,91 +1,85 @@
 document.addEventListener("DOMContentLoaded", () => {
   const swiper = new Swiper(".swiper-container", {
-    slidesPerView: 3, // Кількість видимих слайдів
-    spaceBetween: 20, // Відстань між слайдами
-    centeredSlides: true, // Центральний слайд посередині
-    loop: true, // Карусель циклічна
-    effect: "coverflow", // Ефект 3D Coverflow
-    coverflowEffect: {
-      rotate: 50, // Кут повороту слайдів
-      stretch: 0, // Розтягнення слайдів
-      depth: 100, // Глибина в 3D-просторі
-      modifier: 1, // Інтенсивність ефекту
-      slideShadows: true, // Тіні для слайдів
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
+      slidesPerView: 3, // Number of visible slides
+      spaceBetween: 20, // Distance between slides
+      centeredSlides: true, // Center slide in the middle
+      loop: true, // Cyclic carousel
+      effect: "coverflow", // 3D Coverflow effect
+      coverflowEffect: {
+          rotate: 50, // Slide rotation angle
+          stretch: 0, // Stretch slides
+          depth: 100, // Depth in 3D space
+          modifier: 1, // Intensity of the effect
+          slideShadows: true, // Shadows for slides
+      },
+      navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+      },
   });
 });
 
-// Функція для показу спливаючого асистента
+document.querySelectorAll(".glow-button").forEach((button) => {
+    button.addEventListener("mousemove", (e) => {
+        const rect = button.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        button.style.setProperty("--pointer-x", `${x}px`);
+        button.style.setProperty("--pointer-y", `${y}px`);
+    });
+});
+
+// Function to show a pop-up assistant
 function showAssistantPopup() {
     const popup = document.getElementById('assistant-popup');
     popup.classList.remove('hidden');
 }
 
-// Функція для приховування спливаючого асистента
+// Function to hide the pop-up assistant
 function closeAssistantPopup() {
     const popup = document.getElementById('assistant-popup');
     popup.classList.add('hidden');
 }
 
-// Показати асистента через 30 секунд
+// Assistant readings in 30 seconds
 window.addEventListener('load', () => {
     setTimeout(showAssistantPopup, 30000);
 });
 
 
+// Connecting and rendering Lottie icons
+document.addEventListener("DOMContentLoaded", function () {
+    // General parameters
+    const socialIcons = [
+        {
+            id: "facebook-icon",
+            path: "/static/animations/social-icons/facebook.json",
+        },
+        {
+            id: "instagram-icon",
+            path: "/static/animations/social-icons/instagram.json",
+        },
+        {
+            id: "linkedin-icon",
+            path: "/static/animations/social-icons/linkedin.json",
+        },
+    ];
 
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   const swiper = new Swiper(".swiper-container", {
-//     loop: true, // Enable looping
-//     slidesPerView: 3, // Show 3 slides at a time
-//     spaceBetween: 10, // Space between slides
-//     navigation: {
-//       nextEl: ".swiper-button-next",
-//       prevEl: ".swiper-button-prev",
-//     },
-//     pagination: {
-//       el: ".swiper-pagination",
-//       clickable: true,
-//     },
-//   });
-// });
-
-
-
-
-// const canvas = document.getElementById("artCanvas");
-// const ctx = canvas.getContext("2d");
-
-// // Dynamically adjust the size of Canvas
-// canvas.width = window.innerWidth;
-// canvas.height = window.innerHeight;
-
-// // Scaling when resizing a window
-// window.addEventListener("resize", () => {
-//   canvas.width = window.innerWidth;
-//   canvas.height = window.innerHeight;
-// });
-
-// // Function for drawing random elements
-// function draw() {
-//   ctx.fillStyle = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${
-//     Math.random() * 255
-//   }, 0.5)`;
-//   ctx.beginPath();
-//   ctx.arc(
-//     Math.random() * canvas.width,
-//     Math.random() * canvas.height,
-//     50,
-//     0,
-//     Math.PI * 2
-//   );
-//   ctx.fill();
-// }
-
-// // Animation
-// setInterval(draw, 100);
+    // Initialize animation for each icon
+    socialIcons.forEach((icon) => {
+        const element = document.getElementById(icon.id);
+        if (element) {
+            // Initialize the Lottie animation if the element exists
+            lottie.loadAnimation({
+                container: element, // container for animation
+                renderer: "svg", // rendering format
+                loop: true, // animation in a loop
+                autoplay: true, // automatic start
+                path: icon.path, // path to the JSON file of the animation
+            });
+        } else {
+            console.warn(`Element with id '${icon.id}' not found in DOM.`);
+        }
+    });
+});
