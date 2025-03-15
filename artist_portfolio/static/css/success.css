@@ -1,0 +1,40 @@
+.success-container {
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 30px;
+    text-align: center;
+    background: #f8fff3;
+    border: 2px solid #28a745;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.success-container h2 {
+    font-size: 2rem;
+    color: #28a745;
+    margin-bottom: 15px;
+}
+
+.success-container p {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.success-container .btn {
+    margin-top: 15px;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.success-container .btn-success {
+    background: #28a745;
+    border: none;
+}
+
+.success-container .btn-success:hover {
+    background: #218838;
+    transform: scale(1.05);
+}

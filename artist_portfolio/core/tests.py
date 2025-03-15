@@ -41,34 +41,34 @@
 # print(f"Dota & Mask:   {d_and} -> {d_hash & mask}")
 
 
-def custom_hash(s: str) -> int:
-    """Improved custom hash function for strings."""
-    hash_value = 0xcbf29ce484222325  # Initial "magic" number (FNV-1a)
-    prime = 0x100000001b3  # A great simple number
-
-    for char in s:
-        hash_value ^= ord(char)  # XOR s code for the symbol
-        hash_value *= prime  # Multiply on the great number
-        hash_value ^= (hash_value >> 32)  # Shuffle lower and higher bits
-        hash_value += 0x27d4eb2d  # Add a unique number for more variety
-        hash_value &= 0xFFFFFFFFFFFFFFFF  # Limit to 64 bits
-
-    return hash_value
-
-
-# Testing our feature
-words = ["Gothic", "CS", "Dota"]
-hashes = {word: custom_hash(word) for word in words}
-
-# Print hashes and their binary representations
-print("Custom Hash Results:")
-for word, h in hashes.items():
-    print(f"{word}_hash: {h}")
-    print(f"Binary: {bin(h)}")
-
-# Mask (take 5 lowest bits)
-mask = 0b11111
-
-print("\nBinary AND Result:")
-for word, h in hashes.items():
-    print(f"{word} & Mask: {bin(h & mask)} -> {h & mask}")
+# def custom_hash(s: str) -> int:
+#     """Improved custom hash function for strings."""
+#     hash_value = 0xcbf29ce484222325  # Initial "magic" number (FNV-1a)
+#     prime = 0x100000001b3  # A great simple number
+#
+#     for char in s:
+#         hash_value ^= ord(char)  # XOR s code for the symbol
+#         hash_value *= prime  # Multiply on the great number
+#         hash_value ^= (hash_value >> 32)  # Shuffle lower and higher bits
+#         hash_value += 0x27d4eb2d  # Add a unique number for more variety
+#         hash_value &= 0xFFFFFFFFFFFFFFFF  # Limit to 64 bits
+#
+#     return hash_value
+#
+#
+# # Testing our feature
+# words = ["Gothic", "CS", "Dota"]
+# hashes = {word: custom_hash(word) for word in words}
+#
+# # Print hashes and their binary representations
+# print("Custom Hash Results:")
+# for word, h in hashes.items():
+#     print(f"{word}_hash: {h}")
+#     print(f"Binary: {bin(h)}")
+#
+# # Mask (take 5 lowest bits)
+# mask = 0b11111
+#
+# print("\nBinary AND Result:")
+# for word, h in hashes.items():
+#     print(f"{word} & Mask: {bin(h & mask)} -> {h & mask}")

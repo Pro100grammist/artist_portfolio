@@ -1,0 +1,221 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin: auto;
+    max-width: 1600px;
+
+}
+
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+#profile-avatar {
+    display: block;
+    margin: 10px auto;
+}
+
+#avatar-form {
+    text-align: center;
+}
+
+.qr-code-container {
+    display: flex;
+    justify-content: start;
+}
+
+.qr-code {
+    max-width: 150px;
+}
+
+.btn {
+    border-radius: 5px;
+}
+
+.editable-text {
+    display: inline-block;
+    cursor: pointer;
+    font-style: italic;
+    color: #555;
+}
+
+.editable-text+input {
+    display: none;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.editable-text.active {
+    display: none;
+}
+
+.editable-text+input.active {
+    display: inline-block;
+    font-size: 1rem;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.left-block {
+    flex: 1;
+    padding: 20px;
+    background-color: #f0f8ff;
+    border-right: 2px solid #d3d3d3;
+}
+
+.right-block {
+    flex: 3;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+#avatar-upload {
+    display: none;
+}
+
+#avatar-btn {
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#avatar-btn:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.form-label {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+}
+
+#profile-form {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 15px;
+    align-items: center;
+}
+
+#profile-form .form-label {
+    text-align: right;
+    padding-right: 10px;
+}
+
+#profile-form .editable-text,
+#profile-form input {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    #profile-form {
+        grid-template-columns: 1fr;
+    }
+
+    .mb-3 .form-label {
+        text-align: left;
+        padding-right: 0;
+    }
+}
+
+/* Change Password button styling */
+.password-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.password-container a {
+    display: block;
+    padding: 10px;
+    background-color: #ffcc00;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.password-container a:hover {
+    background-color: #e6b800;
+}
+
+.right-block .card-header {
+    text-align: center;
+    background-color: #6c757d;
+    color: white;
+}
+
+
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
+.table th,
+.table td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.order-container {
+    border-bottom: 2px solid #ddd;
+    padding: 10px;
+}
+
+.order-divider td {
+    border-bottom: 3px solid #ccc;
+    padding: 5px 0;
+}
+
+.order-container td {
+    padding: 10px;
+}
+
+.order-container:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.order-container:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.order-products {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.order-products li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+}
+
+.product-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    object-fit: cover;
+}

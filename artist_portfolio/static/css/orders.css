@@ -1,0 +1,122 @@
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* General styles of the form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Forming fields */
+fieldset {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+}
+
+/* Field headers */
+fieldset legend {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+
+/* Indents inside the margins */
+form .form-control,
+form .form-select {
+    padding: 12px;
+    border-radius: 8px;
+    transition: 0.3s;
+    border: 1px solid #ccc;
+}
+
+/* Additional indentation from the edges of the mold */
+fieldset .form-group {
+    margin-bottom: 15px;
+}
+
+/* Improved focusing */
+form .form-control:focus,
+form .form-select:focus {
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+    border-color: #007bff;
+}
+
+/* Product alignment */
+.list-group-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+}
+
+/* Adaptive product image size */
+.product-image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Alignment of delivery and payment options in a column */
+.delivery-options,
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+}
+
+/* Styles for delivery and payment */
+.delivery-option,
+.payment-option {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    transition: 0.3s;
+    border: 1px solid transparent;
+}
+
+/* Correct the frame out of shape */
+.delivery-option:hover,
+.payment-option:hover,
+.selected {
+    background: rgba(0, 123, 255, 0.1);
+    border: 2px solid #007bff;
+    box-sizing: border-box;
+    transform: scale(1.02);
+}
+
+/* Aligning logos */
+.delivery-logo,
+.payment-logo {
+    width: 50px;
+    height: auto;
+    margin-right: 15px;
+}
+
+/* The country's flag next to the headline */
+.country-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.country-flag {
+    width: 24px;
+    height: 16px;
+}
