@@ -1,0 +1,567 @@
+{
+    "": {
+        "directories": [
+            "artist_portfolio",
+            "cart",
+            "core",
+            "gallery",
+            "media",
+            "orders",
+            "static",
+            "store",
+            "templates",
+            "users"
+        ],
+        "files": [
+            "db.sqlite3",
+            "manage.py"
+        ]
+    },
+    "artist_portfolio": {
+        "directories": [
+            "__pycache__"
+        ],
+        "files": [
+            ".env",
+            "asgi.py",
+            "settings.py",
+            "urls.py",
+            "wsgi.py",
+            "__init__.py"
+        ]
+    },
+    "artist_portfolio\\__pycache__": {
+        "directories": [],
+        "files": [
+            "settings.cpython-313.pyc",
+            "urls.cpython-313.pyc",
+            "wsgi.cpython-313.pyc",
+            "__init__.cpython-313.pyc"
+        ]
+    },
+    "cart": {
+        "directories": [
+            "migrations",
+            "templates",
+            "__pycache__"
+        ],
+        "files": [
+            "admin.py",
+            "apps.py",
+            "models.py",
+            "signals.py",
+            "tests.py",
+            "urls.py",
+            "views.py",
+            "__init__.py"
+        ]
+    },
+    "cart\\migrations": {
+        "directories": [
+            "__pycache__"
+        ],
+        "files": [
+            "0001_initial.py",
+            "0002_alter_cart_created_at_alter_cart_session_key_and_more.py",
+            "__init__.py"
+        ]
+    },
+    "cart\\migrations\\__pycache__": {
+        "directories": [],
+        "files": [
+            "0001_initial.cpython-313.pyc",
+            "0002_alter_cart_created_at_alter_cart_session_key_and_more.cpython-313.pyc",
+            "__init__.cpython-313.pyc"
+        ]
+    },
+    "cart\\templates": {
+        "directories": [
+            "cart"
+        ],
+        "files": []
+    },
+    "cart\\templates\\cart": {
+        "directories": [],
+        "files": [
+            "cart.html"
+        ]
+    },
+    "cart\\__pycache__": {
+        "directories": [],
+        "files": [
+            "admin.cpython-313.pyc",
+            "apps.cpython-313.pyc",
+            "models.cpython-313.pyc",
+            "signals.cpython-313.pyc",
+            "urls.cpython-313.pyc",
+            "views.cpython-313.pyc",
+            "__init__.cpython-313.pyc"
+        ]
+    },
+    "core": {
+        "directories": [
+            "migrations",
+            "templates",
+            "__pycache__"
+        ],
+        "files": [
+            "admin.py",
+            "apps.py",
+            "models.py",
+            "tests.py",
+            "urls.py",
+            "utils.py",
+            "views.py",
+            "__init__.py"
+        ]
+    },
+    "core\\migrations": {
+        "directories": [
+            "__pycache__"
+        ],
+        "files": [
+            "0001_initial.py",
+            "0002_contactmessage.py",
+            "0003_alter_contactmessage_created_at_and_more.py",
+            "__init__.py"
+        ]
+    },
+    "core\\migrations\\__pycache__": {
+        "directories": [],
+        "files": [
+            "0001_initial.cpython-313.pyc",
+            "0002_contactmessage.cpython-313.pyc",
+            "0003_alter_contactmessage_created_at_and_more.cpython-313.pyc",
+            "__init__.cpython-313.pyc"
+        ]
+    },
+    "core\\templates": {
+        "directories": [
+            "core"
+        ],
+        "files": []
+    },
+    "core\\templates\\core": {
+        "directories": [],
+        "files": [
+            "about.html",
+            "contact.html",
+            "home.html"
+        ]
+    },
+    "core\\__pycache__": {
+        "directories": [],
+        "files": [
+            "admin.cpython-313.pyc",
+            "apps.cpython-313.pyc",
+            "models.cpython-313.pyc",
+            "urls.cpython-313.pyc",
+            "utils.cpython-313.pyc",
+            "views.cpython-313.pyc",
+            "__init__.cpython-313.pyc"
+        ]
+    },
+    "gallery": {
+        "directories": [
+            "migrations",
+            "__pycache__"
+        ],
+        "files": [
+            "admin.py",
+            "apps.py",
+            "models.py",
+            "tests.py",
+            "views.py",
+            "__init__.py"
+        ]
+    },
+    "gallery\\migrations": {
+        "directories": [
+            "__pycache__"
+        ],
+        "files": [
+            "__init__.py"
+        ]
+    },
+    "gallery\\migrations\\__pycache__": {
+        "directories": [],
+        "files": [
+            "__init__.cpython-313.pyc"
+        ]
+    },
+    "gallery\\__pycache__": {
+        "directories": [],
+        "files": [
+            "admin.cpython-313.pyc",
+            "apps.cpython-313.pyc",
+            "models.cpython-313.pyc",
+            "__init__.cpython-313.pyc"
+        ]
+    },
+    "media": {
+        "directories": [
+            "gallery",
+            "products",
+            "profile_pictures"
+        ],
+        "files": []
+    },
+    "media\\gallery": {
+        "directories": [],
+        "files": [
+            "gallery1.jpg",
+            "gallery10.jpg",
+            "gallery11.jpg",
+            "gallery12.jpg",
+            "gallery13.jpg",
+            "gallery14.jpg",
+            "gallery2.jpg",
+            "gallery3.jpeg",
+            "gallery4.jpg",
+            "gallery5.jpg",
+            "gallery6.jpg",
+            "gallery7.jpg",
+            "gallery8.jpg",
+            "gallery9.jpg"
+        ]
+    },
+    "media\\products": {
+        "directories": [],
+        "files": [
+            "store_001.jpeg",
+            "store_002.jpeg",
+            "store_003.jpeg",
+            "store_004.jpeg",
+            "store_005.jpeg",
+            "store_006.jpeg",
+            "store_007.jpeg",
+            "store_008.jpeg",
+            "store_009.jpeg",
+            "store_010.jpg",
+            "store_011.jpeg",
+            "store_012.jpeg",
+            "store_013.jpg",
+            "store_014.jpeg",
+            "store_015.jpeg",
+            "store_016.jpeg",
+            "store_017.jpeg",
+            "store_018.jpeg",
+            "store_019.jpeg",
+            "store_020.jpeg"
+        ]
+    },
+    "media\\profile_pictures": {
+        "directories": [],
+        "files": [
+            "avatar.svg",
+            "default.png",
+            "default_a09Dvcb.png",
+            "default_av0zOIU.png",
+            "default_kjO8hA0.png",
+            "default_mLJEzLz.png",
+            "default_tEHEUFy.png",
+            "default_tFsfz9h.png",
+            "test_user_avatar.svg",
+            "test_user_avatar_AYVbQQj.svg",
+            "test_user_avatar_hucFWTH.svg",
+            "user2.png",
+            "User_avatar.svg"
+        ]
+    },
+    "orders": {
+        "directories": [
+            "migrations",
+            "templates",
+            "__pycache__"
+        ],
+        "files": [
+            "admin.py",
+            "apps.py",
+            "forms.py",
+            "models.py",
+            "tests.py",
+            "urls.py",
+            "views.py",
+            "__init__.py"
+        ]
+    },
+    "orders\\migrations": {
+        "directories": [
+            "__pycache__"
+        ],
+        "files": [
+            "0001_initial.py",
+            "0002_order_session_key.py",
+            "0003_order_address_order_comment_order_country_and_more.py",
+            "__init__.py"
+        ]
+    },
+    "orders\\migrations\\__pycache__": {
+        "directories": [],
+        "files": [
+            "0001_initial.cpython-313.pyc",
+            "0002_order_session_key.cpython-313.pyc",
+            "0003_order_address_order_comment_order_country_and_more.cpython-313.pyc",
+            "__init__.cpython-313.pyc"
+        ]
+    },
+    "orders\\templates": {
+        "directories": [
+            "orders"
+        ],
+        "files": []
+    },
+    "orders\\templates\\orders": {
+        "directories": [],
+        "files": [
+            "checkout.html",
+            "success.html"
+        ]
+    },
+    "orders\\__pycache__": {
+        "directories": [],
+        "files": [
+            "admin.cpython-313.pyc",
+            "apps.cpython-313.pyc",
+            "forms.cpython-313.pyc",
+            "models.cpython-313.pyc",
+            "urls.cpython-313.pyc",
+            "views.cpython-313.pyc",
+            "__init__.cpython-313.pyc"
+        ]
+    },
+    "static": {
+        "directories": [
+            "animations",
+            "css",
+            "icons",
+            "images",
+            "js",
+            "videos"
+        ],
+        "files": []
+    },
+    "static\\animations": {
+        "directories": [
+            "social-icons"
+        ],
+        "files": []
+    },
+    "static\\animations\\social-icons": {
+        "directories": [],
+        "files": [
+            "basket.json",
+            "facebook.json",
+            "instagram.json",
+            "linkedin.json"
+        ]
+    },
+    "static\\css": {
+        "directories": [],
+        "files": [
+            "auth.css",
+            "cart.css",
+            "orders.css",
+            "profile.css",
+            "store.css",
+            "style.css",
+            "success.css"
+        ]
+    },
+    "static\\icons": {
+        "directories": [],
+        "files": [
+            "cart-icon.png",
+            "email.svg",
+            "facebook.png",
+            "instagram.png",
+            "linkedin.png",
+            "lock.svg",
+            "logo-google.svg",
+            "name.svg",
+            "user.svg"
+        ]
+    },
+    "static\\images": {
+        "directories": [
+            "delivery",
+            "payments"
+        ],
+        "files": [
+            "0.jpg",
+            "1.jpg",
+            "artist-photo.jpg",
+            "footer_logo.png",
+            "login_page_bgr.jpg",
+            "register_page_bgr.jpg"
+        ]
+    },
+    "static\\images\\delivery": {
+        "directories": [],
+        "files": [
+            "cargoexpress.png",
+            "dhl.png",
+            "fedex.png"
+        ]
+    },
+    "static\\images\\payments": {
+        "directories": [],
+        "files": [
+            "bitcoin.png",
+            "credit card.png",
+            "google pay.png",
+            "paypal.png"
+        ]
+    },
+    "static\\js": {
+        "directories": [],
+        "files": [
+            "auth_forms.js",
+            "cart.js",
+            "modal.js",
+            "msg.js",
+            "orders.js",
+            "profile.js",
+            "scripts.js",
+            "store.js"
+        ]
+    },
+    "static\\videos": {
+        "directories": [],
+        "files": [
+            "painting.mp4"
+        ]
+    },
+    "store": {
+        "directories": [
+            "migrations",
+            "templates",
+            "__pycache__"
+        ],
+        "files": [
+            "admin.py",
+            "apps.py",
+            "filters.py",
+            "models.py",
+            "serializers.py",
+            "tests.py",
+            "urls.py",
+            "views.py",
+            "__init__.py"
+        ]
+    },
+    "store\\migrations": {
+        "directories": [
+            "__pycache__"
+        ],
+        "files": [
+            "0001_initial.py",
+            "0002_alter_product_options_product_is_available.py",
+            "__init__.py"
+        ]
+    },
+    "store\\migrations\\__pycache__": {
+        "directories": [],
+        "files": [
+            "0001_initial.cpython-313.pyc",
+            "0002_alter_product_options_product_is_available.cpython-313.pyc",
+            "__init__.cpython-313.pyc"
+        ]
+    },
+    "store\\templates": {
+        "directories": [
+            "store"
+        ],
+        "files": []
+    },
+    "store\\templates\\store": {
+        "directories": [],
+        "files": [
+            "store.html"
+        ]
+    },
+    "store\\__pycache__": {
+        "directories": [],
+        "files": [
+            "admin.cpython-313.pyc",
+            "apps.cpython-313.pyc",
+            "filters.cpython-313.pyc",
+            "models.cpython-313.pyc",
+            "serializers.cpython-313.pyc",
+            "urls.cpython-313.pyc",
+            "views.cpython-313.pyc",
+            "__init__.cpython-313.pyc"
+        ]
+    },
+    "templates": {
+        "directories": [],
+        "files": [
+            "base.html",
+            "contact_success.html"
+        ]
+    },
+    "users": {
+        "directories": [
+            "migrations",
+            "templates",
+            "__pycache__"
+        ],
+        "files": [
+            "admin.py",
+            "apps.py",
+            "forms.py",
+            "models.py",
+            "signals.py",
+            "tests.py",
+            "urls.py",
+            "utils.py",
+            "views.py",
+            "__init__.py"
+        ]
+    },
+    "users\\migrations": {
+        "directories": [
+            "__pycache__"
+        ],
+        "files": [
+            "0001_initial.py",
+            "__init__.py"
+        ]
+    },
+    "users\\migrations\\__pycache__": {
+        "directories": [],
+        "files": [
+            "0001_initial.cpython-313.pyc",
+            "__init__.cpython-313.pyc"
+        ]
+    },
+    "users\\templates": {
+        "directories": [
+            "users"
+        ],
+        "files": []
+    },
+    "users\\templates\\users": {
+        "directories": [],
+        "files": [
+            "login.html",
+            "password_change.html",
+            "profile.html",
+            "register.html"
+        ]
+    },
+    "users\\__pycache__": {
+        "directories": [],
+        "files": [
+            "admin.cpython-313.pyc",
+            "apps.cpython-313.pyc",
+            "forms.cpython-313.pyc",
+            "models.cpython-313.pyc",
+            "signals.cpython-313.pyc",
+            "urls.cpython-313.pyc",
+            "utils.cpython-313.pyc",
+            "views.cpython-313.pyc",
+            "__init__.cpython-313.pyc"
+        ]
+    }
+}

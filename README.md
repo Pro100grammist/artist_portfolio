@@ -1,77 +1,108 @@
-# Django Web Application
+# Artist Portfolio - Django Web Application
 
-## Опис проекту
+## Project description
 
-Цей проєкт є веб-додатком, побудованим на основі **Django 5.1**, з використанням REST API (**Django REST Framework**) для роботи з клієнтською частиною. Додаток підтримує асинхронну обробку запитів через **Django Channels** та асинхронні задачі за допомогою **Celery** і **Redis**. База даних — **PostgreSQL**, інтеграція з якою виконується через сучасний драйвер **psycopg**.
+**Artist Portfolio** is a web application for an artist's online portfolio with the ability to showcase and sell works. The project is based on **Django 5.1**, **REST API** for interaction between backend and frontend. In addition to the main web interface (HTML, CSS, JavaScript), a separate application on **Vue.js** is responsible for rendering a 3D gallery of paintings.
 
-Основні функції:
-- Асинхронна обробка запитів.
-- Взаємодія через REST API.
-- Робота з чергами завдань (email-розсилки, обробка даних).
-- WebSocket з'єднання для реального часу.
+### Main functions:
+- Manage artist's works through the admin panel.
+- Viewing paintings in 3D format (Vue.js + Three.js).
+- REST API for working with the frontend.
+- Online store with support for filters, sorting, and searching for paintings.
+- An alternative option for authorization via Google and Facebook.
+- Account protection via 2FA (OTP).
+- Integration with payment systems.
 
 ---
 
-## Встановлення та запуск
+## Technology
 
-### 1. Попередні вимоги
+### **Backend (Django)**
+- Django 5.1 - the main framework
+- Django REST Framework ** - building an API
+- **Celery + Redis** - asynchronous task processing
+- Django Channels - WebSocket connection
+- **SQLite (optional PostgreSQL)** - database
+- **Gunicorn + Whitenoise** - deployment and processing of static
 
-Перед встановленням переконайтеся, що на вашій машині встановлено наступні компоненти:
-- **Python 3.11+**
-- **PostgreSQL**
-- **Redis**
-- **Node.js** (опціонально, для фронтенду, якщо є інтеграція)
+### **Frontend**
+- **HTML + CSS + JavaScript** – UI
+- **Vue.js + Three.js** – 3D rendering for 2D paintings from the gallery
 
-### 2. Клонування репозиторію
+---
 
+## Installation and startup
 
-git clone https://github.com/your_username/your_project.git
-cd your_project
+### **1. Cloning the repository** **2.
+```bash
+git clone https://github.com/your_username/artist_portfolio.git
+cd artist_portfolio
+```
 
-### 3. Налаштування середовища
-Створіть файл .env для зберігання конфігурації. 
-
-DEBUG=True
-SECRET_KEY=your_secret_key
-DATABASE_URL=postgresql://user:password@localhost:5432/your_db
-REDIS_URL=redis://localhost:6379/0
-
-Встановіть залежності:
+### **2. Setting up the environment****.
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/macOS
+venv\Scripts\activate  # Windows
 pip install -r requirements.txt
+```
 
-### 4. Міграція бази даних
-Застосуйте міграції для бази даних:
+Create an `.env' file with variables:
+```
+SECRET_KEY=your_secret_key
+DEBUG=True
+DATABASE_URL=sqlite:///db.sqlite3  # or PostgreSQL
+REDIS_URL=redis://localhost:6379/0
+```
+
+### **3. Database migrations**
+```bash
 python manage.py migrate
+python manage.py createsuperuser
+```
 
-### 5. Запуск серверів
-#### Запуск веб-сервера:
-python manage.py runserver
+### **4. Launching servers**
+```bash
+python manage.py runserver  # Django API
+celery -A artist_portfolio worker --loglevel=info  # Celery
+redis-server  # Redis
+```
 
-#### Запуск Celery:
-celery -A your_project worker --loglevel=info
+### **5. Зlaunching a 3D gallery (Vue.js)**
+```bash
+cd frontend/3d-gallery
+npm install
+npm run serve
+```
 
-#### Запуск Redis:
-redis-server
+---
 
-#### Тестування
-pytest
+## API documentation
+The project uses **drf-spectacular** to automatically generate API documentation.
 
-### Основні технології
-- Django: Backend.
-- Django REST Framework: Для побудови REST API.
-- PostgreSQL: Реляційна база даних.
-- Redis: Для кешування і черг задач.
-- Celery: Асинхронні задачі.
-- Django Channels: WebSocket та асинхронна обробка запитів.
-- Gunicorn: Сервер для production.
+- OpenAPI scheme: [http://localhost:8000/api/schema/](http://localhost:8000/api/schema/)
+- Swagger UI: [http://localhost:8000/api/schema/swagger-ui/](http://localhost:8000/api/schema/swagger-ui/)
+- ReDoc: [http://localhost:8000/api/schema/redoc/](http://localhost:8000/api/schema/redoc/)
 
-### Внесок у проект
-Ми відкриті до внесків! Для цього:
-- Форкніть репозиторій.
-- Зробіть зміни у своїй гілці.
-- Відправте pull request.
+---
 
-### Автор: Pro100grammer
+## Deployment
 
-### Ліцензія
-Цей проект розповсюджується під ліцензією MIT.
+For production deployments, we recommend using:
+- **Gunicorn** for the backend
+- **NGINX** for request processing
+- **Docker + Docker Compose** (optional)
+
+---
+
+## Contribution to the project
+The project is open for contributions! To do this:
+1. Create a repository.
+2. Make changes in your branch.
+3. Submit a pull request.
+
+### Author: Pro100grammer
+
+### License.
+This project is distributed under the MIT license.
+
