@@ -222,6 +222,9 @@ if ENVIRONMENT == "production":
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 if ENVIRONMENT == "production":
+
+    # MEDIA_URL = 'https://s3.us-west-000.backblazeb2.com/<bucket-name>/'  # for cloud storage Backblaze B2
+
     MEDIA_URL = 'https://artist-portfolio-fquo.onrender.com/media/'  # for the production server
     MEDIA_ROOT = '/var/www/artist_portfolio/media'
 else:
@@ -258,13 +261,13 @@ CSRF_FAILURE_VIEW = 'django.views.csrf.csrf_failure'
 # pip install django-storages[boto3]
 #
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')  # ID ключа
-# AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')  # Секретний ключ
-# AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')  # назва Bucket
-# AWS_S3_REGION_NAME = 'us-west-000'  # це стандартний регіон Backblaze
-# AWS_S3_ENDPOINT_URL = 'https://s3.us-west-000.backblazeb2.com'  # Домен для публічних файлів
-# AWS_QUERYSTRING_AUTH = False  # False для публічних файлів, True для приватних
-# AWS_DEFAULT_ACL = None  # Встановлено "None", щоб не було обмежень за ACL
+# AWS_ACCESS_KEY_ID = env('B2_ACCESS_KEY_ID')  # ID key
+# AWS_SECRET_ACCESS_KEY = env('B2_SECRET_ACCESS_KEY')  # The secret key
+# AWS_STORAGE_BUCKET_NAME = env('B2_BUCKET_NAME')  # Bucket name
+# AWS_S3_REGION_NAME = 'us-west-000'  # standard Backblaze region
+# AWS_S3_ENDPOINT_URL = 'https://s3.us-west-000.backblazeb2.com'  # Domain for public files
+# AWS_QUERYSTRING_AUTH = False  # False for public files, True for private files
+# AWS_DEFAULT_ACL = None  # Set to "None" so that there are no ACL restrictions
 
 
 CACHES = {
