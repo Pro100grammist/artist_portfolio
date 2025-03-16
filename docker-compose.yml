@@ -5,14 +5,14 @@ services:
     build: ./artist_portfolio # Django app
     container_name: artist_backend
     restart: always
-    env_file: .env
+    # env_file: .env # only if you have environment variables (secret files) in /etc/secrets/.env
     ports:
       - "8000:8000"
     # depends_on: # if you need to switch on PostgreSQL, comment out this line and db block
     #   - db
 
   frontend:
-    build: ./frontend # Vue.js app
+    build: ./frontend/3d-gallery # Vue.js app
     container_name: artist_frontend
     restart: always
     ports:

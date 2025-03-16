@@ -14,7 +14,6 @@ ENV/
 # Django
 *.log
 *.pot
-*.sqlite3
 *.pdb
 local_settings.py
 instance/
@@ -66,7 +65,6 @@ pip-delete-this-directory.txt
 .env.*
 
 temp/
-node_modules/
 
 
 # local env files

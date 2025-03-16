@@ -22,7 +22,7 @@ jobs:
       - name: Build and push Docker images
         run: |
           docker build -t pro100grammer/artist_backend:latest ./artist_portfolio
-          docker build -t pro100grammer/artist_frontend:latest ./frontend
+          docker build -t pro100grammer/artist_frontend:latest ./frontend/3d-gallery
           docker push pro100grammer/artist_backend:latest
           docker push pro100grammer/artist_frontend:latest
 
