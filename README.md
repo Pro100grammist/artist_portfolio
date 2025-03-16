@@ -47,10 +47,17 @@ venv\Scripts\activate  # Windows
 pip install -r requirements.txt
 ```
 
-Create an `.env' file with variables:
+Create an `.env' file in artist_portfolio dir with variables:
 ```
+
 SECRET_KEY=your_secret_key
-DEBUG=True
+
+#optional
+EMAIL_HOST_PASSWORD=your_email_host_password
+CLIENT_ID=Google Client ID 
+CLIENT_SECRET=Google Client
+API_KEY
+PHONE_NUMBER
 DATABASE_URL=sqlite:///db.sqlite3  # or PostgreSQL
 REDIS_URL=redis://localhost:6379/0
 ```

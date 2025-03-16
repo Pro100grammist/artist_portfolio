@@ -13,6 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const djangoBaseUrl = "http://127.0.0.1:8000";
     const vueAppUrl = "http://192.168.0.157:8080";
 
+    // Production server domain on Render (https://render.com)
+    // const djangoBaseUrl = "https://artist-portfolio-fquo.onrender.com";
+    // const vueAppUrl = "https://artist-portfolio.onrender.com";
+
     document.querySelectorAll(".featured-work").forEach((item) => {
         item.addEventListener("click", () => {
             const imgSrc = item.getAttribute("data-image"); // "/media/gallery/<image_file.jpg>"

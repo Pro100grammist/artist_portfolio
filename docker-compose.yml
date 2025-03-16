@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./artist_portfolio # Django app
+    container_name: artist_backend
+    restart: always
+    env_file: .env
+    ports:
+      - "8000:8000"
+    # depends_on: # if you need to switch on PostgreSQL, comment out this line and db block
+    #   - db
+
+  frontend:
+    build: ./frontend # Vue.js app
+    container_name: artist_frontend
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+  nginx:
+    image: nginx:alpine
+    container_name: artist_nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+      - frontend
+
+  # db:
+  #   image: postgres:15
+  #   container_name: artist_db
+  #   restart: always
+  #   env_file: .env
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - pg_data:/var/lib/postgresql/data
+
+# volumes:
+#   pg_data:

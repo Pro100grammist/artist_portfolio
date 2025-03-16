@@ -15,7 +15,6 @@ ENV/
 *.log
 *.pot
 *.sqlite3
-db.sqlite3
 *.pdb
 local_settings.py
 instance/
@@ -46,17 +45,9 @@ coverage.xml
 *.coveragerc
 *.pytest_cache
 
-# Static and media files
-static/
-media/
-*.jpg
-*.mp4
-
-
 # Packages
 *.egg
 *.egg-info/
-dist/
 build/
 eggs/
 parts/
@@ -76,10 +67,6 @@ pip-delete-this-directory.txt
 
 temp/
 node_modules/
-
-.DS_Store
-node_modules
-/dist
 
 
 # local env files
