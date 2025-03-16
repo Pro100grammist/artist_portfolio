@@ -9,13 +9,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeButton = document.querySelector(".close-button");
     const viewInGalleryBtn = document.getElementById("view-in-gallery");
 
-    // Test server domain (Change during production to the IP or port on which the server is listening)
-    const djangoBaseUrl = "http://127.0.0.1:8000";
-    const vueAppUrl = "http://192.168.0.157:8080";
+    // define the URL
+    let djangoBaseUrl, vueAppUrl;
 
-    // Production server domain on Render (https://render.com)
-    // const djangoBaseUrl = "https://artist-portfolio-fquo.onrender.com";
-    // const vueAppUrl = "https://artist-portfolio.onrender.com";
+    if (
+        window.location.hostname === "127.0.0.1" ||
+        window.location.hostname === "localhost"
+    ) {
+        // Local development
+        djangoBaseUrl = "http://127.0.0.1:8000";
+        vueAppUrl = "http://192.168.0.157:8080";
+    } else {
+        // Production on Render
+        djangoBaseUrl = "https://artist-portfolio-fquo.onrender.com";
+        vueAppUrl = "https://artist-portfolio-3d-gallery.onrender.com";
+    }
 
     document.querySelectorAll(".featured-work").forEach((item) => {
         item.addEventListener("click", () => {

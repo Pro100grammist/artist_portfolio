@@ -9,8 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
-import environ
+import os
 
 from pathlib import Path
 
@@ -22,20 +21,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-env = environ.Env()
-environ.Env.read_env()
+ENVIRONMENT = os.getenv("DJANGO_ENV", "development")
+
+if ENVIRONMENT == "development":
+    import environ
+    env = environ.Env()
+    environ.Env.read_env()
+
 SECRET_KEY = env("SECRET_KEY")
 CLIENT_ID = env("CLIENT_ID")
 CLIENT_SECRET = env("CLIENT_SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = ['*']
-
+# ALLOWED_HOSTS
+if ENVIRONMENT == "development":
+    ALLOWED_HOSTS = ['*']
+else:
+    ALLOWED_HOSTS = [
+        "artist-portfolio-fquo.onrender.com",
+        "artist-portfolio-3d-gallery.onrender.com",
+    ]
 
 # Application definition
-
 INSTALLED_APPS = [
     "corsheaders",
     'admin_interface',
@@ -92,9 +101,16 @@ MIDDLEWARE = [
 
 MIDDLEWARE.insert(1, "django_otp.middleware.OTPMiddleware")
 
-CORS_ALLOWED_ORIGINS = [
-    "http://192.168.0.157:8080",
-]
+# CORS
+if ENVIRONMENT == "development":
+    CORS_ALLOWED_ORIGINS = [
+        "http://192.168.0.157:8080",  # for local server only
+    ]
+else:
+    CORS_ALLOWED_ORIGINS = [
+        "https://artist-portfolio-fquo.onrender.com",
+        "https://artist-portfolio-3d-gallery.onrender.com",
+    ]
 
 ROOT_URLCONF = 'artist_portfolio.urls'
 
@@ -200,8 +216,16 @@ SOCIALACCOUNT_PROVIDERS = {
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+if ENVIRONMENT == "production":
+    STATIC_ROOT = BASE_DIR / 'staticfiles'  # For the production environment
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+if ENVIRONMENT == "production":
+    MEDIA_URL = 'https://artist-portfolio-fquo.onrender.com/media/'  # for the production server
+    MEDIA_ROOT = '/var/www/artist_portfolio/media'
+else:
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
