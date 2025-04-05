@@ -221,12 +221,17 @@ if ENVIRONMENT == "production":
     STATIC_ROOT = BASE_DIR / 'staticfiles'  # For the production environment
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
-if ENVIRONMENT == "production":
+    # Setting up storage integration Backblaze B2 with Django
+    # pip install django-storages[boto3]
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    AWS_ACCESS_KEY_ID = env("B2_ACCESS_KEY_ID")  # ID key
+    AWS_SECRET_ACCESS_KEY = env("B2_SECRET_ACCESS_KEY")  # The secret key
+    AWS_STORAGE_BUCKET_NAME = env("B2_BUCKET_NAME")  # Bucket name
+    AWS_S3_REGION_NAME = "eu-central-003"
+    AWS_S3_ENDPOINT_URL = "https://s3.eu-central-003.backblazeb2.com"  # Endpoint URL
+    AWS_QUERYSTRING_AUTH = True  # False for public files, True for private files
+    AWS_DEFAULT_ACL = None  # Set to "None" so that there are no ACL restrictions
 
-    # MEDIA_URL = 'https://s3.us-west-000.backblazeb2.com/<bucket-name>/'  # for cloud storage Backblaze B2
-
-    MEDIA_URL = 'https://artist-portfolio-fquo.onrender.com/media/'  # for the production server
-    MEDIA_ROOT = '/var/www/artist_portfolio/media'
 else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
@@ -255,19 +260,6 @@ PHONE_NUMBER = env("PHONE_NUMBER")
 
 
 CSRF_FAILURE_VIEW = 'django.views.csrf.csrf_failure'
-
-
-# Setting up storage integration Backblaze B2 with Django
-# pip install django-storages[boto3]
-#
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# AWS_ACCESS_KEY_ID = env('B2_ACCESS_KEY_ID')  # ID key
-# AWS_SECRET_ACCESS_KEY = env('B2_SECRET_ACCESS_KEY')  # The secret key
-# AWS_STORAGE_BUCKET_NAME = env('B2_BUCKET_NAME')  # Bucket name
-# AWS_S3_REGION_NAME = 'us-west-000'  # standard Backblaze region
-# AWS_S3_ENDPOINT_URL = 'https://s3.us-west-000.backblazeb2.com'  # Domain for public files
-# AWS_QUERYSTRING_AUTH = False  # False for public files, True for private files
-# AWS_DEFAULT_ACL = None  # Set to "None" so that there are no ACL restrictions
 
 
 CACHES = {
