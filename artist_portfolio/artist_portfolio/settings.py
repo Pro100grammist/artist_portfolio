@@ -232,6 +232,8 @@ if ENVIRONMENT == "production":
     AWS_QUERYSTRING_AUTH = True  # False for public files, True for private files
     AWS_DEFAULT_ACL = None  # Set to "None" so that there are no ACL restrictions
 
+    MEDIA_URL = "https://artist-portfolio-media.s3.eu-central-003.backblazeb2.com/"
+
 else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
