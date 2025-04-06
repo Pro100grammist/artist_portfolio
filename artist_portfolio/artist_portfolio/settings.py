@@ -78,6 +78,7 @@ INSTALLED_APPS = [
 
     'phonenumber_field',
     'django_countries',
+    'storages',
 
     'core',
     'gallery',
