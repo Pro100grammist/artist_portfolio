@@ -229,7 +229,7 @@ if ENVIRONMENT == "production":
     AWS_STORAGE_BUCKET_NAME = env("B2_BUCKET_NAME")  # Bucket name
     AWS_S3_REGION_NAME = "eu-central-003"
     AWS_S3_ENDPOINT_URL = "https://s3.eu-central-003.backblazeb2.com"  # Endpoint URL
-    AWS_QUERYSTRING_AUTH = True  # False for public files, True for private files
+    AWS_QUERYSTRING_AUTH = False  # False for public files, True for private files
     AWS_DEFAULT_ACL = None  # Set to "None" so that there are no ACL restrictions
 
     MEDIA_URL = "https://artist-portfolio-media.s3.eu-central-003.backblazeb2.com/"
