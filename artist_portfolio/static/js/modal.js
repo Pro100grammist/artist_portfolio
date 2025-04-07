@@ -1,5 +1,3 @@
-console.log("modal.js loaded");
-
 document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("painting-modal");
     const modalImg = document.getElementById("modal-painting-img");
@@ -27,9 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll(".featured-work").forEach((item) => {
         item.addEventListener("click", () => {
-            const imgSrc = item.getAttribute("data-image"); // "/media/gallery/<image_file.jpg>"
-            const fullImgSrc = `${djangoBaseUrl}${imgSrc}`;
-            const encodedImgSrc = encodeURIComponent(fullImgSrc);
+            const fullImgSrc = item.getAttribute("data-image");
 
             modalImg.src = fullImgSrc;
             modalTitle.textContent = item.getAttribute("data-title");
@@ -39,9 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 "data-price"
             )}`;
 
+            const encodedImgSrc = encodeURIComponent(fullImgSrc);
             viewInGalleryBtn.href = `${vueAppUrl}/?image=${encodedImgSrc}`;
-
-            console.log("Оновлений href:", viewInGalleryBtn.href);
 
             modal.classList.add("visible");
         });
