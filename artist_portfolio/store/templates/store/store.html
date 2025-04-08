@@ -70,7 +70,7 @@
                     Acrylic
                 </label>
                 
-                <!-- Price. -->
+                <!-- Price -->
                 <h3>Price.</h3>
                 <input type="number" name="price_min" placeholder="Min Price" value="{{ request.GET.price_min }}">
                 <input type="number" name="price_max" placeholder="Max Price" value="{{ request.GET.price_max }}">
@@ -93,11 +93,11 @@
             </div>
         </aside>
 
-        <!-- Основний вміст -->
+        <!-- Main content -->
         <main class="products">
             <div class="top-panel">
 
-                <!-- Сортування та корзина -->
+                <!-- Sort and cart -->
                 <div class="sorting-cart">
                     <form method="get" action="" class="sorting-form">
                         {% for key, value in request.GET.items %}
@@ -130,13 +130,21 @@
                 </div>
 
 
-            <!-- Сітка з продуктами -->
+            <!-- A grid with products -->
             <div class="product-grid">
                 {% for product in products %}
                     <div class="product-card">
-                        <a href="{{ product.image.url }}" target="_blank">
-                            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width: 200px;">
-                        </a>
+                        <img
+                            src="{{ product.image.url }}"
+                            alt="{{ product.name }}"
+                            class="featured-work"
+                            data-id="{{ product.id }}"
+                            data-image="{{ product.image.url }}"
+                            data-title="{{ product.name }}"
+                            data-description="{{ product.description }}"
+                            data-price="{{ product.price }}"
+                            style="max-width: 200px; cursor: pointer;"
+                        >
                         <div class="product-info">
                             <h2>{{ product.name }}</h2>
                             <p>${{ product.price }}</p>
@@ -153,7 +161,7 @@
                 {% endfor %}
             </div>
 
-            <!-- Пагінація -->
+            <!-- Pagination -->
             {% if is_paginated %}
                 <nav>
                     <ul class="pagination">
@@ -179,4 +187,5 @@
 
 {% block extra_scripts %}
 <script src="{% static 'js/store.js' %}"></script>
+<script src="{% static 'js/modal.js' %}"></script>
 {% endblock %}

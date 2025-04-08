@@ -4,7 +4,7 @@
 {% block title %}Home | Artist Portfolio{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
+<!-- Welcome Section -->
 <section class="hero" data-aos="fade-in">
     <div class="video-bg">
         <video autoplay muted loop>
@@ -67,26 +67,6 @@
         <a href="/contact/" class="btn">Contact Me</a>
     </div>
 </section>
-
-<!-- Modal -->
-<div id="painting-modal" class="modal hidden">
-    <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <div class="modal-image">
-            <img id="modal-painting-img" src="" alt="Painting">
-        </div>
-        <div class="modal-description">
-            <h3 id="modal-title">Title</h3>
-            <p id="modal-description">Description</p>
-            <p id="modal-price">Price</p>
-            <div class="modal-buttons">
-                <a id="view-in-gallery" href="#" target="_blank" class="btn">View in Gallery</a>
-                <a href="/store/" class="btn purchase-btn">Purchase</a>
-            </div>
-        </div>
-    </div>
-</div>
-
 {% endblock %}
 
 
