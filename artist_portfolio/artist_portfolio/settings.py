@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "django.contrib.sites",
+    'django.contrib.flatpages',
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -96,6 +97,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
@@ -190,7 +192,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-SITE_ID = 1
+SITE_ID = int(env("SITE_ID"))  # for prod KEY: SITE_ID / VALUE: 5
 
 # Automatic redirect after login
 LOGIN_REDIRECT_URL = "/profile/"

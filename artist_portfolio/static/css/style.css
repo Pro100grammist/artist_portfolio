@@ -1330,3 +1330,53 @@ video {
 }
 
 
+/* Privacy Policy Page */
+.policy-container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 30px 40px;
+    background-color: #fdfdfd;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+.policy-container h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #222;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.policy-container h2 {
+    font-size: 1.4rem;
+    margin-top: 30px;
+    color: #444;
+}
+
+.policy-container p {
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.policy-container ul {
+    margin: 15px 0 30px 20px;
+    padding-left: 20px;
+}
+
+.policy-container ul li {
+    margin-bottom: 10px;
+    list-style-type: disc;
+}
+
+.policy-container a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.policy-container a:hover {
+    text-decoration: underline;
+}

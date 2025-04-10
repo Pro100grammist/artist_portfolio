@@ -13,10 +13,10 @@
 <!-- A bar with links below the header -->
 <div class="subheader">
     <ul>
-        <li><a href="#">Payment and delivery</a></li>
-        <li><a href="#">Exchange and refunds</a></li>
-        <li><a href="#">Privacy policy</a></li>
-        <li><a href="#">User agreement</a></li>
+        <li><a href="{% url 'store:payment-and-delivery' %}">Payment and delivery</a></li>
+        <li><a href="{% url 'store:exchange-and-refunds' %}">Exchange and refunds</a></li>
+        <li><a href="{% url 'store:privacy-policy' %}">Privacy policy</a></li>
+        <li><a href="{% url 'store:user-agreement' %}">User agreement</a></li>
     </ul>
 </div>
 

@@ -1,6 +1,4 @@
 from django.shortcuts import render
-from django.db.models import Q
-from django.http import JsonResponse
 from django.views.generic.list import ListView
 from django_filters.views import FilterView
 
@@ -51,3 +49,19 @@ def cart_view(request):
     Displays the shopping cart page.
     """
     return render(request, 'store/cart.html', {})
+
+
+def payment_and_delivery(request):
+    return render(request, "store/payment_and_delivery.html")
+
+
+def exchange_and_refunds(request):
+    return render(request, "store/exchange_and_refunds.html")
+
+
+def privacy_policy(request):
+    return render(request, "store/privacy_policy.html")
+
+
+def user_agreement(request):
+    return render(request, "store/user_agreement.html")
