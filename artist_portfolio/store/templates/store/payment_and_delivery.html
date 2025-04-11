@@ -1,16 +1,32 @@
 {% extends "base.html" %}
+{% load static %}
+
 {% block title %}Payment and Delivery{% endblock %}
 
 {% block content %}
-<div class="policy-container">
-    <h1>Payment and Delivery</h1>
-    <p>We offer several convenient payment methods: credit card, PayPal, and bank transfer.</p>
-    <h2>Delivery</h2>
-    <p>We deliver worldwide via reliable carriers. Estimated delivery time is 3–7 business days.</p>
-    <ul>
-        <li>Standard shipping: $10</li>
-        <li>Free shipping on orders over $100</li>
-    </ul>
-    <p>If you have any questions, please <a href="/contact/">contact us</a>.</p>
-</div>
+<section class="payment-delivery-page">
+    <div class="container">
+        <h1 class="page-title">Payment and Delivery</h1>
+
+        <div class="payment-methods">
+            <h2>Payment Methods</h2>
+            <p>We offer several payment methods for your convenience:</p>
+            <ul>
+                <li><strong>Bank Transfer:</strong> Pay directly to our bank account. Details will be provided during checkout.</li>
+                <li><strong>PayPal:</strong> Secure payment via PayPal. Choose this option during checkout to complete your payment.</li>
+                <li><strong>Credit/Debit Card:</strong> Pay via credit or debit card using our secure payment gateway.</li>
+                <li><strong>Cryptocurrency:</strong> We accept payments in selected cryptocurrencies. Contact us for further details.</li>
+            </ul>
+            <p><strong>Note:</strong> All payments are processed before shipment. Orders will only be shipped after full payment is received.</p>
+        </div>
+
+        <div class="delivery-info">
+            <h2>Delivery Information</h2>
+            <p>Orders are processed and shipped only after the payment is complete. We offer shipping to various locations worldwide.</p>
+            <p><strong>Free Shipping:</strong> For orders over $1000, we provide free delivery.</p>
+            <p><strong>Delivery Times:</strong> Standard delivery times are between 5-10 business days depending on your location. Please note that delivery times may vary due to the pandemic or other circumstances beyond our control.</p>
+            <p>If you have any questions regarding payment or delivery, feel free to <a href="{% url 'contact' %}">contact us</a> for more information.</p>
+        </div>
+    </div>
+</section>
 {% endblock %}

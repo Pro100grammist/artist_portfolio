@@ -266,6 +266,8 @@ PHONE_NUMBER = env("PHONE_NUMBER")
 
 CSRF_FAILURE_VIEW = 'django.views.csrf.csrf_failure'
 
+FLATPAGE_TEMPLATE_NAME = "flatpages/default.html"
+
 
 CACHES = {
     'default': {

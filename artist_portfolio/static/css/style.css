@@ -360,6 +360,34 @@ a:hover .footer-logo {
     background: #0056b3;
 }
 
+.contact-page {
+    padding: 60px 0;
+    background-color: #0f0f0f;
+    /* або будь-який фон, якщо без картинки */
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+}
+
+.contact-form,
+.contact-info {
+    background-color: rgba(0, 0, 0, 0.6);
+    /* прозорий блок для кращої читабельності */
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.contact-info p {
+    margin: 8px 0;
+}
+
+.contact-info img {
+    height: 40px;
+    margin: 0 10px;
+    vertical-align: middle;
+}
+
 .video-bg {
     position: absolute;
     top: 0;
