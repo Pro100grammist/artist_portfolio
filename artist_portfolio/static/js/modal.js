@@ -7,6 +7,47 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeButton = document.querySelector(".close-button");
     const viewInGalleryBtn = document.getElementById("view-in-gallery");
     const purchaseBtn = document.querySelector(".purchase-btn");
+    const lens = document.getElementById("magnifier-lens");
+    const img = document.getElementById("modal-painting-img");
+
+    img.addEventListener("mouseenter", () => {
+        lens.style.display = "block";
+        lens.style.backgroundImage = `url('${img.src}')`;
+    });
+
+    img.addEventListener("mouseleave", () => {
+        lens.style.display = "none";
+    });
+
+    img.addEventListener("mousemove", moveLens);
+
+    function moveLens(e) {
+        const rect = img.getBoundingClientRect();
+        const lensSize = 120;
+        const zoom = 2;
+
+        // координати курсора відносно картинки
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // не виходити за межі картинки
+        const boundedX = Math.max(Math.min(x, img.width), 0);
+        const boundedY = Math.max(Math.min(y, img.height), 0);
+
+        // позиція лінзи (центрована)
+        lens.style.left = `${boundedX - lensSize / 2}px`;
+        lens.style.top = `${boundedY - lensSize / 2}px`;
+
+        // фон для лінзи (збільшена область)
+        lens.style.backgroundSize = `${img.width * zoom}px ${
+            img.height * zoom
+        }px`;
+        lens.style.backgroundPosition = `-${
+            boundedX * zoom - lensSize / 2
+        }px -${boundedY * zoom - lensSize / 2}px`;
+    }
+    
+    
 
     // define the URL
     let djangoBaseUrl, vueAppUrl;
@@ -38,7 +79,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             modalImg.src = fullImgSrc;
             modalTitle.textContent = item.getAttribute("data-title");
-            modalDescription.textContent = item.getAttribute("data-description");
+            // modalDescription.textContent = item.getAttribute("data-description");
+            modalDescription.innerHTML = item
+                .getAttribute("data-description")
+                .replace(/\n/g, "<br>");
+
             modalPrice.textContent = `Price: ${item.getAttribute("data-price")}`;
 
             const encodedImgSrc = encodeURIComponent(fullImgSrc);
