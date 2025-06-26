@@ -26,19 +26,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const lensSize = 120;
         const zoom = 2;
 
-        // координати курсора відносно картинки
+        // coordinates of the cursor relative to the picture
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        // не виходити за межі картинки
+        // do not go beyond the picture
         const boundedX = Math.max(Math.min(x, img.width), 0);
         const boundedY = Math.max(Math.min(y, img.height), 0);
-
-        // позиція лінзи (центрована)
+        // lens position (centered)
         lens.style.left = `${boundedX - lensSize / 2}px`;
         lens.style.top = `${boundedY - lensSize / 2}px`;
 
-        // фон для лінзи (збільшена область)
+        // background for the lens (enlarged area)
         lens.style.backgroundSize = `${img.width * zoom}px ${
             img.height * zoom
         }px`;

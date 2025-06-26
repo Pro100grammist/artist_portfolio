@@ -17,7 +17,7 @@ class Order(models.Model):
     ]
 
     # Binding to a registered user
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="orders")
     status = models.CharField(
         max_length=20, choices=STATUS_CHOICES, default="AwaitingPayment"
     )
@@ -45,7 +45,9 @@ class Order(models.Model):
     comment = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"Order {self.id} by {self.user.username}"
+        if self.user:
+            return f"Order {self.id} by {self.user.username}"
+        return f"Order {self.id} (Guest)"
 
 
 class OrderItem(models.Model):
