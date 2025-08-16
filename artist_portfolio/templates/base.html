@@ -45,6 +45,14 @@
                     </a>
                 </div>
 
+                <!-- Burger menu button -->
+                <button class="burger" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <!-- Navigation menu -->
                 <nav>
                     <ul>
                         <li><a href="/">Home</a></li>
@@ -54,27 +62,23 @@
                         <li><a href="/contact/">Contact</a></li>
                     </ul>
                 </nav>
+
+                <!-- Login/registration buttons -->
+
                 <div class="auth-links">
-                    {% if user.is_authenticated %} {% if user.is_superuser %}
-                    <button onclick="window.location='/admin/'">
-                        AdminPanel
-                    </button>
+                    {% if user.is_authenticated %}
+                        {% if user.is_superuser %}
+                            <button onclick="window.location='/admin/'">AdminPanel</button>
+                        {% else %}
+                            <button onclick="window.location='{% url 'users:profile' %}'">Profile</button>
+                        {% endif %}
+                        <form method="post" action="{% url 'users:logout' %}">
+                            {% csrf_token %}
+                            <button type="submit">Logout</button>
+                        </form>
                     {% else %}
-                    <button onclick="window.location='{% url 'users:profile' %}'">
-                        Profile
-                    </button>
-                    {% endif %}
-                    <form method="post" action="{% url 'users:logout' %}">
-                        {% csrf_token %}
-                        <button type="submit">Logout</button>
-                    </form>
-                    {% else %}
-                    <button onclick="window.location='{% url 'users:login' %}'">
-                        Login
-                    </button>
-                    <button onclick="window.location='{% url 'users:register' %}'">
-                        Register
-                    </button>
+                        <button onclick="window.location='{% url 'users:login' %}'">Login</button>
+                        <button onclick="window.location='{% url 'users:register' %}'">Register</button>
                     {% endif %}
                 </div>
             </div>

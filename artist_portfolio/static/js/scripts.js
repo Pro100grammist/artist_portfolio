@@ -1,22 +1,33 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const swiper = new Swiper(".swiper-container", {
-      slidesPerView: 3, // Number of visible slides
-      spaceBetween: 20, // Distance between slides
-      centeredSlides: true, // Center slide in the middle
-      loop: true, // Cyclic carousel
-      effect: "coverflow", // 3D Coverflow effect
-      coverflowEffect: {
-          rotate: 50, // Slide rotation angle
-          stretch: 0, // Stretch slides
-          depth: 100, // Depth in 3D space
-          modifier: 1, // Intensity of the effect
-          slideShadows: true, // Shadows for slides
-      },
-      navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-      },
-  });
+    const swiper = new Swiper(".swiper-container", {
+        slidesPerView: 3, // Number of visible slides
+        spaceBetween: 20, // Distance between slides
+        centeredSlides: true, // Center slide in the middle
+        loop: true, // Cyclic carousel
+        effect: "coverflow", // 3D Coverflow effect
+        coverflowEffect: {
+            rotate: 50, // Slide rotation angle
+            stretch: 0, // Stretch slides
+            depth: 100, // Depth in 3D space
+            modifier: 1, // Intensity of the effect
+            slideShadows: true, // Shadows for slides
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+
+    const burger = document.querySelector(".burger");
+    const nav = document.querySelector("header nav");
+    const auth = document.querySelector("header .auth-links");
+
+    if (burger && nav && auth) {
+        burger.addEventListener("click", () => {
+            nav.classList.toggle("active");
+            auth.classList.toggle("active");
+        });
+    }
 });
 
 document.querySelectorAll(".glow-button").forEach((button) => {
@@ -32,21 +43,20 @@ document.querySelectorAll(".glow-button").forEach((button) => {
 
 // Function to show a pop-up assistant
 function showAssistantPopup() {
-    const popup = document.getElementById('assistant-popup');
-    popup.classList.remove('hidden');
+    const popup = document.getElementById("assistant-popup");
+    popup.classList.remove("hidden");
 }
 
 // Function to hide the pop-up assistant
 function closeAssistantPopup() {
-    const popup = document.getElementById('assistant-popup');
-    popup.classList.add('hidden');
+    const popup = document.getElementById("assistant-popup");
+    popup.classList.add("hidden");
 }
 
 // Assistant readings in 30 seconds
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
     setTimeout(showAssistantPopup, 30000);
 });
-
 
 // Connecting and rendering Lottie icons
 document.addEventListener("DOMContentLoaded", function () {
@@ -83,3 +93,42 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+// === DEBUG MODE ===
+(function debugMode() {
+    console.log("✅ Debug mode activated");
+
+    // Перевірка ширини вікна
+    const width = window.innerWidth;
+    console.log(`📱 Window width: ${width}px`);
+
+    // Перевірка активного стану бургера та меню
+    const nav = document.querySelector("header nav");
+    const auth = document.querySelector("header .auth-links");
+
+    if (nav && auth) {
+        console.log("✅ nav і auth-links знайдені");
+
+        const navVisible = window.getComputedStyle(nav).display;
+        const authVisible = window.getComputedStyle(auth).display;
+        console.log(`📦 nav display: ${navVisible}`);
+        console.log(`🔒 auth-links display: ${authVisible}`);
+    } else {
+        console.warn("❌ nav або auth-links не знайдені в DOM");
+    }
+
+    // Перевірка чи стиль style.css був підключений
+    const foundStyle = [...document.styleSheets].some(sheet => sheet.href && sheet.href.includes("style.css"));
+    if (foundStyle) {
+        console.log("🎨 style.css успішно підключений");
+    } else {
+        console.warn("❌ style.css не знайдено — можливо кеш або помилка шляху");
+    }
+
+    // Перевірка font-size заголовку
+    const welcome = document.querySelector(".welcome-text");
+    if (welcome) {
+        const size = window.getComputedStyle(welcome).fontSize;
+        console.log(`📝 .welcome-text font-size: ${size}`);
+    }
+})();
