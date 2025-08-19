@@ -42,7 +42,8 @@
                         data-image="{{ artwork.image.url }}" 
                         data-title="{{ artwork.title }}" 
                         data-description="{{ artwork.description }}" 
-                        data-price="${{ artwork.price }}">
+                        {% comment %} data-price="${{ artwork.price }}" {% endcomment %}
+                        >
                 </div>
                 {% endfor %}
             </div>

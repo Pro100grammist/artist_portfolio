@@ -23,6 +23,7 @@ class ProductListView(FilterView, ListView):
         """
         # Getting a QuerySet through a parent class
         queryset = super().get_queryset()
+        queryset = queryset.select_related("category")
 
         # Additional sorting if the `sort` parameter is present
         sort = self.request.GET.get('sort')
@@ -40,7 +41,7 @@ class ProductListView(FilterView, ListView):
         Adds a list of categories to the template context.
         """
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
+        context["categories"] = Category.objects.prefetch_related("product_set").all()
         return context
 
 

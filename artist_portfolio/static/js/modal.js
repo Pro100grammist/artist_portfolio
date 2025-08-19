@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalImg = document.getElementById("modal-painting-img");
     const modalTitle = document.getElementById("modal-title");
     const modalDescription = document.getElementById("modal-description");
-    const modalPrice = document.getElementById("modal-price");
+    // const modalPrice = document.getElementById("modal-price");
     const closeButton = document.querySelector(".close-button");
     const viewInGalleryBtn = document.getElementById("view-in-gallery");
     const purchaseBtn = document.querySelector(".purchase-btn");
@@ -83,7 +83,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 .getAttribute("data-description")
                 .replace(/\n/g, "<br>");
 
-            modalPrice.textContent = `Price: ${item.getAttribute("data-price")}`;
+            // if (modalPrice) {
+            //     modalPrice.textContent = `Price: ${item.getAttribute(
+            //         "data-price"
+            //     )}`;
+            // }
+
 
             const encodedImgSrc = encodeURIComponent(fullImgSrc);
 

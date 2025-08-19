@@ -14,7 +14,11 @@
         ],
         "files": [
             "db.sqlite3",
-            "manage.py"
+            "Dockerfile",
+            "manage.py",
+            "package-lock.json",
+            "package.json",
+            "requirements.txt"
         ]
     },
     "artist_portfolio": {
@@ -33,10 +37,10 @@
     "artist_portfolio\\__pycache__": {
         "directories": [],
         "files": [
-            "settings.cpython-313.pyc",
-            "urls.cpython-313.pyc",
-            "wsgi.cpython-313.pyc",
-            "__init__.cpython-313.pyc"
+            "settings.cpython-312.pyc",
+            "urls.cpython-312.pyc",
+            "wsgi.cpython-312.pyc",
+            "__init__.cpython-312.pyc"
         ]
     },
     "cart": {
@@ -69,9 +73,9 @@
     "cart\\migrations\\__pycache__": {
         "directories": [],
         "files": [
-            "0001_initial.cpython-313.pyc",
-            "0002_alter_cart_created_at_alter_cart_session_key_and_more.cpython-313.pyc",
-            "__init__.cpython-313.pyc"
+            "0001_initial.cpython-312.pyc",
+            "0002_alter_cart_created_at_alter_cart_session_key_and_more.cpython-312.pyc",
+            "__init__.cpython-312.pyc"
         ]
     },
     "cart\\templates": {
@@ -89,13 +93,13 @@
     "cart\\__pycache__": {
         "directories": [],
         "files": [
-            "admin.cpython-313.pyc",
-            "apps.cpython-313.pyc",
-            "models.cpython-313.pyc",
-            "signals.cpython-313.pyc",
-            "urls.cpython-313.pyc",
-            "views.cpython-313.pyc",
-            "__init__.cpython-313.pyc"
+            "admin.cpython-312.pyc",
+            "apps.cpython-312.pyc",
+            "models.cpython-312.pyc",
+            "signals.cpython-312.pyc",
+            "urls.cpython-312.pyc",
+            "views.cpython-312.pyc",
+            "__init__.cpython-312.pyc"
         ]
     },
     "core": {
@@ -129,10 +133,10 @@
     "core\\migrations\\__pycache__": {
         "directories": [],
         "files": [
-            "0001_initial.cpython-313.pyc",
-            "0002_contactmessage.cpython-313.pyc",
-            "0003_alter_contactmessage_created_at_and_more.cpython-313.pyc",
-            "__init__.cpython-313.pyc"
+            "0001_initial.cpython-312.pyc",
+            "0002_contactmessage.cpython-312.pyc",
+            "0003_alter_contactmessage_created_at_and_more.cpython-312.pyc",
+            "__init__.cpython-312.pyc"
         ]
     },
     "core\\templates": {
@@ -152,13 +156,13 @@
     "core\\__pycache__": {
         "directories": [],
         "files": [
-            "admin.cpython-313.pyc",
-            "apps.cpython-313.pyc",
-            "models.cpython-313.pyc",
-            "urls.cpython-313.pyc",
-            "utils.cpython-313.pyc",
-            "views.cpython-313.pyc",
-            "__init__.cpython-313.pyc"
+            "admin.cpython-312.pyc",
+            "apps.cpython-312.pyc",
+            "models.cpython-312.pyc",
+            "urls.cpython-312.pyc",
+            "utils.cpython-312.pyc",
+            "views.cpython-312.pyc",
+            "__init__.cpython-312.pyc"
         ]
     },
     "gallery": {
@@ -186,16 +190,16 @@
     "gallery\\migrations\\__pycache__": {
         "directories": [],
         "files": [
-            "__init__.cpython-313.pyc"
+            "__init__.cpython-312.pyc"
         ]
     },
     "gallery\\__pycache__": {
         "directories": [],
         "files": [
-            "admin.cpython-313.pyc",
-            "apps.cpython-313.pyc",
-            "models.cpython-313.pyc",
-            "__init__.cpython-313.pyc"
+            "admin.cpython-312.pyc",
+            "apps.cpython-312.pyc",
+            "models.cpython-312.pyc",
+            "__init__.cpython-312.pyc"
         ]
     },
     "media": {
@@ -247,7 +251,11 @@
             "store_017.jpeg",
             "store_018.jpeg",
             "store_019.jpeg",
-            "store_020.jpeg"
+            "store_020.jpeg",
+            "store_021.jpeg",
+            "store_022.jpg",
+            "store_023.jpg",
+            "store_024.jpg"
         ]
     },
     "media\\profile_pictures": {
@@ -293,16 +301,18 @@
             "0001_initial.py",
             "0002_order_session_key.py",
             "0003_order_address_order_comment_order_country_and_more.py",
+            "0004_alter_order_user.py",
             "__init__.py"
         ]
     },
     "orders\\migrations\\__pycache__": {
         "directories": [],
         "files": [
-            "0001_initial.cpython-313.pyc",
-            "0002_order_session_key.cpython-313.pyc",
-            "0003_order_address_order_comment_order_country_and_more.cpython-313.pyc",
-            "__init__.cpython-313.pyc"
+            "0001_initial.cpython-312.pyc",
+            "0002_order_session_key.cpython-312.pyc",
+            "0003_order_address_order_comment_order_country_and_more.cpython-312.pyc",
+            "0004_alter_order_user.cpython-312.pyc",
+            "__init__.cpython-312.pyc"
         ]
     },
     "orders\\templates": {
@@ -321,13 +331,13 @@
     "orders\\__pycache__": {
         "directories": [],
         "files": [
-            "admin.cpython-313.pyc",
-            "apps.cpython-313.pyc",
-            "forms.cpython-313.pyc",
-            "models.cpython-313.pyc",
-            "urls.cpython-313.pyc",
-            "views.cpython-313.pyc",
-            "__init__.cpython-313.pyc"
+            "admin.cpython-312.pyc",
+            "apps.cpython-312.pyc",
+            "forms.cpython-312.pyc",
+            "models.cpython-312.pyc",
+            "urls.cpython-312.pyc",
+            "views.cpython-312.pyc",
+            "__init__.cpython-312.pyc"
         ]
     },
     "static": {
@@ -337,6 +347,7 @@
             "icons",
             "images",
             "js",
+            "node_modules",
             "videos"
         ],
         "files": []
@@ -392,6 +403,7 @@
             "1.jpg",
             "artist-photo.jpg",
             "footer_logo.png",
+            "footer_logo.svg",
             "login_page_bgr.jpg",
             "register_page_bgr.jpg"
         ]
@@ -424,6 +436,366 @@
             "profile.js",
             "scripts.js",
             "store.js"
+        ]
+    },
+    "static\\node_modules": {
+        "directories": [
+            "swiper"
+        ],
+        "files": [
+            ".package-lock.json"
+        ]
+    },
+    "static\\node_modules\\swiper": {
+        "directories": [
+            "modules",
+            "shared",
+            "types"
+        ],
+        "files": [
+            "LICENSE",
+            "package.json",
+            "README.md",
+            "swiper-bundle.css",
+            "swiper-bundle.js",
+            "swiper-bundle.min.css",
+            "swiper-bundle.min.js",
+            "swiper-bundle.min.js.map",
+            "swiper-bundle.min.mjs",
+            "swiper-bundle.min.mjs.map",
+            "swiper-bundle.mjs",
+            "swiper-effect-utils.d.ts",
+            "swiper-effect-utils.min.mjs",
+            "swiper-effect-utils.min.mjs.map",
+            "swiper-effect-utils.mjs",
+            "swiper-element-bundle.js",
+            "swiper-element-bundle.min.js",
+            "swiper-element-bundle.min.js.map",
+            "swiper-element-bundle.min.mjs",
+            "swiper-element-bundle.min.mjs.map",
+            "swiper-element-bundle.mjs",
+            "swiper-element.d.ts",
+            "swiper-element.js",
+            "swiper-element.min.js",
+            "swiper-element.min.js.map",
+            "swiper-element.min.mjs",
+            "swiper-element.min.mjs.map",
+            "swiper-element.mjs",
+            "swiper-react.d.ts",
+            "swiper-react.mjs",
+            "swiper-vars.less",
+            "swiper-vars.scss",
+            "swiper-vue.d.ts",
+            "swiper-vue.mjs",
+            "swiper.css",
+            "swiper.d.ts",
+            "swiper.js",
+            "swiper.less",
+            "swiper.min.css",
+            "swiper.min.js",
+            "swiper.min.js.map",
+            "swiper.min.mjs",
+            "swiper.min.mjs.map",
+            "swiper.mjs",
+            "swiper.scss"
+        ]
+    },
+    "static\\node_modules\\swiper\\modules": {
+        "directories": [],
+        "files": [
+            "a11y-element.css",
+            "a11y-element.min.css",
+            "a11y.css",
+            "a11y.less",
+            "a11y.min.css",
+            "a11y.min.mjs",
+            "a11y.min.mjs.map",
+            "a11y.mjs",
+            "a11y.scss",
+            "autoplay-element.css",
+            "autoplay-element.min.css",
+            "autoplay.css",
+            "autoplay.less",
+            "autoplay.min.css",
+            "autoplay.min.mjs",
+            "autoplay.min.mjs.map",
+            "autoplay.mjs",
+            "autoplay.scss",
+            "controller-element.css",
+            "controller-element.min.css",
+            "controller.css",
+            "controller.less",
+            "controller.min.css",
+            "controller.min.mjs",
+            "controller.min.mjs.map",
+            "controller.mjs",
+            "controller.scss",
+            "effect-cards-element.css",
+            "effect-cards-element.min.css",
+            "effect-cards.css",
+            "effect-cards.less",
+            "effect-cards.min.css",
+            "effect-cards.min.mjs",
+            "effect-cards.min.mjs.map",
+            "effect-cards.mjs",
+            "effect-cards.scss",
+            "effect-coverflow-element.css",
+            "effect-coverflow-element.min.css",
+            "effect-coverflow.css",
+            "effect-coverflow.less",
+            "effect-coverflow.min.css",
+            "effect-coverflow.min.mjs",
+            "effect-coverflow.min.mjs.map",
+            "effect-coverflow.mjs",
+            "effect-coverflow.scss",
+            "effect-creative-element.css",
+            "effect-creative-element.min.css",
+            "effect-creative.css",
+            "effect-creative.less",
+            "effect-creative.min.css",
+            "effect-creative.min.mjs",
+            "effect-creative.min.mjs.map",
+            "effect-creative.mjs",
+            "effect-creative.scss",
+            "effect-cube-element.css",
+            "effect-cube-element.min.css",
+            "effect-cube.css",
+            "effect-cube.less",
+            "effect-cube.min.css",
+            "effect-cube.min.mjs",
+            "effect-cube.min.mjs.map",
+            "effect-cube.mjs",
+            "effect-cube.scss",
+            "effect-fade-element.css",
+            "effect-fade-element.min.css",
+            "effect-fade.css",
+            "effect-fade.less",
+            "effect-fade.min.css",
+            "effect-fade.min.mjs",
+            "effect-fade.min.mjs.map",
+            "effect-fade.mjs",
+            "effect-fade.scss",
+            "effect-flip-element.css",
+            "effect-flip-element.min.css",
+            "effect-flip.css",
+            "effect-flip.less",
+            "effect-flip.min.css",
+            "effect-flip.min.mjs",
+            "effect-flip.min.mjs.map",
+            "effect-flip.mjs",
+            "effect-flip.scss",
+            "free-mode-element.css",
+            "free-mode-element.min.css",
+            "free-mode.css",
+            "free-mode.less",
+            "free-mode.min.css",
+            "free-mode.min.mjs",
+            "free-mode.min.mjs.map",
+            "free-mode.mjs",
+            "free-mode.scss",
+            "grid-element.css",
+            "grid-element.min.css",
+            "grid.css",
+            "grid.less",
+            "grid.min.css",
+            "grid.min.mjs",
+            "grid.min.mjs.map",
+            "grid.mjs",
+            "grid.scss",
+            "hash-navigation-element.css",
+            "hash-navigation-element.min.css",
+            "hash-navigation.css",
+            "hash-navigation.less",
+            "hash-navigation.min.css",
+            "hash-navigation.min.mjs",
+            "hash-navigation.min.mjs.map",
+            "hash-navigation.mjs",
+            "hash-navigation.scss",
+            "history-element.css",
+            "history-element.min.css",
+            "history.css",
+            "history.less",
+            "history.min.css",
+            "history.min.mjs",
+            "history.min.mjs.map",
+            "history.mjs",
+            "history.scss",
+            "index.min.mjs",
+            "index.min.mjs.map",
+            "index.mjs",
+            "keyboard-element.css",
+            "keyboard-element.min.css",
+            "keyboard.css",
+            "keyboard.less",
+            "keyboard.min.css",
+            "keyboard.min.mjs",
+            "keyboard.min.mjs.map",
+            "keyboard.mjs",
+            "keyboard.scss",
+            "manipulation-element.css",
+            "manipulation-element.min.css",
+            "manipulation.css",
+            "manipulation.less",
+            "manipulation.min.css",
+            "manipulation.min.mjs",
+            "manipulation.min.mjs.map",
+            "manipulation.mjs",
+            "manipulation.scss",
+            "mousewheel-element.css",
+            "mousewheel-element.min.css",
+            "mousewheel.css",
+            "mousewheel.less",
+            "mousewheel.min.css",
+            "mousewheel.min.mjs",
+            "mousewheel.min.mjs.map",
+            "mousewheel.mjs",
+            "mousewheel.scss",
+            "navigation-element.css",
+            "navigation-element.min.css",
+            "navigation.css",
+            "navigation.less",
+            "navigation.min.css",
+            "navigation.min.mjs",
+            "navigation.min.mjs.map",
+            "navigation.mjs",
+            "navigation.scss",
+            "pagination-element.css",
+            "pagination-element.min.css",
+            "pagination.css",
+            "pagination.less",
+            "pagination.min.css",
+            "pagination.min.mjs",
+            "pagination.min.mjs.map",
+            "pagination.mjs",
+            "pagination.scss",
+            "parallax-element.css",
+            "parallax-element.min.css",
+            "parallax.css",
+            "parallax.less",
+            "parallax.min.css",
+            "parallax.min.mjs",
+            "parallax.min.mjs.map",
+            "parallax.mjs",
+            "parallax.scss",
+            "scrollbar-element.css",
+            "scrollbar-element.min.css",
+            "scrollbar.css",
+            "scrollbar.less",
+            "scrollbar.min.css",
+            "scrollbar.min.mjs",
+            "scrollbar.min.mjs.map",
+            "scrollbar.mjs",
+            "scrollbar.scss",
+            "thumbs-element.css",
+            "thumbs-element.min.css",
+            "thumbs.css",
+            "thumbs.less",
+            "thumbs.min.css",
+            "thumbs.min.mjs",
+            "thumbs.min.mjs.map",
+            "thumbs.mjs",
+            "thumbs.scss",
+            "virtual-element.css",
+            "virtual-element.min.css",
+            "virtual.css",
+            "virtual.less",
+            "virtual.min.css",
+            "virtual.min.mjs",
+            "virtual.min.mjs.map",
+            "virtual.mjs",
+            "virtual.scss",
+            "zoom-element.css",
+            "zoom-element.min.css",
+            "zoom.css",
+            "zoom.less",
+            "zoom.min.css",
+            "zoom.min.mjs",
+            "zoom.min.mjs.map",
+            "zoom.mjs",
+            "zoom.scss"
+        ]
+    },
+    "static\\node_modules\\swiper\\shared": {
+        "directories": [],
+        "files": [
+            "classes-to-selector.min.mjs",
+            "classes-to-selector.min.mjs.map",
+            "classes-to-selector.mjs",
+            "create-element-if-not-defined.min.mjs",
+            "create-element-if-not-defined.min.mjs.map",
+            "create-element-if-not-defined.mjs",
+            "create-shadow.min.mjs",
+            "create-shadow.min.mjs.map",
+            "create-shadow.mjs",
+            "effect-init.min.mjs",
+            "effect-init.min.mjs.map",
+            "effect-init.mjs",
+            "effect-target.min.mjs",
+            "effect-target.min.mjs.map",
+            "effect-target.mjs",
+            "effect-virtual-transition-end.min.mjs",
+            "effect-virtual-transition-end.min.mjs.map",
+            "effect-virtual-transition-end.mjs",
+            "get-element-params.min.mjs",
+            "get-element-params.min.mjs.map",
+            "get-element-params.mjs",
+            "ssr-window.esm.min.mjs",
+            "ssr-window.esm.min.mjs.map",
+            "ssr-window.esm.mjs",
+            "swiper-core.min.mjs",
+            "swiper-core.min.mjs.map",
+            "swiper-core.mjs",
+            "update-on-virtual-data.min.mjs",
+            "update-on-virtual-data.min.mjs.map",
+            "update-on-virtual-data.mjs",
+            "update-swiper.min.mjs",
+            "update-swiper.min.mjs.map",
+            "update-swiper.mjs",
+            "utils.min.mjs",
+            "utils.min.mjs.map",
+            "utils.mjs"
+        ]
+    },
+    "static\\node_modules\\swiper\\types": {
+        "directories": [
+            "modules"
+        ],
+        "files": [
+            "index.d.ts",
+            "shared.d.ts",
+            "swiper-class.d.ts",
+            "swiper-events.d.ts",
+            "swiper-options.d.ts"
+        ]
+    },
+    "static\\node_modules\\swiper\\types\\modules": {
+        "directories": [],
+        "files": [
+            "a11y.d.ts",
+            "autoplay.d.ts",
+            "controller.d.ts",
+            "effect-cards.d.ts",
+            "effect-coverflow.d.ts",
+            "effect-creative.d.ts",
+            "effect-cube.d.ts",
+            "effect-fade.d.ts",
+            "effect-flip.d.ts",
+            "free-mode.d.ts",
+            "grid.d.ts",
+            "hash-navigation.d.ts",
+            "history.d.ts",
+            "index.d.ts",
+            "keyboard.d.ts",
+            "manipulation.d.ts",
+            "mousewheel.d.ts",
+            "navigation.d.ts",
+            "pagination.d.ts",
+            "parallax.d.ts",
+            "public-api.d.ts",
+            "scrollbar.d.ts",
+            "thumbs.d.ts",
+            "virtual.d.ts",
+            "zoom.d.ts"
         ]
     },
     "static\\videos": {
@@ -463,9 +835,9 @@
     "store\\migrations\\__pycache__": {
         "directories": [],
         "files": [
-            "0001_initial.cpython-313.pyc",
-            "0002_alter_product_options_product_is_available.cpython-313.pyc",
-            "__init__.cpython-313.pyc"
+            "0001_initial.cpython-312.pyc",
+            "0002_alter_product_options_product_is_available.cpython-312.pyc",
+            "__init__.cpython-312.pyc"
         ]
     },
     "store\\templates": {
@@ -477,27 +849,38 @@
     "store\\templates\\store": {
         "directories": [],
         "files": [
-            "store.html"
+            "exchange_and_refunds.html",
+            "payment_and_delivery.html",
+            "privacy_policy.html",
+            "store.html",
+            "user_agreement.html"
         ]
     },
     "store\\__pycache__": {
         "directories": [],
         "files": [
-            "admin.cpython-313.pyc",
-            "apps.cpython-313.pyc",
-            "filters.cpython-313.pyc",
-            "models.cpython-313.pyc",
-            "serializers.cpython-313.pyc",
-            "urls.cpython-313.pyc",
-            "views.cpython-313.pyc",
-            "__init__.cpython-313.pyc"
+            "admin.cpython-312.pyc",
+            "apps.cpython-312.pyc",
+            "filters.cpython-312.pyc",
+            "models.cpython-312.pyc",
+            "urls.cpython-312.pyc",
+            "views.cpython-312.pyc",
+            "__init__.cpython-312.pyc"
         ]
     },
     "templates": {
-        "directories": [],
+        "directories": [
+            "flatpages"
+        ],
         "files": [
             "base.html",
             "contact_success.html"
+        ]
+    },
+    "templates\\flatpages": {
+        "directories": [],
+        "files": [
+            "default.html"
         ]
     },
     "users": {
@@ -531,8 +914,8 @@
     "users\\migrations\\__pycache__": {
         "directories": [],
         "files": [
-            "0001_initial.cpython-313.pyc",
-            "__init__.cpython-313.pyc"
+            "0001_initial.cpython-312.pyc",
+            "__init__.cpython-312.pyc"
         ]
     },
     "users\\templates": {
@@ -553,15 +936,15 @@
     "users\\__pycache__": {
         "directories": [],
         "files": [
-            "admin.cpython-313.pyc",
-            "apps.cpython-313.pyc",
-            "forms.cpython-313.pyc",
-            "models.cpython-313.pyc",
-            "signals.cpython-313.pyc",
-            "urls.cpython-313.pyc",
-            "utils.cpython-313.pyc",
-            "views.cpython-313.pyc",
-            "__init__.cpython-313.pyc"
+            "admin.cpython-312.pyc",
+            "apps.cpython-312.pyc",
+            "forms.cpython-312.pyc",
+            "models.cpython-312.pyc",
+            "signals.cpython-312.pyc",
+            "urls.cpython-312.pyc",
+            "utils.cpython-312.pyc",
+            "views.cpython-312.pyc",
+            "__init__.cpython-312.pyc"
         ]
     }
 }
