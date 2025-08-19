@@ -44,9 +44,6 @@ else:
         "artist-portfolio-3d-gallery.onrender.com",
     ]
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
 # Application definition
 INSTALLED_APPS = [
     "corsheaders",
@@ -84,8 +81,6 @@ INSTALLED_APPS = [
     'django_countries',
     'storages',
 
-    'debug_toolbar',
-
     'core',
     'gallery',
     'orders',
@@ -106,7 +101,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 MIDDLEWARE.insert(1, "django_otp.middleware.OTPMiddleware")

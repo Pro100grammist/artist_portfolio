@@ -14,7 +14,7 @@ class Product(models.Model):
     plot = models.CharField(max_length=100, blank=True, null=True)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
     image = models.ImageField(upload_to='products/', blank=True, null=True)
-    is_available = models.BooleanField(default=False)
+    is_available = models.BooleanField(default=True)
 
     class Meta:
         ordering = ['id']

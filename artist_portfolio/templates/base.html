@@ -57,7 +57,7 @@
                     <ul>
                         <li><a href="/">Home</a></li>
                         <li><a href="/about/">About</a></li>
-                        <li><a href="{% url 'home' %}#gallery">Gallery</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
                         <li><a href="/store/">Store</a></li>
                         <li><a href="/contact/">Contact</a></li>
                     </ul>
@@ -135,9 +135,9 @@
                 <div class="modal-description">
                     <h3 id="modal-title">Title</h3>
                     <p id="modal-description">Description</p>
-                    {% comment %} <p id="modal-price">Price</p> {% endcomment %}
+                    <p id="modal-price">Price</p>
                     <div class="modal-buttons">
-                        <a id="view-in-gallery" href="#" target="_blank" class="btn">View in 3D</a>
+                        <a id="view-in-gallery" href="#" target="_blank" class="btn">View in Gallery</a>
                         <a href="/store/" class="btn purchase-btn">Purchase</a>
                     </div>
                 </div>
