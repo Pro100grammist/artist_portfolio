@@ -1,0 +1,72 @@
+body {
+    font-size: 18px;
+    
+}
+
+/* ============================= */
+/* Side menu bar          */
+/* ============================= */
+
+.sidebar-wrapper {
+    background-color: #2f2f2f !important;
+}
+
+.sidebar-link {
+    color: #ffffff !important;
+    font-size: 16px;
+    pointer-events: none;
+    text-decoration: none;
+}
+
+.sidebar-link:hover {
+    background-color: #444444;
+}
+
+.sidebar-link .sidebar-left,
+.sidebar-link .sidebar-right {
+    pointer-events: auto;
+}
+
+.sidebar-link:hover {
+    background-color: #444444;
+}
+
+.sidebar-link .sidebar-link-label {
+    font-size: 15px;
+}
+
+.admin-interface #header {
+    background-color: #03a9f4 !important;
+    color: white !important;
+}
+
+.admin-interface div.breadcrumbs {
+    background-color: #03a9f4 !important;
+    color: white !important;
+}
+
+.admin-interface div.breadcrumbs a {
+    color: white !important;
+}
+
+.admin-interface div.breadcrumbs a:hover {
+    color: #b3e5fc !important;
+}
+
+/* Прибрати відступи у header */
+.admin-interface #header {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    height: 12px !important;
+    /* можна зробити нижче */
+    line-height: 18px !important;
+}
+
+/* Breadcrumbs */
+.admin-interface .breadcrumbs {
+    margin-left: 0 !important;
+    padding: 4px 8px !important;
+    /* менші відступи */
+    height: 30px !important;
+    line-height: 30px !important;
+}

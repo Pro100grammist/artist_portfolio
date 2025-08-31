@@ -67,7 +67,7 @@
 
                 <div class="auth-links">
                     {% if user.is_authenticated %}
-                        {% if user.is_superuser %}
+                        {% if user.is_superuser or user.is_owner %}
                             <button onclick="window.location='/admin/'">AdminPanel</button>
                         {% else %}
                             <button onclick="window.location='{% url 'users:profile' %}'">Profile</button>

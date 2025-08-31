@@ -1,0 +1,18 @@
+{% extends "admin/base_site.html" %}
+
+{% load static %}
+
+{% block title %}Ressam Antalya Administration{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">Website admin area</h1>
+{% endblock %}
+
+{% block content_title %}
+Control panel
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin_custom.css' %}">
+{% endblock %}

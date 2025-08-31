@@ -25,14 +25,16 @@ from users.views import GoogleLogin
 urlpatterns = [
     path("", include("core.urls")),
     path("accounts/", include("allauth.urls")),
-    path("accounts/google/login/", GoogleLogin.as_view(), name="google_login"),
+    path("accounts/google/login/", GoogleLogin.as_view(), name="google_login"),  # django-jet admin theme
+    path('jet/', include('jet.urls', 'jet')),  # for JET
+    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     path("admin/", admin.site.urls),
     path("store/", include("store.urls")),
     path("users/", include("users.urls")),
     path("cart/", include("cart.urls")),
     path("order/", include("orders.urls")),
-    # DRF Spectacular URL для схеми
-    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),  # DRF Spectacular URL для схеми
     # Swagger UI
     path(
         "api/schema/swagger-ui/",

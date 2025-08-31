@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "admin_interface",
     "colorfield",
+    "jet.dashboard",
+    "jet",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -283,3 +285,13 @@ CACHES = {
 
 # Cache storage time (10 minutes)
 CACHE_TTL = 60 * 10
+
+# JET_SIDE_MENU_COMPACT = True
+
+JET_DEFAULT_THEME = 'light-blue'
+
+JET_INDEX_DASHBOARD = 'artist_portfolio.dashboard.CustomIndexDashboard'
+
+
+
+
