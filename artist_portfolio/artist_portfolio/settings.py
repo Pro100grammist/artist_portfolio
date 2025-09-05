@@ -29,6 +29,7 @@ env = environ.Env()
 if ENVIRONMENT == "development":
     environ.Env.read_env()
 
+
 SECRET_KEY = env("SECRET_KEY")
 CLIENT_ID = env("CLIENT_ID")
 CLIENT_SECRET = env("CLIENT_SECRET")
@@ -291,7 +292,3 @@ CACHE_TTL = 60 * 10
 JET_DEFAULT_THEME = 'light-blue'
 
 JET_INDEX_DASHBOARD = 'artist_portfolio.dashboard.CustomIndexDashboard'
-
-
-
-

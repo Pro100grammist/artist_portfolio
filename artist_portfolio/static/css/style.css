@@ -1,5 +1,21 @@
 :root {
 
+/* Store layout responsiveness */
+@media (max-width: 768px) {
+    .store-layout {
+        flex-direction: column;
+    }
+    .filters,
+    .products {
+        width: 100%;
+    }
+    .subheader ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+    }
+}
+
     --text-primary: #333;
     --text-light: #fff;
     --background-dark: #222;
@@ -26,6 +42,12 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+}
+
+/* Make all images scale within their containers */
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 header {
@@ -268,7 +290,9 @@ footer .social-icon {
 }
 
 .footer-logo {
-    height: 20px;
+    max-height: 48px;
+    height: auto;
+    width: auto;
     margin-left: 5px;
     vertical-align: middle;
     /* Indentation between text and logo */
@@ -552,7 +576,7 @@ video {
 .swiper-container {
     width: 100%;
     max-width: 1200px;
-    height: 600px;
+    height: auto;
     margin: auto;
     perspective: 1000px;
     overflow: hidden;
@@ -560,8 +584,9 @@ video {
 
 /* Styles for individual slides */
 .swiper-slide {
-    width: 300px;
-    height: 400px;
+    width: min(80vw, 320px);
+    aspect-ratio: 3 / 4;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -579,23 +604,23 @@ video {
 
 @media (max-width: 768px) {
     .swiper-slide {
-        width: 250px;
-        height: 300px;
+        width: min(90vw, 240px);
+        height: auto;
     }
 
     .swiper-container {
-        height: 400px;
+        height: auto;
     }
 }
 
 @media (max-width: 480px) {
     .swiper-slide {
-        width: 200px;
-        height: 250px;
+        width: min(94vw, 220px);
+        height: auto;
     }
 
     .swiper-container {
-        height: 300px;
+        height: auto;
     }
 }
 
@@ -610,7 +635,7 @@ video {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 300px;
+    width: min(90vw, 320px);
     background-color: #ffffff;
     border: 1px solid #ddd;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -758,8 +783,9 @@ video {
 }
 
 .bio img.artist-photo {
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -1279,6 +1305,7 @@ video {
 .sorting-buttons {
     display: flex;
     gap: 5px;
+    flex-wrap: wrap;
 }
 
 .sorting-buttons button {

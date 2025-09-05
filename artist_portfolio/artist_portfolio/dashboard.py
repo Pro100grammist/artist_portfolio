@@ -5,10 +5,10 @@ from django.utils.translation import gettext_lazy as _
 
 class CustomIndexDashboard(Dashboard):
     """
-    Dashboard для головної сторінки адмінки
+    Dashboard for the main admin page
     """
     def init_with_context(self, context):
-        # Останні дії
+        # Recent actions
         self.children.append(RecentActions(_('Recent actions'), limit=10))
 
         # AppList для Store management
@@ -17,13 +17,13 @@ class CustomIndexDashboard(Dashboard):
             models=('orders.*', 'products.*'),
         ))
 
-        # Моделі користувачів
+        # User models
         self.children.append(ModelList(
             _('Users'),
             models=('users.UserProfile',),
         ))
 
-        # Швидкі дії
+        # Quick actions
         self.children.append(LinkList(
             _('Quick actions'),
             layout='inline',
