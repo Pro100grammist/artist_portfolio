@@ -1,39 +1,68 @@
-name: Deploy Artist Portfolio App
+name: CI / Deploy Artist Portfolio
 
 on:
+  pull_request:
+    branches: [ "main" ]
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  workflow_dispatch: {}
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
+  build_test:
+    name: Build images (no push)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Build backend image
+        run: docker build -t backend:test ./artist_portfolio
+
+      - name: Build frontend image
+        run: docker build -t frontend:test ./frontend/3d-gallery
+
   deploy:
+    name: Push images & Deploy to Render (main only)
+    needs: build_test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
-      
+        uses: actions/checkout@v4
+
       - name: Login to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker images
+        env:
+          SHA: ${{ github.sha }}
         run: |
-          docker build -t pro100grammer/artist_backend:latest ./artist_portfolio
-          docker build -t pro100grammer/artist_frontend:latest ./frontend/3d-gallery
+          docker build -t pro100grammer/artist_backend:latest -t pro100grammer/artist_backend:${SHA} ./artist_portfolio
+          docker build -t pro100grammer/artist_frontend:latest -t pro100grammer/artist_frontend:${SHA} ./frontend/3d-gallery
           docker push pro100grammer/artist_backend:latest
+          docker push pro100grammer/artist_backend:${SHA}
           docker push pro100grammer/artist_frontend:latest
+          docker push pro100grammer/artist_frontend:${SHA}
 
       - name: Deploy Backend to Render
         run: |
-          curl -X POST "https://api.render.com/deploy/${{ secrets.RENDER_BACKEND_ID }}" \
-          -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
-          -d ''
+          curl -sS -X POST "https://api.render.com/deploy/${{ secrets.RENDER_BACKEND_ID }}" \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            -d ''
 
       - name: Deploy Frontend to Render
         run: |
-          curl -X POST "https://api.render.com/deploy/${{ secrets.RENDER_FRONTEND_ID }}" \
-          -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
-          -d ''
+          curl -sS -X POST "https://api.render.com/deploy/${{ secrets.RENDER_FRONTEND_ID }}" \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            -d ''

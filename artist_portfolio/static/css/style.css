@@ -514,6 +514,25 @@ video {
     animation: fadeIn 2s ease-in-out;
 }
 
+.video-overlay .welcome-text {
+    font-size: clamp(1.2rem, 4vw + 1vh, 3rem);
+    line-height: 1.3;
+    z-index: 2;
+    position: relative;
+}
+
+.video-overlay .description {
+    font-size: clamp(1rem, 3vw + 1vh, 1.6rem);
+    z-index: 2;
+    position: relative;
+}
+
+@media (orientation: landscape) {
+    .video-overlay .welcome-text {
+        font-size: clamp(1rem, 3vw, 2.2rem);
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -1541,7 +1560,6 @@ video {
         position: relative;
     }
 
-    /* Ховаємо меню за замовчуванням */
     header nav {
         display: none;
         flex-direction: column;
@@ -1550,7 +1568,6 @@ video {
         top: 70px;
         right: 20px;
         background-color: #222;
-        /* темний фон для білих лінків */
         padding: 1rem;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         border-radius: 8px;
@@ -1571,11 +1588,9 @@ video {
 
     header nav ul li a {
         color: white;
-        /* обов'язково! щоб не був білий на білому */
         font-size: 1.1rem;
     }
 
-    /* Адаптація .auth-links */
     header .auth-links {
         display: none;
         flex-direction: column;
@@ -1591,20 +1606,6 @@ video {
     header .auth-links button {
         padding: 8px 12px;
         font-size: 0.9rem;
-    }
-
-    /* Welcome-текст */
-    .welcome-text {
-        font-size: clamp(1.2rem, 5vw, 3.5rem);
-        line-height: 1.3;
-        z-index: 2;
-        position: relative;
-    }
-
-    .description {
-        font-size: clamp(1rem, 4vw, 1.3rem);
-        z-index: 2;
-        position: relative;
     }
 
     .video-overlay {
