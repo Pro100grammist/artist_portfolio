@@ -252,8 +252,8 @@ header nav {
         opacity: 1;
     }
 
-    /* When auth-links is moved inside nav as an item */
-    header nav .auth-links.as-menu-item {
+    /* When auth-links is moved inside nav as an item (placed inside UL) */
+    header nav ul .auth-links.as-menu-item {
         position: static;
         background: transparent;
         padding: 0;
@@ -263,12 +263,12 @@ header nav {
     }
 
     /* Render auth buttons as text links inside the dropdown */
-    header nav .auth-links.as-menu-item form {
+    header nav ul .auth-links.as-menu-item form {
         margin: 0;
         width: 100%;
     }
 
-    header nav .auth-links.as-menu-item button {
+    header nav ul .auth-links.as-menu-item button {
         background: transparent;
         border: none;
         color: #fff;
@@ -281,8 +281,8 @@ header nav {
         cursor: pointer;
     }
 
-    header nav .auth-links.as-menu-item button:hover,
-    header nav .auth-links.as-menu-item button:focus {
+    header nav ul .auth-links.as-menu-item button:hover,
+    header nav ul .auth-links.as-menu-item button:focus {
         color: #ff9800;
         outline: none;
         text-decoration: underline;

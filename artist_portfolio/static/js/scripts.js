@@ -26,13 +26,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // Keep reference to restore auth-links to original place
     const authOriginalParent = auth ? auth.parentElement : null;
     const authNextSibling = auth ? auth.nextElementSibling : null;
+    let authWrapperLi = null;
 
     function openMobileMenu() {
         if (!burger || !nav) return;
-        // Move auth-links inside nav to appear as last item
-        if (auth && nav && !nav.contains(auth)) {
-            nav.appendChild(auth);
+        // Move auth-links inside nav UL to appear as last items
+        const navList = nav.querySelector("ul");
+        if (auth && navList && !navList.contains(auth)) {
+            // Create wrapper LI to keep semantics/order
+            authWrapperLi = document.createElement("li");
+            authWrapperLi.className = "auth-menu";
             auth.classList.add("as-menu-item");
+            authWrapperLi.appendChild(auth);
+            navList.appendChild(authWrapperLi);
         }
         nav.classList.add("active");
         if (auth) auth.classList.add("active");
@@ -55,6 +61,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             auth.classList.remove("as-menu-item");
         }
+        if (authWrapperLi && authWrapperLi.parentElement) {
+            authWrapperLi.parentElement.removeChild(authWrapperLi);
+        }
+        authWrapperLi = null;
         document.removeEventListener("click", outsideClickClose, true);
         window.removeEventListener("resize", onResizeClose);
     }
