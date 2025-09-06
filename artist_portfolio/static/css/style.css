@@ -61,6 +61,7 @@ header .container {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    position: relative; /* anchor dropdowns absolutely inside header */
 }
 
 /* Basic logo styles */
@@ -209,16 +210,22 @@ header nav {
         display: none;
         flex-direction: column;
         position: absolute;
-        top: 70px;
+        top: 56px;
         right: 20px;
-        background-color: white;
-        padding: 1rem;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
+        background-color: #222;
+        padding: 0.75rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+        border-radius: 8px;
+        z-index: 1500;
+        opacity: 0;
+        transform: translateY(-8px);
+        transition: opacity 0.2s ease, transform 0.2s ease;
     }
 
     header nav.active {
         display: flex;
+        opacity: 1;
+        transform: translateY(0);
     }
 
     header nav ul {
@@ -227,10 +234,58 @@ header nav {
     }
 
     header .auth-links {
+        display: none;
+    }
+
+    header .auth-links.active {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
-        margin-top: 1rem;
+        margin-top: 0.5rem;
+        background: #222;
+        padding: 0.5rem;
+        border-radius: 8px;
+        position: absolute;
+        top: calc(56px + 100%);
+        right: 20px;
+        z-index: 1500;
+        opacity: 1;
+    }
+
+    /* When auth-links is moved inside nav as an item */
+    header nav .auth-links.as-menu-item {
+        position: static;
+        background: transparent;
+        padding: 0;
+        border-radius: 0;
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+
+    /* Render auth buttons as text links inside the dropdown */
+    header nav .auth-links.as-menu-item form {
+        margin: 0;
+        width: 100%;
+    }
+
+    header nav .auth-links.as-menu-item button {
+        background: transparent;
+        border: none;
+        color: #fff;
+        padding: 8px 0;
+        width: 100%;
+        text-align: left;
+        border-radius: 0;
+        box-shadow: none;
+        font: inherit;
+        cursor: pointer;
+    }
+
+    header nav .auth-links.as-menu-item button:hover,
+    header nav .auth-links.as-menu-item button:focus {
+        color: #ff9800;
+        outline: none;
+        text-decoration: underline;
     }
 
     header .auth-links button {
@@ -1157,6 +1212,40 @@ body.body--modal-open {
 .social-links {
     display: flex;
     gap: 10px;
+}
+
+/* Contact page adjustments */
+.contact-info .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-info .social-links .social-icon img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    display: block;
+}
+
+.contact-info .social-links p {
+    flex: 1 1 100%;
+    margin: 6px 0 0;
+    text-align: center;
+    word-break: break-word;
+}
+
+@media (max-width: 768px) {
+    .contact-page .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    .contact-info .social-links .social-icon img {
+        width: 44px;
+        height: 44px;
+    }
 }
 
 /* Centered Social Icons */

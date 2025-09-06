@@ -21,11 +21,71 @@ document.addEventListener("DOMContentLoaded", () => {
     const burger = document.querySelector(".burger");
     const nav = document.querySelector("header nav");
     const auth = document.querySelector("header .auth-links");
+    const headerContainer = document.querySelector("header .container");
 
-    if (burger && nav && auth) {
-        burger.addEventListener("click", () => {
-            nav.classList.toggle("active");
-            auth.classList.toggle("active");
+    // Keep reference to restore auth-links to original place
+    const authOriginalParent = auth ? auth.parentElement : null;
+    const authNextSibling = auth ? auth.nextElementSibling : null;
+
+    function openMobileMenu() {
+        if (!burger || !nav) return;
+        // Move auth-links inside nav to appear as last item
+        if (auth && nav && !nav.contains(auth)) {
+            nav.appendChild(auth);
+            auth.classList.add("as-menu-item");
+        }
+        nav.classList.add("active");
+        if (auth) auth.classList.add("active");
+        burger.setAttribute("aria-expanded", "true");
+        document.addEventListener("click", outsideClickClose, true);
+        window.addEventListener("resize", onResizeClose);
+    }
+
+    function closeMobileMenu() {
+        if (!burger || !nav) return;
+        nav.classList.remove("active");
+        if (auth) auth.classList.remove("active");
+        burger.setAttribute("aria-expanded", "false");
+        // Restore auth-links to original place
+        if (auth && authOriginalParent && !authOriginalParent.contains(auth)) {
+            if (authNextSibling) {
+                authOriginalParent.insertBefore(auth, authNextSibling);
+            } else {
+                authOriginalParent.appendChild(auth);
+            }
+            auth.classList.remove("as-menu-item");
+        }
+        document.removeEventListener("click", outsideClickClose, true);
+        window.removeEventListener("resize", onResizeClose);
+    }
+
+    function toggleMobileMenu() {
+        if (nav.classList.contains("active")) {
+            closeMobileMenu();
+        } else {
+            openMobileMenu();
+        }
+    }
+
+    function outsideClickClose(e) {
+        if (!nav.classList.contains("active")) return;
+        const clickInsideNav = nav.contains(e.target);
+        const clickOnBurger = burger.contains(e.target);
+        if (!clickInsideNav && !clickOnBurger) {
+            closeMobileMenu();
+        }
+    }
+
+    function onResizeClose() {
+        if (window.innerWidth > 768 && nav.classList.contains("active")) {
+            closeMobileMenu();
+        }
+    }
+
+    if (burger && nav) {
+        burger.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMobileMenu();
         });
     }
 });
