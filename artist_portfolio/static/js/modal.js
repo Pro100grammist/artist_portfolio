@@ -10,16 +10,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const lens = document.getElementById("magnifier-lens");
     const img = document.getElementById("modal-painting-img");
 
-    img.addEventListener("mouseenter", () => {
-        lens.style.display = "block";
-        lens.style.backgroundImage = `url('${img.src}')`;
-    });
+    // Detect touch devices (mobile/tablet) and disable magnifier there
+    const isTouchDevice =
+        window.matchMedia && window.matchMedia("(pointer: coarse)").matches ||
+        "ontouchstart" in window ||
+        (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
 
-    img.addEventListener("mouseleave", () => {
+    if (!isTouchDevice) {
+        img.addEventListener("mouseenter", () => {
+            lens.style.display = "block";
+            lens.style.backgroundImage = `url('${img.src}')`;
+        });
+
+        img.addEventListener("mouseleave", () => {
+            lens.style.display = "none";
+        });
+
+        img.addEventListener("mousemove", moveLens);
+    } else {
+        // Ensure lens is hidden on touch devices
         lens.style.display = "none";
-    });
-
-    img.addEventListener("mousemove", moveLens);
+    }
 
     function moveLens(e) {
         const rect = img.getBoundingClientRect();
@@ -67,6 +78,54 @@ document.addEventListener("DOMContentLoaded", () => {
     // Check if the current page is the store page
     const isStorePage = window.location.pathname.includes("/store");
 
+    // helpers to lock/unlock body scroll to prevent background scrolling
+    const body = document.body;
+    let savedScrollY = 0;
+
+    function lockBodyScroll() {
+        savedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+        body.classList.add("body--modal-open");
+        body.style.top = `-${savedScrollY}px`;
+    }
+
+    function unlockBodyScroll() {
+        body.classList.remove("body--modal-open");
+        body.style.top = "";
+        window.scrollTo(0, savedScrollY);
+    }
+
+    // Collapse/expand description on mobile with "Read more >>"
+    function applyCollapsibleDescription(fullText) {
+        const isSmallScreen = window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
+        if (!isSmallScreen) {
+            modalDescription.innerHTML = fullText.replace(/\n/g, "<br>");
+            return;
+        }
+
+        const WORD_LIMIT = 40; // preview words
+        const words = (fullText || "").split(/\s+/).filter(Boolean);
+
+        // If short enough, show full text
+        if (words.length <= WORD_LIMIT) {
+            modalDescription.innerHTML = fullText.replace(/\n/g, "<br>");
+            return;
+        }
+
+        const preview = words.slice(0, WORD_LIMIT).join(" ") + "... ";
+        modalDescription.innerHTML = preview;
+
+        const readMore = document.createElement("a");
+        readMore.href = "#";
+        readMore.className = "read-more";
+        readMore.textContent = "Read more >>";
+        readMore.addEventListener("click", (e) => {
+            e.preventDefault();
+            modalDescription.innerHTML = fullText.replace(/\n/g, "<br>");
+        });
+
+        modalDescription.appendChild(readMore);
+    }
+
     document.querySelectorAll(".featured-work").forEach((item) => {
         item.addEventListener("click", () => {
             let fullImgSrc = item.getAttribute("data-image");
@@ -78,10 +137,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             modalImg.src = fullImgSrc;
             modalTitle.textContent = item.getAttribute("data-title");
-            // modalDescription.textContent = item.getAttribute("data-description");
-            modalDescription.innerHTML = item
-                .getAttribute("data-description")
-                .replace(/\n/g, "<br>");
+            // Prepare description: collapsible preview on mobile
+            const fullDescription = item.getAttribute("data-description") || "";
+            applyCollapsibleDescription(fullDescription);
 
             // if (modalPrice) {
             //     modalPrice.textContent = `Price: ${item.getAttribute(
@@ -110,16 +168,19 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             modal.classList.add("visible");
+            lockBodyScroll();
         });
     });
 
     closeButton.addEventListener("click", () => {
         modal.classList.remove("visible");
+        unlockBodyScroll();
     });
 
     modal.addEventListener("click", (e) => {
         if (e.target === modal) {
             modal.classList.remove("visible");
+            unlockBodyScroll();
         }
     });
 });

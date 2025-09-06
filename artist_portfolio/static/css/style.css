@@ -899,10 +899,16 @@ video {
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1000;
+    /* Above header/burger overlays on mobile */
+    z-index: 2000;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.3s ease;
+    /* Allow page to scroll if content is taller than viewport */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* Prevent scroll chaining to the background page */
+    overscroll-behavior: contain;
 }
 
 .modal.visible {
@@ -915,14 +921,20 @@ video {
     padding: 20px;
     border-radius: 5px;
     width: 80%;
-    height: 90vh;
+    /* Constrain height and allow internal scroll */
+    max-height: 90vh;
+    /* Modern mobile browsers with dynamic toolbars */
+    max-height: 90dvh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     position: relative;
     text-align: center;
-    overflow: hidden;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    /* Prevent scroll chaining to parent overlay */
+    overscroll-behavior: contain;
 }
 
 .modal-image {
@@ -965,16 +977,24 @@ video {
 
 .modal-buttons {
     margin-top: 20px;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
 }
 
 .modal-buttons .btn {
-    margin: 10px 5px;
-    padding: 10px 20px;
+    flex: 1 1 0;
+    min-width: 0;
+    margin: 0;
+    padding: 12px 16px;
     background: #222;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
     transition: background 0.3s;
+    text-align: center;
 }
 
 .modal-buttons .btn:hover {
@@ -1008,11 +1028,18 @@ video {
 }
 
 @media (max-width: 768px) {
+    .modal {
+        /* Start at top to ensure header/close button visible; parent can scroll */
+        align-items: flex-start;
+    }
+
     .modal-content {
         flex-direction: column;
         text-align: left;
-        height: auto;
+        height: auto; /* allow natural height but still constrained by max-height */
+        max-height: 90dvh; /* better on mobile */
         padding-bottom: 20px;
+        width: 95%;
     }
 
     .modal-image {
@@ -1020,12 +1047,46 @@ video {
         padding: 0;
     }
 
+    .modal-image img {
+        /* Reduce image height on mobile to leave room for text/buttons */
+        max-height: 60dvh;
+    }
+
     .modal-description {
         max-width: 100%;
         margin-left: 0;
         white-space: pre-wrap;
         text-align: justify;
+        overflow-wrap: anywhere;
     }
+
+    .modal-buttons {
+        width: 100%;
+    }
+
+    .modal-buttons .btn {
+        flex: 1 1 48%;
+    }
+}
+
+/* Read more link in modal description */
+.read-more {
+    display: inline-block;
+    margin-top: 8px;
+    color: #ff9800;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+}
+.read-more:hover {
+    text-decoration: underline;
+}
+
+/* Prevent background scroll when modal open (applied via JS) */
+body.body--modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
 }
 
 #magnifier-lens {
