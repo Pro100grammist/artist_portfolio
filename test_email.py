@@ -16,3 +16,5 @@ except Exception as e:
 #
 # from django.core.mail import send_mail
 # send_mail('Тема листа', 'Текст листа', 'senpyinteractive@gmail.com', ['senpyinteractive@gmail.com'])
+
+

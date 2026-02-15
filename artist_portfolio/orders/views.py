@@ -1,8 +1,26 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import Http404
 from django.contrib import messages
 from users.models import UserProfile
 from .models import Order
 from .forms import OrderForm, ShippingForm, PaymentForm, ReceiverForm, CommentForm
+
+
+def get_accessible_order_or_404(request, order_id):
+    """
+    Return an order if it belongs to the current user or is public.
+    Otherwise, raise Http404.
+    - authenticated user: only own orders
+    - guest: only order created in the same session
+    """
+    if request.user.is_authenticated:
+        return get_object_or_404(Order, id=order_id, user=request.user)
+    
+    session_key = request.session.session_key
+    if not session_key:
+        raise Http404("Order not found.")
+    
+    return get_object_or_404(Order, id=order_id, session_key=session_key)
 
 
 def order_checkout(request, order_id):
@@ -10,7 +28,7 @@ def order_checkout(request, order_id):
     Ordering: auto-completion of forms, checking the validity of the entered data,
     updating the order and redirecting to the successful checkout page.
     """
-    order = get_object_or_404(Order, id=order_id)
+    order = get_accessible_order_or_404(request, order_id)
 
     # Filling in the default fields (if the user is logged in)
     if request.user.is_authenticated:
@@ -94,5 +112,5 @@ def order_success(request, order_id):
     """
     Display the successful order page.
     """
-    order = get_object_or_404(Order, id=order_id)
+    order = get_accessible_order_or_404(request, order_id)
     return render(request, "orders/success.html", {"order": order})
