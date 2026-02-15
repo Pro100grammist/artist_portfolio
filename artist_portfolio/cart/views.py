@@ -112,7 +112,7 @@ def make_order(request):
 
     if not cart.items.exists():
         messages.error(request, "Your cart is empty.")
-        return redirect("cart:cart-view")
+        return redirect("cart:cart")
 
     # Create order
     order_data = {"total_price": cart.total_price}
