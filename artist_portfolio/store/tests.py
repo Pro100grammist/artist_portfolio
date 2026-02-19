@@ -1,70 +1,51 @@
 from django.test import TestCase
-from rest_framework.test import APIClient
+from django.urls import reverse
+
 from .models import Product, Category
 
 
-class ProductAPITestCase(TestCase):
+class ProductListViewTestCase(TestCase):
     def setUp(self):
-        # Створення тестових даних
         self.category = Category.objects.create(name="Paintings")
-        self.product1 = Product.objects.create(
+        Product.objects.create(
             name="Abstract Art",
             description="Beautiful abstract painting.",
             price=100.00,
-            size="medium",
-            technique="oil",
-            paints="blue",
-            plot="abstract",
+            size="Medium",
+            technique="Oil",
+            paints="Blue",
+            plot="Abstract",
             category=self.category,
+            is_available=True,
         )
-        self.product2 = Product.objects.create(
+        Product.objects.create(
             name="Landscape",
             description="A serene landscape painting.",
             price=150.00,
-            size="large",
-            technique="acrylic",
-            paints="green",
-            plot="landscape",
+            size="Large",
+            technique="Acrylic",
+            paints="Green",
+            plot="Landscape",
             category=self.category,
+            is_available=True,
         )
-        self.client = APIClient()
 
-    def test_product_list(self):
-        response = self.client.get('/store/products/')
+    def test_product_list_status_and_template(self):
+        response = self.client.get(reverse("store:product-list"))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data['results']), 2)
+        self.assertTemplateUsed(response, "store/store.html")
+        self.assertContains(response, "Abstract Art")
+        self.assertContains(response, "Landscape")
 
     def test_filter_by_size(self):
-        response = self.client.get('/store/products/?size=medium')
+        response = self.client.get(reverse("store:product-list"), {"size": "Medium"})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data['results']), 1)
-        self.assertEqual(response.data['results'][0]['name'], "Abstract Art")
+        self.assertContains(response, "Abstract Art")
+        self.assertNotContains(response, "Landscape")
 
-    def test_search(self):
-        response = self.client.get('/store/products/?search=landscape')
+    def test_sort_by_price_asc(self):
+        response = self.client.get(reverse("store:product-list"), {"sort": "price_asc"})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data['results']), 1)
-        self.assertEqual(response.data['results'][0]['name'], "Landscape")
-
-    def test_pagination(self):
-        # Додавання ще одного продукту для перевірки пагінації
-        Product.objects.create(
-            name="Still Life",
-            description="A beautiful still life painting.",
-            price=200.00,
-            size="small",
-            technique="watercolor",
-            paints="red",
-            plot="still life",
-            category=self.category,
-        )
-        response = self.client.get('/store/products/?page=1')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data['results']), 2)  # 2 продукти на першій сторінці
-
-
-def test_sorting_by_price(self):
-    response = self.client.get('/store/products/?ordering=price')
-    self.assertEqual(response.status_code, 200)
-    prices = [product['price'] for product in response.data['results']]
-    self.assertEqual(prices, sorted(prices))
+        products = list(response.context["products"])
+        self.assertEqual(products[0].name, "Abstract Art")
+        self.assertEqual(products[1].name, "Landscape")

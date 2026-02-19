@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% load static store_extras %}
+
 
 {% block title %}Web Store{% endblock %}
 
@@ -134,8 +136,10 @@
             <div class="product-grid">
                 {% for product in products %}
                     <div class="product-card">
+                        {% static 'images/placeholder.png' as fallback %}
+                        {% with image_url=product.image|image_url_or:fallback %}
                         <img
-                            src="{{ product.image.url }}"
+                            src="{{ image_url }}"
                             alt="{{ product.name }}"
                             class="featured-work"
                             data-id="{{ product.id }}"
@@ -145,6 +149,7 @@
                             data-price="{{ product.price }}"
                             style="max-width: 200px; cursor: pointer;"
                         >
+                        {% endwith %}
                         <div class="product-info">
                             <h2>{{ product.name }}</h2>
                             <p>${{ product.price }}</p>
