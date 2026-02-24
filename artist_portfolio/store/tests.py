@@ -75,3 +75,10 @@ class ProductListViewTests(TestCase):
 
         products = list(response.context["products"])
         self.assertEqual([p.name for p in products], ["Landscape", "Abstract Art"])
+
+    def test_search_by_name(self):
+        response = self.client.get(reverse("store:product-list"), {"q": "Abstract"})
+        self.assertEqual(response.status_code, 200)
+        products = list(response.context["products"])
+        self.assertEqual(len(products), 1)
+        self.assertEqual(products[0].name, "Abstract Art")

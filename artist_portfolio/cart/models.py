@@ -1,5 +1,6 @@
 from django.apps import apps
 from django.db import models
+from django.db.models import F, Sum, DecimalField, ExpressionWrapper
 from django.contrib.auth.models import User
 
 
@@ -40,8 +41,17 @@ class Cart(models.Model):
 
     @property
     def total_price(self):
-        """Calculates the total price of all items in the cart."""
-        return sum(item.product.price * item.quantity for item in self.items.all())
+        """Calculates total cart price using DB aggregation."""
+        total = self.items.aggregate(
+            total=Sum(
+                ExpressionWrapper(
+                    F("product__price") * F("quantity"),
+                    output_field=DecimalField(max_digits=12, decimal_places=2),
+                )
+            )
+        )["total"]
+        return total or 0
+
 
 
 class CartItem(models.Model):

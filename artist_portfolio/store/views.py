@@ -23,6 +23,9 @@ class ProductListView(FilterView, ListView):
         """
         # Getting a QuerySet through a parent class
         queryset = super().get_queryset()
+        q = self.request.GET.get("q")
+        if q:
+            queryset = queryset.filter(name__icontains=q)
 
         # Additional sorting if the `sort` parameter is present
         sort = self.request.GET.get('sort')

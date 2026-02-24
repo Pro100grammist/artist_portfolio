@@ -1,14 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User, AbstractUser
-from django.core.validators import RegexValidator
-from django_otp.plugins.otp_totp.models import TOTPDevice
-from django_otp.models import Device as OTPDevice
+from django.contrib.auth.models import User
 from django_otp.plugins.otp_totp.models import TOTPDevice
 from phonenumber_field.modelfields import PhoneNumberField
 from django_countries.fields import CountryField
-from django.utils.translation import gettext_lazy as _
-from jet.dashboard.dashboard import Dashboard, AppIndexDashboard
-from jet.dashboard.modules import DashboardModule, AppList, ModelList, LinkList, RecentActions, Feed
 
 
 class UserProfile(models.Model):
