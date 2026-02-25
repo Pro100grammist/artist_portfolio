@@ -164,7 +164,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
 // === DEBUG MODE ===
+const DEBUG_MODE = false;
+
+
 (function debugMode() {
     console.log("✅ Debug mode activated");
 
