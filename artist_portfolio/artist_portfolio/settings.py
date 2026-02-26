@@ -35,7 +35,10 @@ CLIENT_ID = env("CLIENT_ID")
 CLIENT_SECRET = env("CLIENT_SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "True") == "True"
+if ENVIRONMENT == "development":
+    DEBUG = env.bool("DEBUG", default=True)
+else:
+    DEBUG = env.bool("DEBUG", default=False)
 
 # ALLOWED_HOSTS
 if ENVIRONMENT == "development":

@@ -168,41 +168,44 @@ document.addEventListener("DOMContentLoaded", function () {
 // === DEBUG MODE ===
 const DEBUG_MODE = false;
 
-
-(function debugMode() {
+function debugMode() {
     console.log("✅ Debug mode activated");
 
-    // Перевірка ширини вікна
-    const width = window.innerWidth;
-    console.log(`📱 Window width: ${width}px`);
+        // Перевірка ширини вікна
+        const width = window.innerWidth;
+        console.log(`📱 Window width: ${width}px`);
 
-    // Перевірка активного стану бургера та меню
-    const nav = document.querySelector("header nav");
-    const auth = document.querySelector("header .auth-links");
+        // Перевірка активного стану бургера та меню
+        const nav = document.querySelector("header nav");
+        const auth = document.querySelector("header .auth-links");
 
-    if (nav && auth) {
-        console.log("✅ nav і auth-links знайдені");
+        if (nav && auth) {
+            console.log("✅ nav і auth-links знайдені");
 
-        const navVisible = window.getComputedStyle(nav).display;
-        const authVisible = window.getComputedStyle(auth).display;
-        console.log(`📦 nav display: ${navVisible}`);
-        console.log(`🔒 auth-links display: ${authVisible}`);
-    } else {
-        console.warn("❌ nav або auth-links не знайдені в DOM");
+            const navVisible = window.getComputedStyle(nav).display;
+            const authVisible = window.getComputedStyle(auth).display;
+            console.log(`📦 nav display: ${navVisible}`);
+            console.log(`🔒 auth-links display: ${authVisible}`);
+        } else {
+            console.warn("❌ nav або auth-links не знайдені в DOM");
+        }
+
+        // Перевірка чи стиль style.css був підключений
+        const foundStyle = [...document.styleSheets].some(sheet => sheet.href && sheet.href.includes("style.css"));
+        if (foundStyle) {
+            console.log("🎨 style.css успішно підключений");
+        } else {
+            console.warn("❌ style.css не знайдено — можливо кеш або помилка шляху");
+        }
+
+        // Перевірка font-size заголовку
+        const welcome = document.querySelector(".welcome-text");
+        if (welcome) {
+            const size = window.getComputedStyle(welcome).fontSize;
+            console.log(`📝 .welcome-text font-size: ${size}`);
     }
+}
 
-    // Перевірка чи стиль style.css був підключений
-    const foundStyle = [...document.styleSheets].some(sheet => sheet.href && sheet.href.includes("style.css"));
-    if (foundStyle) {
-        console.log("🎨 style.css успішно підключений");
-    } else {
-        console.warn("❌ style.css не знайдено — можливо кеш або помилка шляху");
-    }
-
-    // Перевірка font-size заголовку
-    const welcome = document.querySelector(".welcome-text");
-    if (welcome) {
-        const size = window.getComputedStyle(welcome).fontSize;
-        console.log(`📝 .welcome-text font-size: ${size}`);
-    }
-})();
+if (DEBUG_MODE) {
+    debugMode();
+}

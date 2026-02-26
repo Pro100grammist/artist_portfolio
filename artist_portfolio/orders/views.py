@@ -8,19 +8,19 @@ from .forms import OrderForm, ShippingForm, PaymentForm, ReceiverForm, CommentFo
 
 def get_accessible_order_or_404(request, order_id):
     """
-    Return an order if it belongs to the current user or is public.
+    Return an order only when it is accessible for the current request.
     Otherwise, raise Http404.
     - authenticated user: only own orders
     - guest: only order created in the same session
     """
     if request.user.is_authenticated:
         return get_object_or_404(Order, id=order_id, user=request.user)
-    
+
     session_key = request.session.session_key
     if not session_key:
         raise Http404("Order not found.")
-    
-    return get_object_or_404(Order, id=order_id, session_key=session_key)
+
+    return get_object_or_404(Order, id=order_id, user__isnull=True, session_key=session_key)
 
 
 def order_checkout(request, order_id):
