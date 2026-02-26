@@ -38,6 +38,16 @@ class ProductListViewTests(TestCase):
         self.assertIn("products", response.context)
         self.assertIn("categories", response.context)
 
+    def test_product_detail_page_renders(self):
+        response = self.client.get(reverse("store:product-detail", args=[self.p1.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "store/product_detail.html")
+        self.assertContains(response, "Abstract Art")
+
+    def test_product_detail_404_for_missing_product(self):
+        response = self.client.get(reverse("store:product-detail", args=[999999]))
+        self.assertEqual(response.status_code, 404)
+
     def test_filter_by_size(self):
         response = self.client.get(reverse("store:product-list"), {"size": "Medium"})
         self.assertEqual(response.status_code, 200)

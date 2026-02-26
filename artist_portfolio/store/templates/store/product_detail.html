@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static store_extras %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block og_title %}
+{{ product.name }} | Artist Portfolio
+{% endblock %}
+
+{% block meta_description %}
+{{ product.description|default:product.name|truncatechars:155 }}
+{% endblock %}
+
+{% block og_description %}
+{{ product.description|default:product.name|truncatechars:200 }}
+{% endblock %}
+
+{% block og_type %}product{% endblock %}
+
+{% block canonical_url %}
+{{ request.build_absolute_uri }}
+{% endblock %}
+
+{% block og_image %}
+{% static 'images/placeholder.png' as fallback %}
+{% with image_url=product.image|image_url_or:fallback %}
+{{ request.scheme }}://{{ request.get_host }}{{ image_url }}
+{% endwith %}
+{% endblock %}
+
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'css/store.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 40px 0;">
+    {% static 'images/placeholder.png' as fallback %}
+    {% with image_url=product.image|image_url_or:fallback %}
+    <div class="product-detail" style="display:grid; grid-template-columns:1fr 1fr; gap:32px;">
+        <div>
+            <img src="{{ image_url }}" alt="{{ product.name }}" style="width:100%; max-width:520px; border-radius:12px;">
+        </div>
+
+        <div>
+            <h1>{{ product.name }}</h1>
+            <p style="font-size: 1.4rem; font-weight: 700;">${{ product.price }}</p>
+
+            <p>
+                {% if product.is_available %}
+                    <span class="in-stock">In stock</span>
+                {% else %}
+                    <span class="out-of-stock">Made only to order</span>
+                {% endif %}
+            </p>
+
+            {% if product.description %}
+                <p>{{ product.description }}</p>
+            {% endif %}
+
+            <ul style="margin: 16px 0 24px 0; padding-left: 18px;">
+                {% if product.size %}<li><strong>Size:</strong> {{ product.size }}</li>{% endif %}
+                {% if product.technique %}<li><strong>Technique:</strong> {{ product.technique }}</li>{% endif %}
+                {% if product.paints %}<li><strong>Paints:</strong> {{ product.paints }}</li>{% endif %}
+                {% if product.plot %}<li><strong>Plot:</strong> {{ product.plot }}</li>{% endif %}
+            </ul>
+
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                <button onclick="addToCart({{ product.id }})">Add to Cart</button>
+                <a href="{% url 'store:product-list' %}" class="sort-button">← Back to store</a>
+                <!-- optional -->
+                <!-- <a href="http://localhost:8080/?image={{ image_url|urlencode }}" class="sort-button">View in 3D</a> -->
+            </div>
+        </div>
+    </div>
+    {% endwith %}
+</div>
+{% endblock %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ product.name|escapejs }}",
+  "description": "{{ product.description|default:''|striptags|escapejs }}",
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": "{{ product.price }}",
+    "availability": "{% if product.is_available %}https://schema.org/InStock{% else %}https://schema.org/PreOrder{% endif %}"
+  }
+}
+</script>
+
+{% block extra_scripts %}
+<script src="{% static 'js/store.js' %}"></script>
+{% endblock %}

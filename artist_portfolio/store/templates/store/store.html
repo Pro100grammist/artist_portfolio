@@ -146,11 +146,12 @@
                             data-title="{{ product.name }}"
                             data-description="{{ product.description }}"
                             data-price="{{ product.price }}"
+                            data-detail-url="{% url 'store:product-detail' product.id %}"
                             style="max-width: 200px; cursor: pointer;"
                         >
                         {% endwith %}
                         <div class="product-info">
-                            <h2>{{ product.name }}</h2>
+                            <h2><a href="{% url 'store:product-detail' product.id %}">{{ product.name }}</a></h2>
                             <p>${{ product.price }}</p>
                             <p class="availability">
                                 {% if product.is_available %}

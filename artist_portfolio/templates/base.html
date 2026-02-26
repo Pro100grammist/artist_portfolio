@@ -8,6 +8,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="csrf-token" content="{{ csrf_token }}" />
         <title>{% block title %}Artist Portfolio{% endblock %}</title>
+        <meta name="description" content="{% block meta_description %}Artist portfolio and store{% endblock %}">
+        <meta property="og:title" content="{% block og_title %}Artist Portfolio{% endblock %}">
+        <meta property="og:description" content="{% block og_description %}Artist portfolio and store{% endblock %}">
+        <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+        <meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}">
+        <meta property="og:image" content="{% block og_image %}{% endblock %}">
+        <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
 
         <!-- Google Fonts -->
         <link
@@ -138,6 +145,8 @@
                     <div class="modal-buttons">
                         <a id="view-in-gallery" href="#" target="_blank" class="btn">View in 3D</a>
                         <a href="/store/" class="btn purchase-btn">Purchase</a>
+                        <a id="modal-open-detail" href="#" class="glow-button">Open full details</a>
+
                     </div>
                 </div>
             </div>

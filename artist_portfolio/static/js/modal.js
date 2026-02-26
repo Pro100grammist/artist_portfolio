@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeButton = document.querySelector(".close-button");
     const viewInGalleryBtn = document.getElementById("view-in-gallery");
     const purchaseBtn = document.querySelector(".purchase-btn");
+    const detailBtn = document.getElementById("modal-open-detail");
     const lens = document.getElementById("magnifier-lens");
     const img = document.getElementById("modal-painting-img");
 
@@ -151,6 +152,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (viewInGalleryBtn) {
                 viewInGalleryBtn.href = `${vueAppUrl}/?image=${encodedImgSrc}`;
+            }
+
+            const detailUrl = item.dataset.detailUrl;
+            if (detailBtn && detailUrl) {
+                detailBtn.href = detailUrl;
+            } else if (detailBtn) {
+                detailBtn.href = "#";
             }
 
             // --- PURCHASE BUTTON LOGIC ---

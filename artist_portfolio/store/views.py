@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
+from django.views.generic import DetailView
 from django_filters.views import FilterView
 
 from .models import Product, Category
@@ -46,6 +47,23 @@ class ProductListView(FilterView, ListView):
         context['categories'] = Category.objects.all()
         return context
 
+
+class ProductDetailView(DetailView):
+    """
+    Presentation of the product details page.
+    Inherits from DetailView to display detailed information about a specific product.
+    """
+    model = Product
+    template_name = 'store/product_detail.html'
+    context_object_name = 'product'
+
+    def get_context_data(self, **kwargs):
+        """
+        Adds additional information about the product to the template context.
+        """
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
 def cart_view(request):
     """
