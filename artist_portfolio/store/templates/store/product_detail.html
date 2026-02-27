@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% load static store_extras %}
 
-{% block title %}{{ product.name }}{% endblock %}
-
-{% block og_title %}
-{{ product.name }} | Artist Portfolio
-{% endblock %}
+{% block title %}{{ product.name }} | Artist Portfolio{% endblock %}
 
 {% block meta_description %}
 {{ product.description|default:product.name|truncatechars:155 }}
+{% endblock %}
+
+{% block og_title %}
+{{ product.name }} | Artist Portfolio
 {% endblock %}
 
 {% block og_description %}
@@ -28,25 +28,24 @@
 {% endwith %}
 {% endblock %}
 
-
 {% block extra_styles %}
 <link rel="stylesheet" href="{% static 'css/store.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="container" style="padding: 40px 0;">
+<div class="container product-detail-page">
     {% static 'images/placeholder.png' as fallback %}
     {% with image_url=product.image|image_url_or:fallback %}
-    <div class="product-detail" style="display:grid; grid-template-columns:1fr 1fr; gap:32px;">
-        <div>
-            <img src="{{ image_url }}" alt="{{ product.name }}" style="width:100%; max-width:520px; border-radius:12px;">
+    <div class="product-detail-layout">
+        <div class="product-detail-image-wrap">
+            <img src="{{ image_url }}" alt="{{ product.name }}" class="product-detail-image">
         </div>
 
-        <div>
+        <div class="product-detail-content">
             <h1>{{ product.name }}</h1>
-            <p style="font-size: 1.4rem; font-weight: 700;">${{ product.price }}</p>
+            <p class="product-detail-price">${{ product.price }}</p>
 
-            <p>
+            <p class="availability">
                 {% if product.is_available %}
                     <span class="in-stock">In stock</span>
                 {% else %}
@@ -58,24 +57,22 @@
                 <p>{{ product.description }}</p>
             {% endif %}
 
-            <ul style="margin: 16px 0 24px 0; padding-left: 18px;">
+            <ul class="product-detail-specs">
                 {% if product.size %}<li><strong>Size:</strong> {{ product.size }}</li>{% endif %}
                 {% if product.technique %}<li><strong>Technique:</strong> {{ product.technique }}</li>{% endif %}
                 {% if product.paints %}<li><strong>Paints:</strong> {{ product.paints }}</li>{% endif %}
                 {% if product.plot %}<li><strong>Plot:</strong> {{ product.plot }}</li>{% endif %}
             </ul>
 
-            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <div class="product-detail-actions">
                 <button onclick="addToCart({{ product.id }})">Add to Cart</button>
+                <a href="https://artist-portfolio-3d-gallery.onrender.com/?image={{ image_url|urlencode }}" target="_blank" class="sort-button">View in 3D</a>
                 <a href="{% url 'store:product-list' %}" class="sort-button">← Back to store</a>
-                <!-- optional -->
-                <!-- <a href="http://localhost:8080/?image={{ image_url|urlencode }}" class="sort-button">View in 3D</a> -->
             </div>
         </div>
     </div>
     {% endwith %}
 </div>
-{% endblock %}
 
 <script type="application/ld+json">
 {
@@ -91,6 +88,7 @@
   }
 }
 </script>
+{% endblock %}
 
 {% block extra_scripts %}
 <script src="{% static 'js/store.js' %}"></script>

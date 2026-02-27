@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
     // define the URL
-    let djangoBaseUrl, vueAppUrl;
+    let djangoBaseUrl; //vueAppUrl;
 
     if (
         window.location.hostname === "127.0.0.1" ||
@@ -69,11 +69,11 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
         // Local development
         djangoBaseUrl = "http://127.0.0.1:8000";
-        vueAppUrl = "http://192.168.0.157:8080";
+        // vueAppUrl = "http://192.168.0.157:8080";
     } else {
         // Production on Render
         djangoBaseUrl = ""; // don't add anything in prod, cause image.url already has the full path
-        vueAppUrl = "https://artist-portfolio-3d-gallery.onrender.com";
+        // vueAppUrl = "https://artist-portfolio-3d-gallery.onrender.com";
     }
 
     // Check if the current page is the store page
@@ -148,11 +148,11 @@ document.addEventListener("DOMContentLoaded", () => {
             //     )}`;
             // }
 
-            const encodedImgSrc = encodeURIComponent(fullImgSrc);
+            // const encodedImgSrc = encodeURIComponent(fullImgSrc);
 
-            if (viewInGalleryBtn) {
-                viewInGalleryBtn.href = `${vueAppUrl}/?image=${encodedImgSrc}`;
-            }
+            // if (viewInGalleryBtn) {
+            //     viewInGalleryBtn.href = `${vueAppUrl}/?image=${encodedImgSrc}`;
+            // }
 
             const detailUrl = item.dataset.detailUrl;
             if (detailBtn && detailUrl) {
