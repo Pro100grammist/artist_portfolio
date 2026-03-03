@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static store_extras %}
+
+{% block title %}My Wishlist{% endblock %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'css/store.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 30px 0;">
+    <h1>My Wishlist</h1>
+
+    {% if wishlist_items %}
+        <div class="product-grid">
+            {% for item in wishlist_items %}
+                {% static 'images/placeholder.png' as fallback %}
+                {% with image_url=item.product.image|image_url_or:fallback %}
+                <div class="product-card">
+                    <img src="{{ image_url }}" alt="{{ item.product.name }}" class="featured-work" style="max-width: 200px;">
+                    <div class="product-info">
+                        <h2>
+                            <a href="{% url 'store:product-detail' item.product.id %}">
+                                {{ item.product.name }}
+                            </a>
+                        </h2>
+                        <p>${{ item.product.price }}</p>
+                        <form method="post" action="{% url 'store:toggle-wishlist' item.product.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Remove</button>
+                        </form>
+                    </div>
+                </div>
+                {% endwith %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Your wishlist is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}

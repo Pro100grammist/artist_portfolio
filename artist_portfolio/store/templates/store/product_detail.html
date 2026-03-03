@@ -68,6 +68,15 @@
                 <button onclick="addToCart({{ product.id }})">Add to Cart</button>
                 <a href="https://artist-portfolio-3d-gallery.onrender.com/?image={{ image_url|urlencode }}" target="_blank" class="sort-button">View in 3D</a>
                 <a href="{% url 'store:product-list' %}" class="sort-button">← Back to store</a>
+
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'store:toggle-wishlist' product.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="sort-button">♡ Save</button>
+                </form>
+                {% else %}
+                <a href="{% url 'users:login' %}" class="sort-button">♡ Save</a>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
 from django_filters.views import FilterView
 
-from .models import Product, Category
+from .models import Product, Category, WishlistItem
 from .filters import ProductFilter
 
 
@@ -65,6 +66,7 @@ class ProductDetailView(DetailView):
         context['categories'] = Category.objects.all()
         return context
 
+
 def cart_view(request):
     """
     Displays the shopping cart page.
@@ -86,3 +88,27 @@ def privacy_policy(request):
 
 def user_agreement(request):
     return render(request, "store/user_agreement.html")
+
+
+@login_required
+def toggle_wishlist(request, product_id):
+    if request.method != "POST":
+        return redirect("store:product-detail", pk=product_id)
+
+    product = get_object_or_404(Product, id=product_id)
+    item, created = WishlistItem.objects.get_or_create(
+        user=request.user, product=product
+    )
+    if not created:
+        item.delete()
+
+    return redirect("store:product-detail", pk=product_id)
+
+
+@login_required
+def wishlist_page(request):
+    items = (
+        WishlistItem.objects.filter(user=request.user)
+        .select_related("product")
+    )
+    return render(request, "store/wishlist.html", {"wishlist_items": items})

@@ -7,6 +7,8 @@ from .views import (
     payment_and_delivery,
     exchange_and_refunds,
     privacy_policy,
+    toggle_wishlist,
+    wishlist_page,
     user_agreement,
 )
 
@@ -20,4 +22,6 @@ urlpatterns = [
     path("exchange-and-refunds/", flatpage, {'url': '/store/exchange-and-refunds/'}, name="exchange-and-refunds"),
     path("privacy-policy/", flatpage, {'url': '/store/privacy-policy/'}, name='privacy-policy'),
     path("user-agreement/", flatpage, {'url': '/store/user-agreement/'}, name='user-agreement'),
+    path("wishlist/", wishlist_page, name="wishlist"),
+    path("wishlist/toggle/<int:product_id>/", toggle_wishlist, name="toggle-wishlist"),
 ]

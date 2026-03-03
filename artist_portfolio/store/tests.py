@@ -1,7 +1,9 @@
 from django.test import TestCase
 from django.urls import reverse
+from django.contrib.auth.models import User
 
-from .models import Product, Category
+from .models import Product, Category, WishlistItem
+
 
 
 class ProductListViewTests(TestCase):
@@ -92,3 +94,34 @@ class ProductListViewTests(TestCase):
         products = list(response.context["products"])
         self.assertEqual(len(products), 1)
         self.assertEqual(products[0].name, "Abstract Art")
+
+
+class WishlistTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username="u1", password="pass12345")
+        self.category = Category.objects.create(name="Paintings")
+        self.product = Product.objects.create(
+            name="Test",
+            price=10,
+            category=self.category,
+            is_available=True,
+        )
+
+    def test_toggle_wishlist_add_and_remove(self):
+        self.client.login(username="u1", password="pass12345")
+
+        url = reverse("store:toggle-wishlist", args=[self.product.id])
+
+        # add
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(
+            WishlistItem.objects.filter(user=self.user, product=self.product).exists()
+        )
+
+        # remove
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(
+            WishlistItem.objects.filter(user=self.user, product=self.product).exists()
+        ) 
