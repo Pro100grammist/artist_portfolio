@@ -11,18 +11,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 headers: {
                     "X-CSRFToken": getCookie("csrftoken"),
                     "Content-Type": "application/json",
+                    Accept: "application/json",
+                    "X-Requested-With": "XMLHttpRequest",
                 },
             })
-                .then((response) => response.json())
+                .then(parseJsonResponse)
                 .then((data) => {
                     if (data.message) {
-                        document
-                            .getElementById(`cart-item-${productId}`)
-                            .remove(); // Remove a product from HTML
+                        const cartItem = document.getElementById(`cart-item-${productId}`);
+                        if (cartItem) {
+                            cartItem.remove(); // Remove a product from HTML
+                        }
                         updateTotalPrice(data.total_price); // Update the amount
                     }
                 })
-                .catch((error) => console.error("Error:", error));
+                .catch((error) => showToast(error.message));
         });
     });
 });
@@ -53,4 +56,25 @@ function updateTotalPrice(newPrice) {
     )}`;
 }
 
+function showToast(message) {
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.innerText = message;
+    document.body.appendChild(toast);
+
+    setTimeout(() => toast.classList.add("show"), 100);
+    setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+function parseJsonResponse(response) {
+    return response.json().catch(() => ({})).then((data) => {
+        if (!response.ok) {
+            throw new Error(data.error || "Request failed.");
+        }
+        return data;
+    });
+}
 

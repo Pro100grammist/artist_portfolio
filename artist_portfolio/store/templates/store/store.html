@@ -25,7 +25,7 @@
 <div class="container">
     <div class="store-layout">
         <!-- Left filter panel -->
-        <aside class="filters" style="margin-left: 0; padding: 0;">
+        <aside class="filters filters--flush">
             <h2>Web Store</h2>
             <form method="get" action="">
                 <!-- Search button -->
@@ -90,7 +90,7 @@
                         {% endif %}
                     {% endfor %}
                 </ul>
-                <button onclick="window.location.href='?clear_all=true'">Reset all filters</button>
+                <a href="?clear_all=true" class="filters-reset-link">Reset all filters</a>
             </div>
         </aside>
 
@@ -140,14 +140,13 @@
                         <img
                             src="{{ image_url }}"
                             alt="{{ product.name }}"
-                            class="featured-work"
+                            class="featured-work featured-work--interactive"
                             data-id="{{ product.id }}"
                             data-image="{{ image_url }}"
                             data-title="{{ product.name }}"
                             data-description="{{ product.description }}"
                             data-price="{{ product.price }}"
                             data-detail-url="{% url 'store:product-detail' product.id %}"
-                            style="max-width: 200px; cursor: pointer;"
                         >
                         {% endwith %}
                         <div class="product-info">
@@ -160,7 +159,7 @@
                                     <span class="out-of-stock">Made only to order</span>
                                 {% endif %}
                             </p>
-                            <button onclick="addToCart({{ product.id }})">Add to Cart</button>
+                            <button type="button" data-add-to-cart data-product-id="{{ product.id }}">Add to Cart</button>
                         </div>
                     </div>
                 {% endfor %}

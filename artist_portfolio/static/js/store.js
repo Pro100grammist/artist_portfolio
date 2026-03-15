@@ -3,6 +3,15 @@ const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
 
 document.addEventListener("DOMContentLoaded", updateCartCount);
+document.addEventListener("DOMContentLoaded", bindAddToCartButtons);
+
+function bindAddToCartButtons() {
+    document.querySelectorAll("[data-add-to-cart]").forEach((button) => {
+        button.addEventListener("click", () => {
+            addToCart(button.dataset.productId);
+        });
+    });
+}
 
 function updateCartCount() {
     fetch("/cart/count/", {
@@ -14,6 +23,9 @@ function updateCartCount() {
         .then((response) => response.json())
         .then((data) => {
             const cartCountElement = document.getElementById("cart-count");
+            if (!cartCountElement) {
+                return;
+            }
             cartCountElement.textContent = data.count; // Update the number of items in the cart
             if (data.count > 0) {
                 cartCountElement.style.display = "inline-block"; // Show number if there are products in the cart
@@ -30,14 +42,16 @@ function addToCart(productId) {
         headers: {
             "X-CSRFToken": getCookie("csrftoken"),
             "Content-Type": "application/json",
+            Accept: "application/json",
+            "X-Requested-With": "XMLHttpRequest",
         },
     })
-        .then((response) => response.json())
+        .then(parseJsonResponse)
         .then((data) => {
             showToast(data.message); // Display a pop-up message
             updateCartCount(); // Update the number of products
         })
-        .catch((error) => console.error("Error adding to cart:", error));
+        .catch((error) => showToast(error.message));
 }
 
 // Function for displaying a message
@@ -55,6 +69,15 @@ function showToast(message) {
         toast.classList.remove("show");
         setTimeout(() => toast.remove(), 300);
     }, 3000);
+}
+
+function parseJsonResponse(response) {
+    return response.json().catch(() => ({})).then((data) => {
+        if (!response.ok) {
+            throw new Error(data.error || "Request failed.");
+        }
+        return data;
+    });
 }
 
 function getCookie(name) {

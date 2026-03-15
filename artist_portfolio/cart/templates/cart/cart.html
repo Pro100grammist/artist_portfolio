@@ -8,6 +8,10 @@
 {% block content %}
 <div class="cart-container">
     <h1 class="cart-title">Your Shopping Cart</h1>
+
+    {% if rate_limit_error %}
+    <p class="cart-error" role="alert">{{ rate_limit_error }}</p>
+    {% endif %}
     
     <table class="cart-table">
         <thead>
@@ -19,10 +23,14 @@
             </tr>
         </thead>
         <tbody>
-            {% for item in cart.items.all %}
+                {% for item in cart.items.all %}
             <tr id="cart-item-{{ item.product.id }}">
                 <td>
+                    {% if item.product.image %}
                     <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="product-image">
+                    {% else %}
+                    <img src="{% static 'images/placeholder.png' %}" alt="{{ item.product.name }}" class="product-image">
+                    {% endif %}
                 </td>
                 <td>{{ item.quantity }}</td>
                 <td class="cart-item-price">${{ item.product.price }}</td>

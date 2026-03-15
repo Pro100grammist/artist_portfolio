@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Success</title>
+    <title>Contact Status</title>
 </head>
 <body>
-    <h1>Thank you for contacting me! I will get back to you as soon as possible.</h1>
+    {% if error_message %}
+        <h1>Request rejected</h1>
+        <p>{{ error_message }}</p>
+    {% else %}
+        <h1>Thank you for contacting me!</h1>
+        <p>I will get back to you as soon as possible.</p>
+    {% endif %}
 </body>
 </html>

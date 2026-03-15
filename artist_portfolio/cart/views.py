@@ -3,9 +3,11 @@ from django.http import JsonResponse
 from django.contrib.sessions.models import Session
 from django.db import models
 from django.contrib import messages
+from django_ratelimit.decorators import ratelimit
 from store.models import Product
 from orders.models import Order, OrderItem
 from cart.models import Cart, CartItem
+from artist_portfolio.security import SENSITIVE_ENDPOINT_RATE_LIMIT
 
 
 def cart_view(request):
@@ -30,6 +32,7 @@ def get_or_create_cart(request):
     return cart
 
 
+@ratelimit(key="ip", rate=SENSITIVE_ENDPOINT_RATE_LIMIT, method="POST")
 def add_to_cart(request, product_id):
     """
     Adds a product to the cart. If the product is already in the cart, increases the quantity.
@@ -49,6 +52,7 @@ def add_to_cart(request, product_id):
     return JsonResponse({"message": f"{product.name} added to cart."})
 
 
+@ratelimit(key="ip", rate=SENSITIVE_ENDPOINT_RATE_LIMIT, method="POST")
 def remove_from_cart(request, product_id):
     """
     Removes a product from the cart.
@@ -78,6 +82,7 @@ def remove_from_cart(request, product_id):
     return JsonResponse({"error": "The item was not found in the cart."}, status=404)
 
 
+@ratelimit(key="ip", rate=SENSITIVE_ENDPOINT_RATE_LIMIT, method="POST")
 def clear_cart(request):
     """
     Clears all items from the cart.
@@ -103,6 +108,7 @@ def cart_count(request):
     return JsonResponse({"count": count})
 
 
+@ratelimit(key="ip", rate=SENSITIVE_ENDPOINT_RATE_LIMIT, method="POST")
 def make_order(request):
     """
     Creates an order from the current cart, associates it with a user or session,

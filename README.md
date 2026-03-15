@@ -49,7 +49,7 @@ pip install -r requirements.txt
 
 Create an `.env' file in artist_portfolio dir with variables:
 ```
-
+DJANGO_ENV=development
 SECRET_KEY=your_secret_key
 
 #optional
@@ -60,6 +60,11 @@ API_KEY
 PHONE_NUMBER
 DATABASE_URL=sqlite:///db.sqlite3  # or PostgreSQL
 REDIS_URL=redis://localhost:6379/0
+
+# optional emergency toggles
+ENABLE_PRODUCTION_SECURITY=true
+ENABLE_CSP=true
+ENABLE_RATE_LIMITING=true
 ```
 
 ### **3. Database migrations**
@@ -100,6 +105,34 @@ For production deployments, we recommend using:
 - **NGINX** for request processing
 - **Docker + Docker Compose** (optional)
 
+## Security hardening
+
+Production security hardening is enabled when `DJANGO_ENV=production`.
+
+- Django now enforces HTTPS redirects, secure session and CSRF cookies, HSTS, and `SECURE_PROXY_SSL_HEADER`.
+- Rate limiting protects the login page (`5/m`), the contact form (`10/m`), and cart mutations (`10/m`).
+- CSP is enabled in production with an allowlist for the current CDNs, Google Fonts, Google Maps, and the Backblaze media host. Admin, Jet, and schema docs are excluded because those vendor UIs rely on inline assets outside this task's scope.
+
+### Reverse proxy requirement
+
+Your reverse proxy must forward `X-Forwarded-Proto: https` for HTTPS requests. Example NGINX snippet:
+
+```nginx
+proxy_set_header X-Forwarded-Proto $scheme;
+```
+
+If this header is missing in production, `SECURE_SSL_REDIRECT=True` can cause redirect loops.
+
+### Emergency rollback
+
+If you need a temporary rollback without changing code:
+
+- Set `ENABLE_CSP=false` to disable CSP headers.
+- Set `ENABLE_RATE_LIMITING=false` to disable `429` throttling.
+- Set `ENABLE_PRODUCTION_SECURITY=false` to disable the production-only SSL/HSTS/secure-cookie bundle.
+
+These flags should only be used as short-lived incident mitigations and then reverted.
+
 ---
 
 ## Contribution to the project
@@ -112,4 +145,3 @@ The project is open for contributions! To do this:
 
 ### License.
 This project is distributed under the MIT license.
-

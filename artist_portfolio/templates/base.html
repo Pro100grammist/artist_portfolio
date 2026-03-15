@@ -75,17 +75,17 @@
                 <div class="auth-links">
                     {% if user.is_authenticated %}
                         {% if user.is_superuser or user.is_owner %}
-                            <button onclick="window.location='/admin/'">AdminPanel</button>
+                            <button type="button" data-nav-target="/admin/">AdminPanel</button>
                         {% else %}
-                            <button onclick="window.location='{% url 'users:profile' %}'">Profile</button>
+                            <button type="button" data-nav-target="{% url 'users:profile' %}">Profile</button>
                         {% endif %}
                         <form method="post" action="{% url 'users:logout' %}">
                             {% csrf_token %}
                             <button type="submit">Logout</button>
                         </form>
                     {% else %}
-                        <button onclick="window.location='{% url 'users:login' %}'">Login</button>
-                        <button onclick="window.location='{% url 'users:register' %}'">Register</button>
+                        <button type="button" data-nav-target="{% url 'users:login' %}">Login</button>
+                        <button type="button" data-nav-target="{% url 'users:register' %}">Register</button>
                     {% endif %}
                 </div>
             </div>
@@ -155,7 +155,7 @@
         <!-- Scripts -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
-        <script>
+        <script nonce="{{ request.csp_nonce }}">
             AOS.init();
         </script>
         {% comment %} <script src="{% static 'js/msg.js' %}"></script> {% endcomment %}

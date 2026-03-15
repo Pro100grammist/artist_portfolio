@@ -122,6 +122,28 @@ button:hover {
     overflow: hidden;
 }
 
+.animated-background--login {
+    background: url("/static/images/login_page_bgr.jpg") no-repeat center center;
+}
+
+.animated-background--register {
+    background: url("/static/images/register_page_bgr.jpg") no-repeat center center;
+}
+
+.auth-errors {
+    background: rgba(114, 28, 36, 0.12);
+    border: 1px solid rgba(114, 28, 36, 0.4);
+    border-radius: 8px;
+    color: #721c24;
+    margin-bottom: 15px;
+    padding: 10px 14px;
+    text-align: left;
+}
+
+.auth-errors p {
+    margin: 0;
+}
+
 /* login form  */
 .auth-container {
     text-align: center;

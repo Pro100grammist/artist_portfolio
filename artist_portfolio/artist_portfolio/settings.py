@@ -15,6 +15,12 @@ import environ
 
 from pathlib import Path
 
+from .security import (
+    build_content_security_policy,
+    build_production_security_settings,
+    is_production_environment,
+)
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,6 +34,14 @@ env = environ.Env()
 
 if ENVIRONMENT == "development":
     environ.Env.read_env()
+
+IS_PRODUCTION = is_production_environment(ENVIRONMENT)
+PRODUCTION_SECURITY_ENABLED = env.bool(
+    "ENABLE_PRODUCTION_SECURITY",
+    default=IS_PRODUCTION,
+)
+CSP_ENABLED = env.bool("ENABLE_CSP", default=IS_PRODUCTION)
+RATELIMIT_ENABLE = env.bool("ENABLE_RATE_LIMITING", default=IS_PRODUCTION)
 
 
 SECRET_KEY = env("SECRET_KEY")
@@ -108,6 +122,14 @@ MIDDLEWARE = [
 
 MIDDLEWARE.insert(1, "django_otp.middleware.OTPMiddleware")
 
+if CSP_ENABLED:
+    security_middleware_index = MIDDLEWARE.index(
+        "django.middleware.security.SecurityMiddleware"
+    )
+    MIDDLEWARE.insert(security_middleware_index + 1, "csp.middleware.CSPMiddleware")
+
+MIDDLEWARE.append("django_ratelimit.middleware.RatelimitMiddleware")
+
 # CORS
 if ENVIRONMENT == "development":
     CORS_ALLOWED_ORIGINS = [
@@ -136,6 +158,16 @@ TEMPLATES = [
         },
     },
 ]
+
+for security_setting, value in build_production_security_settings(
+    environment=ENVIRONMENT,
+    enabled=PRODUCTION_SECURITY_ENABLED,
+).items():
+    globals()[security_setting] = value
+
+CONTENT_SECURITY_POLICY = build_content_security_policy(enabled=CSP_ENABLED)
+RATELIMIT_VIEW = "core.views.rate_limited"
+RATELIMIT_USE_CACHE = "default"
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",

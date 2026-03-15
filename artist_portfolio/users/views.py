@@ -8,10 +8,13 @@ from django.http import JsonResponse
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.decorators import method_decorator
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from dj_rest_auth.registration.views import SocialLoginView
+from django_ratelimit.decorators import ratelimit
 
 from orders.models import Order
+from artist_portfolio.security import LOGIN_RATE_LIMIT
 from .models import UserProfile, UserOTP
 from .forms import UserRegistrationForm
 from .forms import UserProfileUpdateForm, CustomAuthenticationForm
@@ -61,6 +64,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         return context
 
 
+@method_decorator(ratelimit(key="ip", rate=LOGIN_RATE_LIMIT, method="POST"), name="dispatch")
 class CustomLoginView(LoginView):
     template_name = "users/login.html"
     form_class = CustomAuthenticationForm

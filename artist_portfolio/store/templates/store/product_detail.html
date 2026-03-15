@@ -65,12 +65,12 @@
             </ul>
 
             <div class="product-detail-actions">
-                <button onclick="addToCart({{ product.id }})">Add to Cart</button>
+                <button type="button" data-add-to-cart data-product-id="{{ product.id }}">Add to Cart</button>
                 <a href="https://artist-portfolio-3d-gallery.onrender.com/?image={{ image_url|urlencode }}" target="_blank" class="sort-button">View in 3D</a>
                 <a href="{% url 'store:product-list' %}" class="sort-button">← Back to store</a>
 
                 {% if user.is_authenticated %}
-                <form method="post" action="{% url 'store:toggle-wishlist' product.id %}" style="display:inline;">
+                <form method="post" action="{% url 'store:toggle-wishlist' product.id %}" class="wishlist-inline-form">
                     {% csrf_token %}
                     <button type="submit" class="sort-button">♡ Save</button>
                 </form>
@@ -83,7 +83,7 @@
     {% endwith %}
 </div>
 
-<script type="application/ld+json">
+<script type="application/ld+json" nonce="{{ request.csp_nonce }}">
 {
   "@context": "https://schema.org",
   "@type": "Product",

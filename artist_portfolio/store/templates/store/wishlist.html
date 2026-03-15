@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container" style="padding: 30px 0;">
+<div class="container wishlist-container">
     <h1>My Wishlist</h1>
 
     {% if wishlist_items %}
@@ -17,7 +17,7 @@
                 {% static 'images/placeholder.png' as fallback %}
                 {% with image_url=item.product.image|image_url_or:fallback %}
                 <div class="product-card">
-                    <img src="{{ image_url }}" alt="{{ item.product.name }}" class="featured-work" style="max-width: 200px;">
+                    <img src="{{ image_url }}" alt="{{ item.product.name }}" class="featured-work featured-work--thumb">
                     <div class="product-info">
                         <h2>
                             <a href="{% url 'store:product-detail' item.product.id %}">

@@ -523,6 +523,10 @@ a:hover .footer-logo {
     color: #fff;
 }
 
+.contact-page--background {
+    background-image: url("/static/images/contact_bg.jpg");
+}
+
 .contact-form,
 .contact-info {
     background-color: rgba(0, 0, 0, 0.6);
@@ -1249,8 +1253,9 @@ body.body--modal-open {
 }
 
 /* Centered Social Icons */
-.social-links[style*="text-align: center;"] {
+.contact-social-links {
     margin: 20px auto;
+    text-align: center;
 }
 
 .social-icon img {

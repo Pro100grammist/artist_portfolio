@@ -1,74 +1,96 @@
-# g = "Gothic"
-# cs = "CS"
-# d = "Dota"
-#
-# g_hash = hash(g)
-# cs_hash = hash(cs)
-# d_hash = hash(d)
-#
-# print("Hash")
-# print(f"Gothic_hash: {g_hash}")
-# print(f"CS_hash: {cs_hash}")
-# print(f"Dota_hash: {d_hash}")
-#
-# # Маска для останніх 5 бітів
-# mask = (2 ** 5) - 1  # 0b11111 = 31
-#
-# # Перетворення чисел у бінарний формат
-# def to_bin(n):
-#     """Перетворює число у бінарний рядок без префіксу '0b' і зберігає '-' для від'ємних чисел"""
-#     return bin(n).replace("-0b", "-").replace("0b", "").zfill(64)  # Доповнюємо до 64 бітів
-#
-# g_binary = to_bin(g_hash)
-# cs_binary = to_bin(cs_hash)
-# d_binary = to_bin(d_hash)
-# mask_binary = to_bin(mask)
-#
-# print("\nBinary Representation:")
-# print(f"Gothic: {g_binary}")
-# print(f"CS:     {cs_binary}")
-# print(f"Dota:   {d_binary}")
-# print(f"Mask:   {mask_binary}")
-#
-# # Побітове AND через цілі числа, але з виведенням у бінарному вигляді
-# g_and = to_bin(g_hash & mask)
-# cs_and = to_bin(cs_hash & mask)
-# d_and = to_bin(d_hash & mask)
-#
-# print("\nBinary AND Result:")
-# print(f"Gothic & Mask: {g_and} -> {g_hash & mask}")
-# print(f"CS & Mask:     {cs_and} -> {cs_hash & mask}")
-# print(f"Dota & Mask:   {d_and} -> {d_hash & mask}")
+from unittest.mock import patch
+
+from django.core.cache import cache
+from django.test import SimpleTestCase, TestCase, override_settings
+from django.urls import reverse
+
+from artist_portfolio.security import (
+    RATE_LIMIT_ERROR_MESSAGE,
+    build_content_security_policy,
+    build_production_security_settings,
+)
 
 
-# def custom_hash(s: str) -> int:
-#     """Improved custom hash function for strings."""
-#     hash_value = 0xcbf29ce484222325  # Initial "magic" number (FNV-1a)
-#     prime = 0x100000001b3  # A great simple number
-#
-#     for char in s:
-#         hash_value ^= ord(char)  # XOR s code for the symbol
-#         hash_value *= prime  # Multiply on the great number
-#         hash_value ^= (hash_value >> 32)  # Shuffle lower and higher bits
-#         hash_value += 0x27d4eb2d  # Add a unique number for more variety
-#         hash_value &= 0xFFFFFFFFFFFFFFFF  # Limit to 64 bits
-#
-#     return hash_value
-#
-#
-# # Testing our feature
-# words = ["Gothic", "CS", "Dota"]
-# hashes = {word: custom_hash(word) for word in words}
-#
-# # Print hashes and their binary representations
-# print("Custom Hash Results:")
-# for word, h in hashes.items():
-#     print(f"{word}_hash: {h}")
-#     print(f"Binary: {bin(h)}")
-#
-# # Mask (take 5 lowest bits)
-# mask = 0b11111
-#
-# print("\nBinary AND Result:")
-# for word, h in hashes.items():
-#     print(f"{word} & Mask: {bin(h & mask)} -> {h & mask}")
+class SecurityConfigurationTests(SimpleTestCase):
+    def test_production_security_settings_are_enabled_in_production(self):
+        security_settings = build_production_security_settings(
+            environment="production",
+            enabled=True,
+        )
+
+        self.assertTrue(security_settings["SECURE_SSL_REDIRECT"])
+        self.assertTrue(security_settings["SESSION_COOKIE_SECURE"])
+        self.assertTrue(security_settings["CSRF_COOKIE_SECURE"])
+        self.assertEqual(security_settings["SECURE_HSTS_SECONDS"], 31536000)
+        self.assertTrue(security_settings["SECURE_HSTS_INCLUDE_SUBDOMAINS"])
+        self.assertTrue(security_settings["SECURE_HSTS_PRELOAD"])
+        self.assertEqual(
+            security_settings["SECURE_PROXY_SSL_HEADER"],
+            ("HTTP_X_FORWARDED_PROTO", "https"),
+        )
+
+    def test_production_security_settings_are_disabled_outside_production(self):
+        security_settings = build_production_security_settings(
+            environment="development",
+            enabled=True,
+        )
+
+        self.assertFalse(security_settings["SECURE_SSL_REDIRECT"])
+        self.assertFalse(security_settings["SESSION_COOKIE_SECURE"])
+        self.assertFalse(security_settings["CSRF_COOKIE_SECURE"])
+        self.assertEqual(security_settings["SECURE_HSTS_SECONDS"], 0)
+        self.assertFalse(security_settings["SECURE_HSTS_INCLUDE_SUBDOMAINS"])
+        self.assertFalse(security_settings["SECURE_HSTS_PRELOAD"])
+        self.assertIsNone(security_settings["SECURE_PROXY_SSL_HEADER"])
+
+    def test_content_security_policy_contains_required_directives(self):
+        policy = build_content_security_policy(enabled=True)
+        directives = policy["DIRECTIVES"]
+
+        self.assertIn("default-src", directives)
+        self.assertIn("script-src", directives)
+        self.assertIn("style-src", directives)
+        self.assertIn("img-src", directives)
+        self.assertIn("font-src", directives)
+        self.assertIn("connect-src", directives)
+        self.assertIn("frame-ancestors", directives)
+        self.assertIn("/admin/", policy["EXCLUDE_URL_PREFIXES"])
+
+
+@override_settings(RATELIMIT_ENABLE=True)
+class ContactRateLimitTests(TestCase):
+    def setUp(self):
+        cache.clear()
+        self.url = reverse("submit_contact")
+        self.payload = {
+            "name": "Rate Limited User",
+            "email": "limited@example.com",
+            "subject": "Need help",
+            "message": "Hello from the contact form.",
+        }
+
+    def tearDown(self):
+        cache.clear()
+
+    @patch("core.views.send_whatsapp_message")
+    @patch("core.views.send_mail")
+    def test_contact_form_returns_429_after_ten_requests(
+        self,
+        send_mail_mock,
+        send_whatsapp_mock,
+    ):
+        send_mail_mock.return_value = 1
+        send_whatsapp_mock.return_value = None
+
+        for _ in range(10):
+            response = self.client.post(self.url, self.payload)
+            self.assertEqual(response.status_code, 302)
+
+        response = self.client.post(self.url, self.payload)
+
+        self.assertEqual(response.status_code, 429)
+        self.assertContains(
+            response,
+            RATE_LIMIT_ERROR_MESSAGE,
+            status_code=429,
+        )

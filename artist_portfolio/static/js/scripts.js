@@ -98,6 +98,17 @@ document.addEventListener("DOMContentLoaded", () => {
             toggleMobileMenu();
         });
     }
+
+    document.querySelectorAll("[data-nav-target]").forEach((button) => {
+        button.addEventListener("click", () => {
+            window.location.assign(button.dataset.navTarget);
+        });
+    });
+
+    const closeAssistantButton = document.querySelector("[data-close-assistant]");
+    if (closeAssistantButton) {
+        closeAssistantButton.addEventListener("click", closeAssistantPopup);
+    }
 });
 
 document.querySelectorAll(".glow-button").forEach((button) => {
@@ -114,12 +125,18 @@ document.querySelectorAll(".glow-button").forEach((button) => {
 // Function to show a pop-up assistant
 function showAssistantPopup() {
     const popup = document.getElementById("assistant-popup");
+    if (!popup) {
+        return;
+    }
     popup.classList.remove("hidden");
 }
 
 // Function to hide the pop-up assistant
 function closeAssistantPopup() {
     const popup = document.getElementById("assistant-popup");
+    if (!popup) {
+        return;
+    }
     popup.classList.add("hidden");
 }
 
