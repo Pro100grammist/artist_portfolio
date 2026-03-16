@@ -14,9 +14,14 @@
     <form method="post" class="mt-4 shadow p-4 rounded bg-light">
         {% csrf_token %}
 
-        <!-- Contact Details -->
+        {% if order_form.errors or shipping_form.errors or payment_form.errors or receiver_form.errors or comment_form.errors %}
+        <div class="alert alert-danger">
+            Please review the highlighted checkout fields before continuing to payment.
+        </div>
+        {% endif %}
+
         <fieldset class="mb-4">
-            <legend class="h4 text-primary">📞 Contact details</legend>
+            <legend class="h4 text-primary">Contact details</legend>
             <div class="row">
                 <div class="col-md-6">
                     <label class="form-label">{{ receiver_form.receiver_name.label }}</label>
@@ -29,14 +34,13 @@
             </div>
         </fieldset>
 
-        <!-- Order Summary -->
         <fieldset class="mb-4">
-            <legend class="h4 text-primary">🛒 Your order</legend>
+            <legend class="h4 text-primary">Your order</legend>
             <ul class="list-group">
                 {% for item in order.items.all %}
                     <li class="list-group-item d-flex align-items-center">
                         <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="product-image me-3">
-                        <span class="fw-bold">{{ item.product.name }}</span> 
+                        <span class="fw-bold">{{ item.product.name }}</span>
                         <span class="ms-auto">(x{{ item.quantity }}) - <strong>${{ item.price }}</strong></span>
                     </li>
                 {% endfor %}
@@ -44,9 +48,8 @@
             <p class="mt-3 text-end fw-bold h5">Total: ${{ order.total_price }}</p>
         </fieldset>
 
-        <!-- Delivery Method -->
         <fieldset class="mb-4">
-            <legend class="h4 text-primary">🚚 Delivery method</legend>
+            <legend class="h4 text-primary">Delivery method</legend>
             <div class="delivery-options">
                 {% for choice in shipping_form.carrier.field.choices %}
                 <label class="delivery-option">
@@ -58,9 +61,16 @@
             </div>
         </fieldset>
 
-        <!-- Payment -->
         <fieldset class="mb-4">
-            <legend class="h4 text-primary">💳 Payment</legend>
+            <legend class="h4 text-primary">Payment</legend>
+            {% if payment_form.payment_method.errors %}
+            <div class="alert alert-danger py-2">
+                {{ payment_form.payment_method.errors|join:", " }}
+            </div>
+            {% endif %}
+            <p class="text-muted small mb-3">
+                Live payments are processed through Stripe Checkout. Google Pay availability depends on the customer device and browser.
+            </p>
             <div class="payment-options">
                 {% for choice in payment_form.payment_method.field.choices %}
                 <label class="payment-option">
@@ -72,12 +82,11 @@
             </div>
         </fieldset>
 
-        <!-- Delivery Address -->
         <fieldset class="mb-4">
-            <legend class="h4 text-primary">📍 Delivery Address</legend>
+            <legend class="h4 text-primary">Delivery address</legend>
             <div class="row">
                 <div class="form-group">
-                    <label for="{{ order_form.country.id_for_label }}">🌍 Country</label>
+                    <label for="{{ order_form.country.id_for_label }}">Country</label>
                     {{ order_form.country }}
                 </div>
                 <div class="col-md-6">
@@ -87,16 +96,14 @@
             </div>
         </fieldset>
 
-        <!-- Comment -->
         <fieldset class="mb-4">
-            <legend class="h4 text-primary">📝 Comment to the order</legend>
+            <legend class="h4 text-primary">Comment to the order</legend>
             <label class="form-label">{{ comment_form.comment.label }}</label>
             {{ comment_form.comment|add_class:"form-control" }}
         </fieldset>
 
-        <!-- Submit Button -->
         <button type="submit" class="btn btn-success w-100 fw-bold py-2">
-            <i class="fas fa-check"></i> Confirm Order
+            <i class="fas fa-check"></i> Proceed to payment
         </button>
     </form>
 </div>

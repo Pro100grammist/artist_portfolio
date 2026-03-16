@@ -46,6 +46,15 @@ class PaymentForm(forms.Form):
         choices=PAYMENT_CHOICES, widget=forms.RadioSelect
     )
 
+    def clean_payment_method(self):
+        payment_method = self.cleaned_data["payment_method"]
+        if payment_method == "paypal":
+            raise forms.ValidationError(
+                "PayPal is not available in the live checkout flow. "
+                "Use Credit Card or Google Pay via Stripe Checkout."
+            )
+        return payment_method
+
 
 class ReceiverForm(forms.Form):
     """

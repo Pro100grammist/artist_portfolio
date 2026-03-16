@@ -9,10 +9,33 @@
     </head>
     <body>
         <div class="success-container">
-            <h2>Thank you for your order!</h2>
-            <p>Your order no.{{ order.id }} has been successfully issued.</p>
-            <p>You will receive a notification when it is sent.</p>
-            <a href="{% url 'home' %}" class="btn btn-success">Return to the store</a>
+            {% if payment and payment.status == "paid" %}
+                <h2>Payment confirmed</h2>
+                <p>Your order no.{{ order.id }} has been paid successfully.</p>
+                <p>We will notify you when it ships.</p>
+            {% elif payment and payment.status == "refunded" %}
+                <h2>Payment refunded</h2>
+                <p>The payment for order no.{{ order.id }} was refunded.</p>
+                <p>Check your payment provider account for the refund settlement timeline.</p>
+            {% elif payment and payment.status == "failed" %}
+                <h2>Payment failed</h2>
+                <p>Your order was created, but the payment was not confirmed.</p>
+                <p>You can return to checkout and start a new payment attempt.</p>
+                <a href="{% url 'orders:order-checkout' order.id %}" class="btn btn-success">Retry checkout</a>
+            {% elif payment and payment.status == "canceled" %}
+                <h2>Payment canceled</h2>
+                <p>Your order is still saved, but the last payment attempt was canceled or expired.</p>
+                <p>You can return to checkout to start a new payment attempt.</p>
+                <a href="{% url 'orders:order-checkout' order.id %}" class="btn btn-success">Retry checkout</a>
+            {% else %}
+                <h2>Order received</h2>
+                <p>Your order no.{{ order.id }} is awaiting verified payment confirmation.</p>
+                <p>We only mark orders as paid after Stripe confirms the payment through the webhook.</p>
+            {% endif %}
+
+            {% if not payment or payment.status == "paid" or payment.status == "refunded" or payment.status == "pending" or payment.status == "created" %}
+                <a href="{% url 'home' %}" class="btn btn-success">Return to the store</a>
+            {% endif %}
         </div>
     </body>
 </html>

@@ -51,6 +51,10 @@ Create an `.env' file in artist_portfolio dir with variables:
 ```
 DJANGO_ENV=development
 SECRET_KEY=your_secret_key
+STRIPE_SECRET_KEY=sk_test_your_secret_key
+STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
+PAYMENT_DEFAULT_CURRENCY=usd
+STRIPE_WEBHOOK_TOLERANCE=300
 
 #optional
 EMAIL_HOST_PASSWORD=your_email_host_password
@@ -95,6 +99,47 @@ The project uses **drf-spectacular** to automatically generate API documentation
 - OpenAPI scheme: [http://localhost:8000/api/schema/](http://localhost:8000/api/schema/)
 - Swagger UI: [http://localhost:8000/api/schema/swagger-ui/](http://localhost:8000/api/schema/swagger-ui/)
 - ReDoc: [http://localhost:8000/api/schema/redoc/](http://localhost:8000/api/schema/redoc/)
+
+---
+
+## Stripe checkout and webhook lifecycle
+
+- Checkout now creates a Stripe Checkout Session on the backend and redirects the customer to Stripe.
+- Orders remain in `AwaitingPayment` until a verified Stripe webhook confirms success.
+- The authoritative webhook endpoint is `/order/stripe/webhook/`.
+- `OrderPayment` stores the active provider payment attempt and `PaymentEvent` stores webhook processing state for idempotency and replay safety.
+
+### Local webhook testing
+
+1. Start Django locally:
+```bash
+cd artist_portfolio
+python manage.py runserver
+```
+
+2. Start Stripe CLI forwarding:
+```bash
+stripe login
+stripe listen --forward-to http://127.0.0.1:8000/order/stripe/webhook/
+```
+
+3. Copy the signing secret printed by Stripe CLI into `.env`:
+```bash
+STRIPE_WEBHOOK_SECRET=whsec_...
+```
+
+4. Create a checkout session through the site, or trigger a webhook event manually:
+```bash
+stripe trigger checkout.session.completed
+stripe trigger payment_intent.payment_failed
+```
+
+### Operational notes
+
+- Monitor `OrderPayment` and `PaymentEvent` in Django admin for stuck `pending` payments, unprocessed webhook events, and repeated provider retries.
+- The webhook handler returns `400` for bad signatures or malformed payloads, `200` for already-processed replays, and `500` when a verified event cannot be processed safely and should be retried.
+- Amount and currency are validated against the saved order/payment before an order can move to `Paid`.
+- If a verified webhook fails with `500`, fix the underlying issue first and then replay the same Stripe event from the Stripe Dashboard or Stripe CLI. The event log makes the replay idempotent.
 
 ---
 
